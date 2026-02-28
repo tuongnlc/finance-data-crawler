@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """SQLAlchemy declarative models (bảng) dùng cho PostgreSQL."""
 import uuid
 from datetime import datetime
@@ -24,3 +25,15 @@ class CompanyName(Base):
     stock_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     company_name: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     business_sector: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+=======
+from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, Integer, String
+
+Base = declarative_base()
+
+# class User(Base):
+#     __tablename__ = "users"
+
+#     id = Column(Integer, primary_key=True)
+#     name = Column(String, nullable=False)
+>>>>>>> main
