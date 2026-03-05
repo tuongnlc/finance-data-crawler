@@ -75,13 +75,6 @@ class BasePostgresRepository(Generic[ModelType]):
         await self.session.delete(instance)
         await self.session.flush()
 
-    async def delete_all(self) -> None:
-        """Xóa tất cả bản ghi trong bảng (truncate)."""
-        from sqlalchemy import delete
-        stmt = delete(self.model_class)
-        await self.session.execute(stmt)
-        await self.session.flush()
-
     async def delete_by_id(self, id_value: int | str | uuid.UUID) -> bool:
         """Xóa theo id. Trả về True nếu đã xóa, False nếu không tìm thấy."""
         entity = await self.get_by_id(id_value)

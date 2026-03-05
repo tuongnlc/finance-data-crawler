@@ -51,14 +51,6 @@ class FundGavRepositoryProtocol(Protocol):
         """Lấy theo primary key."""
         ...
 
-    async def get_by_fund_id(self, fund_id: str) -> list[object]:
-        """Lấy danh sách các bản ghi theo fund_id."""
-        ...
-
-    async def get_by_fund_and_stock(self, fund_id: str, stock_id: str) -> object | None:
-        """Lấy một bản ghi theo cặp fund_id và stock_id."""
-        ...
-
-    async def delete_all(self) -> None:
-        """Xóa tất cả bản ghi."""
+    async def get_by_fund_id(self, fund_id: str) -> object | None:
+        """Lấy theo fund_id (nếu cần cho domain)."""
         ...
