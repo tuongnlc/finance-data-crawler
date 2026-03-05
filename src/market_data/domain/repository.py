@@ -31,3 +31,34 @@ class CompanyNameRepositoryProtocol(Protocol):
     async def get_by_stock_id(self, stock_id: str) -> object | None:
         """Lấy theo stock_id (nếu cần cho domain)."""
         ...
+
+
+class FundGavRepositoryProtocol(Protocol):
+    """Port: interface lưu / đọc FundGav. Implementation là PostgreSQL adapter."""
+    async def create(
+        self,
+        *,
+        id: uuid.UUID | None = None,
+        fund_id: str,
+        stock_id: str,
+        business_sector: str,
+        gav: float,
+    ) -> object:
+        """Tạo một bản ghi FundNav. Trả về instance (ORM hoặc domain entity)."""
+        ...
+
+    async def get_by_id(self, id_value: uuid.UUID | str) -> object | None:
+        """Lấy theo primary key."""
+        ...
+
+    async def get_by_fund_id(self, fund_id: str) -> list[object]:
+        """Lấy danh sách các bản ghi theo fund_id."""
+        ...
+
+    async def get_by_fund_and_stock(self, fund_id: str, stock_id: str) -> object | None:
+        """Lấy một bản ghi theo cặp fund_id và stock_id."""
+        ...
+
+    async def delete_all(self) -> None:
+        """Xóa tất cả bản ghi."""
+        ...

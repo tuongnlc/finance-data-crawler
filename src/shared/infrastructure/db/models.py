@@ -24,3 +24,19 @@ class CompanyName(Base):
     stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     company_name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     business_sector: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+
+
+class FundGav(Base):
+    """
+        Fund Nav data including: fund_id, stock_id, business_sector, gav
+    """
+    __tablename__ = 'fund_gav'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    fund_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    business_sector: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    gav: Mapped[float] = mapped_column(nullable=False)
