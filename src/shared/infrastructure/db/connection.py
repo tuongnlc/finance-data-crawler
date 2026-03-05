@@ -11,19 +11,15 @@ from sqlalchemy.ext.asyncio import (
 
 
 def _build_async_db_url() -> str:
-    def _normalize(value: str | None, default: str) -> str:
-        if not value:
-            return default
-        v = value.strip()
-        if v.lower() in {"none", "null"}:
-            return default
-        return v
-
-    db_name = _normalize(os.getenv("POSTGRES_DB"), "")
-    db_user = _normalize(os.getenv("POSTGRES_USER"), "")
-    db_password = _normalize(os.getenv("POSTGRES_PASSWORD"), "")
-    db_host = _normalize(os.getenv("POSTGRES_HOST"), "localhost")
-    db_port = _normalize(os.getenv("POSTGRES_PORT"), "5432")
+    """
+    Create database url for SQLAlchemy from environment variables.
+    Example: postgresql+asyncpg://user:password@host:port/dbname
+    """
+    db_name = os.getenv("POSTGRES_DB", "")
+    db_user = os.getenv("POSTGRES_USER", "")
+    db_password = os.getenv("POSTGRES_PASSWORD", "")
+    db_host = os.getenv("POSTGRES_HOST", "localhost")
+    db_port = os.getenv("POSTGRES_PORT", "5432")
 
     return f"postgresql+asyncpg://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
