@@ -8,6 +8,7 @@ from __future__ import annotations
 import uuid
 from typing import Protocol, runtime_checkable
 
+
 @runtime_checkable
 class CompanyNameRepositoryProtocol(Protocol):
     """Port: interface lưu / đọc CompanyName. Implementation là PostgreSQL adapter."""
