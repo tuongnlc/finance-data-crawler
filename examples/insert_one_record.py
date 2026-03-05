@@ -26,19 +26,37 @@ from src.shared.infrastructure.db.models import Base
 
 
 async def main() -> None:
+    engine = get_async_engine()
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
     async for db in async_session_scope():
         repo = CompanyNameRepository(session=db)
-        
-        # Ghi một record
+
+        # CREATE
         record = await repo.create(
             id=uuid.uuid4(),
-            stock_id="test",
-            company_name="test",
-            business_sector="test",
+            stock_id="VNTEST",
+            company_name="Công ty Test",
+            business_sector="Công nghệ",
         )
-        print("Đã ghi record:", record.id, record.stock_id, record.company_name)
-        # Commit xảy ra khi thoát async_session_scope() thành công
+        print("CREATE:", record.id, record.stock_id, record.company_name)
+
+        # READ by id
+        got = await repo.get_by_id(record.id)
+        print("READ (by id):", got.id if got else None)
+
+        # READ list
+        items = await repo.get_all(limit=5)
+        print("READ (list):", len(items))
+
+        # UPDATE
+        updated = await repo.update(record, company_name="Công ty Đổi Tên")
+        print("UPDATE:", updated.company_name)
+
+        # DELETE
+        deleted = await repo.delete_by_id(record.id)
+        print("DELETE:", deleted)
 
 
 if __name__ == "__main__":
