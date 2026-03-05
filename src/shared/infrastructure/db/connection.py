@@ -20,7 +20,6 @@ def _build_async_db_url() -> str:
     db_password = os.getenv("POSTGRES_PASSWORD", "")
     db_host = os.getenv("POSTGRES_HOST", "localhost")
     db_port = os.getenv("POSTGRES_PORT", "5432")
-    print(f"Database URL: postgresql+asyncpg://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
 
     return f"postgresql+asyncpg://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
@@ -91,4 +90,3 @@ async def async_session_scope() -> AsyncGenerator[AsyncSession, None]:
         except Exception:
             await db.rollback()
             raise
-
