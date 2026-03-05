@@ -21,6 +21,6 @@ class CompanyName(Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    stock_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
-    company_name: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
-    business_sector: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    company_name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    business_sector: Mapped[str] = mapped_column(String(255), nullable=False, index=True)

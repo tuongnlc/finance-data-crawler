@@ -7,8 +7,6 @@ from playwright.async_api import Browser, BrowserContext, Page, Playwright, asyn
 
 
 class BaseCrawler(ABC):
-    # model: type[NoSQLBaseDocument]
-
     @abstractmethod
     async def extract(self, link: str, **kwargs: Any) -> Any: ...
 

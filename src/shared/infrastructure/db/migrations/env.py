@@ -29,11 +29,19 @@ from src.shared.infrastructure.db.models import Base
 # access to the values within the .ini file in use.
 config = context.config
 
-db_user = os.getenv("POSTGRES_USER")
-db_password = os.getenv("POSTGRES_PASSWORD")
-db_host = os.getenv("POSTGRES_HOST")
-db_port = os.getenv("POSTGRES_PORT")
-db_name = os.getenv("POSTGRES_DB")
+def _normalize(value: str | None, default: str) -> str:
+    if not value:
+        return default
+    v = value.strip()
+    if v.lower() in {"none", "null"}:
+        return default
+    return v
+
+db_user = _normalize(os.getenv("POSTGRES_USER"), "")
+db_password = _normalize(os.getenv("POSTGRES_PASSWORD"), "")
+db_host = _normalize(os.getenv("POSTGRES_HOST"), "localhost")
+db_port = _normalize(os.getenv("POSTGRES_PORT"), "5432")
+db_name = _normalize(os.getenv("POSTGRES_DB"), "")
 
 config.set_main_option(
     "sqlalchemy.url",

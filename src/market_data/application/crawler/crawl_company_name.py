@@ -1,14 +1,29 @@
+from typing import Any, AsyncIterator
+
 from src.shared.application.crawler.base import BasePlaywrightCrawler
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
-import json
+
 
 class CrawlCompanyName(BasePlaywrightCrawler):
-    """Crawler Simplize lấy danh sách company name. Kế thừa BasePlaywrightCrawler."""
+    def __init__(self, headless: bool = True) -> None:
+        super().__init__(headless=headless)
+        self.scroll_limit = 42
 
-    async def handle_popup():
-        pass
+    async def handle_popup(self) -> None:
+        try:
+            await self.page.wait_for_timeout(1000)
+            await self.page.wait_for_selector("#is63", timeout=5000)
+            try:
+                await self.page.click("button.simplize-dialog-close", timeout=5000)
+            except Exception:
+                close_candidate = self.page.locator(
+                    "#is63 button, #is63 [role='button'], #is63 [class*='close'], #is63 [class*='Close']"
+                )
+                if await close_candidate.count() > 0:
+                    await close_candidate.first.click()
+        except Exception:
+            return
 
-    async def scroll_page(self):
+    async def scroll_page(self) -> None:
         await self.page.evaluate(
                 """
                 () => {
@@ -18,59 +33,64 @@ class CrawlCompanyName(BasePlaywrightCrawler):
                     }
                 }
                 """
-            )
+        )
 
-    async def click_to_next_button(self):
-        next_button = self.page.locator('li.simplize-pagination-next')
+    async def click_to_next_button(self) -> None:
+        next_button = self.page.locator("li.simplize-pagination-next")
         await next_button.click()
 
-    async def _extract_single_page(self):
-        stocks_data = await self.page.evaluate('''() => {
+    async def _extract_single_page(self) -> list[dict[str, Any]]:
+        stocks_data = await self.page.evaluate(
+            """
+            () => {
             const rows = document.querySelectorAll('tr.simplize-table-row');
             return Array.from(rows).map(row => {
-                // Lấy Stock ID (Mã CP)
                 const stockId = row.querySelector('.css-8llhbn')?.innerText.trim();
-                
-                // Lấy Company Name (Tên công ty - từ attribute title)
                 const companyName = row.querySelector('.css-skycj1')?.getAttribute('title') || 
                                     row.querySelector('.css-skycj1')?.innerText.trim();
-                
-                // Lấy Sector (Cột cuối cùng)
                 const cells = row.querySelectorAll('td.simplize-table-cell');
                 const sector = cells[cells.length - 1]?.innerText.trim();
 
                 return {
-                    "stock_id": stockId,
-                    "company_name": companyName,
-                    "Sector": sector
+                    stock_id: stockId,
+                    company_name: companyName,
+                    business_sector: sector
                 };
             });
-        }''')
-        print(stocks_data)
+            }
+            """
+        )
         return stocks_data
 
-    async def extract(self, link: str, **kwargs) -> list[dict]:
-        # Step 1: Load page
-        await self.page.goto(link, wait_until="domcontentloaded", timeout=30000)
+    async def crawl_pages(self, link: str, **kwargs: Any) -> AsyncIterator[list[dict[str, Any]]]:
+        await self._init_crawler()
+        try:
+            await self.page.goto(link, wait_until="domcontentloaded", timeout=self.navigation_timeout_ms)
+            await self.page.wait_for_timeout(2000)
+            await self.handle_popup()
 
-        for i in range(5):
-            # Step 2: Scroll page
-            try:
-                print(f"Crawl page {i}")
+            for _ in range(self.scroll_limit):
                 await self.scroll_page()
                 await self.page.wait_for_timeout(3000)
-                
-                # Step 3: extract data in json format
-                await self.page.wait_for_selector('tr.simplize-table-row')
-                await self._extract_single_page()
-                await self.page.wait_for_timeout(3000)
+                await self.page.wait_for_selector("tr.simplize-table-row")
+                items = await self._extract_single_page()
+                print(items)
+                yield items
+                await self.page.wait_for_timeout(1500)
 
-                # Step 4: Click to next_button
-                await self.click_to_next_button()
-            except:
-                if i == 41:
-                    print("Reach the end of the page")
-                else:
-                    raise "error crawl page" 
+                try:
+                    await self.click_to_next_button()
+                    await self.page.wait_for_timeout(1500)
+                except Exception:
+                    break
+        finally:
+            await self._close_crawler()
 
-        
+    async def crawl(self, link: str, **kwargs: Any) -> list[dict[str, Any]]:
+        results: list[dict[str, Any]] = []
+        async for batch in self.crawl_pages(link, **kwargs):
+            results.extend(batch)
+        return results
+
+    async def extract(self, link: str, **kwargs: Any) -> list[dict[str, Any]]:
+        return await self.crawl(link, **kwargs)
