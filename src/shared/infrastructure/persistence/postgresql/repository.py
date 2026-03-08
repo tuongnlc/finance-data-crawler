@@ -82,3 +82,5 @@ class BasePostgresRepository(Generic[ModelType]):
             return False
         await self.delete(entity)
         return True
+
+    
