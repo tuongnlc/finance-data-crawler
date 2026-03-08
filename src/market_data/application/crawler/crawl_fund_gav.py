@@ -44,8 +44,7 @@ class CrawlFundGav(BasePlaywrightCrawler):
                 "gav": gav_float
             })
 
-            # # In kết quả dạng JSON để kiểm tra
-        # print(json.dumps(fund_gavs, ensure_ascii=False, indent=2))
+           
         
         # Click nút close (X) để đóng modal và quay lại danh sách quỹ
         # Sử dụng locator cụ thể hơn để tránh lỗi strict mode
@@ -104,4 +103,4 @@ class CrawlFundGav(BasePlaywrightCrawler):
             await self._close_crawler()
 
     async def extract(self, link: str, **kwargs: Any) -> list[dict[str, Any]]:
-        return await self.crawl(link, **kwargs)
+        return await self.crawl_pages(link, **kwargs)
