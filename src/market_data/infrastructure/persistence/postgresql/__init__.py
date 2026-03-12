@@ -8,5 +8,8 @@ from src.market_data.infrastructure.persistence.postgresql.fund_gav_repository i
 from src.market_data.infrastructure.persistence.postgresql.stock_price_repository import (
     StockPriceRepository,
 )
+from src.market_data.infrastructure.persistence.postgresql.foreign_trade import (
+    ForeignTradeRepository,
+)
 
-__all__ = ["CompanyNameRepository", "FundGavRepository", "StockPriceRepository"]
+__all__ = ["CompanyNameRepository", "FundGavRepository", "StockPriceRepository", "ForeignTradeRepository"]

@@ -58,3 +58,20 @@ class StockPrice(Base):
     low_price: Mapped[float] = mapped_column(nullable=False)
     close_price: Mapped[float] = mapped_column(nullable=False)
     volume: Mapped[int] = mapped_column(nullable=False)
+
+
+class ForeignTrade(Base):
+    """
+        Foreign trade data including: stock_id, date, foreign_room, buy_volume, sell_volume
+    """
+    __tablename__ = 'foreign_trade'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    trading_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    foreign_room: Mapped[int] = mapped_column(nullable=True, index=True)
+    buy_volume: Mapped[int] = mapped_column(nullable=True)
+    sell_volume: Mapped[int] = mapped_column(nullable=True)
