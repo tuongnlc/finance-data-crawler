@@ -22,6 +22,7 @@ class CompanyName(Base):
     )
     stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     company_name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    capitalization: Mapped[int] = mapped_column(nullable=True)
     business_sector: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
 
 

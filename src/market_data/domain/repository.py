@@ -20,6 +20,7 @@ class CompanyNameRepositoryProtocol(Protocol):
         stock_id: str,
         company_name: str,
         business_sector: str,
+        capitalization: int | None = None,
     ) -> object:
         """Tạo một bản ghi CompanyName. Trả về instance (ORM hoặc domain entity)."""
         ...
