@@ -76,10 +76,18 @@ async def run_crawl_stock_price(url: str, conn_id: str = None):
         use_case = CrawlStockPriceUseCase(crawler, loader)
         
         urls = config.get("urls", [])
-        for url in urls:
-            print(f"Crawling: {url}")
-            result = await use_case.execute(url)
-            print(result)
+        for item in urls:
+            if isinstance(item, dict):
+                for category, url_list in item.items():
+                    print(f"Processing category: {category}")
+                    for url in url_list:
+                        print(f"Crawling: {url}")
+                        result = await use_case.execute(url)
+                        print(result)
+            elif isinstance(item, str):
+                print(f"Crawling: {item}")
+                result = await use_case.execute(item)
+                print(result)
 
 def main(url: str = "crawl_stock_price.yaml", conn_id: str = None):
     asyncio.run(run_crawl_stock_price(url, conn_id))

@@ -4,6 +4,7 @@ from sqlalchemy import DateTime, String, func, Date
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from datetime import date
+from sqlalchemy import BigInteger
 
 
 class Base(DeclarativeBase):
@@ -73,6 +74,6 @@ class ForeignTrade(Base):
     )
     stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     trading_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
-    foreign_room: Mapped[int] = mapped_column(nullable=True, index=True)
-    buy_volume: Mapped[int] = mapped_column(nullable=True)
-    sell_volume: Mapped[int] = mapped_column(nullable=True)
+    foreign_room: Mapped[int] = mapped_column(BigInteger, nullable=True, index=True)
+    buy_volume: Mapped[int] = mapped_column(BigInteger, nullable=True)
+    sell_volume: Mapped[int] = mapped_column(BigInteger, nullable=True)

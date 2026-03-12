@@ -1,25 +1,13 @@
 urls:
-  - ban_buon_hang_cong_nghiep_tong_hop
-    - https://simplize.vn/co-phieu/HAM/lich-su-gia
-    - https://simplize.vn/co-phieu/SHN/lich-su-gia
-    - https://simplize.vn/co-phieu/PEQ/lich-su-gia
-    - https://simplize.vn/co-phieu/MTS/lich-su-gia
-    - https://simplize.vn/co-phieu/PIT/lich-su-gia
-    - https://simplize.vn/co-phieu/ITS/lich-su-gia
-    - https://simplize.vn/co-phieu/EIN/lich-su-gia
-    - https://simplize.vn/co-phieu/TTH/lich-su-gia
-  - ban_le_chuyen_dung
+  - ban_le_chuyen_dung:
     - https://simplize.vn/co-phieu/MWG/lich-su-gia
     - https://simplize.vn/co-phieu/PNJ/lich-su-gia
     - https://simplize.vn/co-phieu/FRT/lich-su-gia
     - https://simplize.vn/co-phieu/DGW/lich-su-gia
-  - ban_le_thuc_pham_va_thuoc
-    - https://simplize.vn/co-phieu/MCH/lich-su-gia
-    - https://simplize.vn/co-phieu/HAF/lich-su-gia
-  - bao_hiem
+  - bao_hiem:
     - https://simplize.vn/co-phieu/BVH/lich-su-gia
     - https://simplize.vn/co-phieu/PVI/lich-su-gia
-  - chung_khoan_ngan_hang_dau_tu
+  - chung_khoan_ngan_hang_dau_tu:
     - https://simplize.vn/co-phieu/TCX/lich-su-gia
     - https://simplize.vn/co-phieu/SSI/lich-su-gia
     - https://simplize.vn/co-phieu/VCK/lich-su-gia
@@ -31,28 +19,23 @@ urls:
     - https://simplize.vn/co-phieu/MBS/lich-su-gia
     - https://simplize.vn/co-phieu/SHS/lich-su-gia
     - https://simplize.vn/co-phieu/DSE/lich-su-gia
-  - co_so_ha_tang_giao_thong_van_tai
+  - co_so_ha_tang_giao_thong_van_tai:
     - https://simplize.vn/co-phieu/ACV/lich-su-gia
     - https://simplize.vn/co-phieu/GMD/lich-su-gia
     - https://simplize.vn/co-phieu/PHP/lich-su-gia
     - https://simplize.vn/co-phieu/CII/lich-su-gia
     - https://simplize.vn/co-phieu/HAH/lich-su-gia
-  - duoc_pham
+  - duoc_pham:
     - https://simplize.vn/co-phieu/DHG/lich-su-gia
     - https://simplize.vn/co-phieu/IMP/lich-su-gia
-    - https://simplize.vn/co-phieu/DHT/lich-su-gia
     - https://simplize.vn/co-phieu/DVN/lich-su-gia
-    - https://simplize.vn/co-phieu/DBD/lich-su-gia
     - https://simplize.vn/co-phieu/DCL/lich-su-gia
-    - https://simplize.vn/co-phieu/DTP/lich-su-gia
-    - https://simplize.vn/co-phieu/TRA/lich-su-gia
-    - https://simplize.vn/co-phieu/DMC/lich-su-gia
-  - dau_va_khi_dot
+  - dau_va_khi_dot:
     - https://simplize.vn/co-phieu/GAS/lich-su-gia
     - https://simplize.vn/co-phieu/BSR/lich-su-gia
     - https://simplize.vn/co-phieu/PLX/lich-su-gia
     - https://simplize.vn/co-phieu/OIL/lich-su-gia
-  - det_may
+  - det_may:
     - https://simplize.vn/co-phieu/VGT/lich-su-gia
     - https://simplize.vn/co-phieu/MSH/lich-su-gia
     - https://simplize.vn/co-phieu/TNG/lich-su-gia
@@ -62,61 +45,45 @@ urls:
     - https://simplize.vn/co-phieu/VGG/lich-su-gia
     - https://simplize.vn/co-phieu/HTG/lich-su-gia
     - https://simplize.vn/co-phieu/GIL/lich-su-gia
-  - dich_vu_vien_thong
+  - dich_vu_vien_thong:
     - https://simplize.vn/co-phieu/VGI/lich-su-gia
     - https://simplize.vn/co-phieu/FOX/lich-su-gia
-  - dich_vu_cong_nghiep_va_thuong_mai
-    - https://simplize.vn/co-phieu/VEF/lich-su-gia
-    - https://simplize.vn/co-phieu/TLG/lich-su-gia
-    - https://simplize.vn/co-phieu/DSP/lich-su-gia
-    - https://simplize.vn/co-phieu/INN/lich-su-gia
-  - dich_vu_va_thiet_bi_dau_khi
+  - dich_vu_va_thiet_bi_dau_khi:
     - https://simplize.vn/co-phieu/PVS/lich-su-gia
     - https://simplize.vn/co-phieu/PVD/lich-su-gia
     - https://simplize.vn/co-phieu/PVT/lich-su-gia
     - https://simplize.vn/co-phieu/TOS/lich-su-gia
-  - giay_va_lam_san
+  - giay_va_lam_san:
     - https://simplize.vn/co-phieu/ACG/lich-su-gia
     - https://simplize.vn/co-phieu/VIF/lich-su-gia
     - https://simplize.vn/co-phieu/HHP/lich-su-gia
-  - hoa_chat
+  - hoa_chat:
     - https://simplize.vn/co-phieu/DGC/lich-su-gia
     - https://simplize.vn/co-phieu/DCM/lich-su-gia
     - https://simplize.vn/co-phieu/DPM/lich-su-gia
-  - hop_dung_bao_bi
+  - hop_dung_bao_bi:
     - https://simplize.vn/co-phieu/ECO/lich-su-gia
     - https://simplize.vn/co-phieu/DHC/lich-su-gia
     - https://simplize.vn/co-phieu/AAA/lich-su-gia
     - https://simplize.vn/co-phieu/TDP/lich-su-gia
     - https://simplize.vn/co-phieu/MZG/lich-su-gia
-  - kim_loai_va_khai_khoang
+  - kim_loai_va_khai_khoang:
     - https://simplize.vn/co-phieu/HPG/lich-su-gia
     - https://simplize.vn/co-phieu/MSR/lich-su-gia
     - https://simplize.vn/co-phieu/KSV/lich-su-gia
     - https://simplize.vn/co-phieu/HSG/lich-su-gia
-  - may_moc_thiet_bi_nang_dong_tau
+  - may_moc_thiet_bi_nang_dong_tau:
     - https://simplize.vn/co-phieu/GEE/lich-su-gia
     - https://simplize.vn/co-phieu/VEA/lich-su-gia
     - https://simplize.vn/co-phieu/GEX/lich-su-gia
-  - nuoc_tien_ich_lien_quan
-    - https://simplize.vn/co-phieu/BWE/lich-su-gia
-    - https://simplize.vn/co-phieu/TDM/lich-su-gia
-    - https://simplize.vn/co-phieu/DNW/lich-su-gia
-    - https://simplize.vn/co-phieu/BWS/lich-su-gia
-    - https://simplize.vn/co-phieu/PMW/lich-su-gia
-    - https://simplize.vn/co-phieu/HPW/lich-su-gia
-    - https://simplize.vn/co-phieu/VAV/lich-su-gia
-    - https://simplize.vn/co-phieu/HWS/lich-su-gia
-    - https://simplize.vn/co-phieu/SII/lich-su-gia
-  - phan_mem_dich_vu_cntt
+  - phan_mem_dich_vu_cntt:
     - https://simplize.vn/co-phieu/FPT/lich-su-gia
     - https://simplize.vn/co-phieu/VNZ/lich-su-gia
     - https://simplize.vn/co-phieu/CMG/lich-su-gia
-  - quan_ly_phat_trien_bat_dong_san
+  - quan_ly_phat_trien_bat_dong_san:
     - https://simplize.vn/co-phieu/KSF/lich-su-gia
     - https://simplize.vn/co-phieu/BCM/lich-su-gia
     - https://simplize.vn/co-phieu/VRE/lich-su-gia
-    - https://simplize.vn/co-phieu/SSH/lich-su-gia
     - https://simplize.vn/co-phieu/KBC/lich-su-gia
     - https://simplize.vn/co-phieu/KDH/lich-su-gia
     - https://simplize.vn/co-phieu/NVL/lich-su-gia
@@ -128,20 +95,18 @@ urls:
     - https://simplize.vn/co-phieu/SJS/lich-su-gia
     - https://simplize.vn/co-phieu/SIP/lich-su-gia
     - https://simplize.vn/co-phieu/NLG/lich-su-gia
-  - than
+  - than:
     - https://simplize.vn/co-phieu/MBB/lich-su-gia
-    - https://simplize.vn/co-phieu/MVB/lich-su-gia
     - https://simplize.vn/co-phieu/TMB/lich-su-gia
     - https://simplize.vn/co-phieu/CST/lich-su-gia
     - https://simplize.vn/co-phieu/TVD/lich-su-gia
     - https://simplize.vn/co-phieu/AAH/lich-su-gia
-  - thuc_pham_va_thuoc_la
+  - thuc_pham_va_thuoc_la:
     - https://simplize.vn/co-phieu/VNM/lich-su-gia
     - https://simplize.vn/co-phieu/MSN/lich-su-gia
     - https://simplize.vn/co-phieu/SBT/lich-su-gia
     - https://simplize.vn/co-phieu/HAG/lich-su-gia
     - https://simplize.vn/co-phieu/QNS/lich-su-gia
-    - https://simplize.vn/co-phieu/IDP/lich-su-gia
     - https://simplize.vn/co-phieu/VSF/lich-su-gia
     - https://simplize.vn/co-phieu/KDC/lich-su-gia
     - https://simplize.vn/co-phieu/VHC/lich-su-gia
@@ -149,18 +114,16 @@ urls:
     - https://simplize.vn/co-phieu/MML/lich-su-gia
     - https://simplize.vn/co-phieu/BAF/lich-su-gia
     - https://simplize.vn/co-phieu/DBC/lich-su-gia
-    - https://simplize.vn/co-phieu/VCF/lich-su-gia
     - https://simplize.vn/co-phieu/AIG/lich-su-gia
     - https://simplize.vn/co-phieu/PAN/lich-su-gia
-  - tien_ich_dien_san_xuat_dien
+  - tien_ich_dien_san_xuat_dien:
     - https://simplize.vn/co-phieu/POW/lich-su-gia
     - https://simplize.vn/co-phieu/REE/lich-su-gia
     - https://simplize.vn/co-phieu/PGV/lich-su-gia
-    - https://simplize.vn/co-phieu/DNH/lich-su-gia
     - https://simplize.vn/co-phieu/VSH/lich-su-gia
     - https://simplize.vn/co-phieu/DTK/lich-su-gia
     - https://simplize.vn/co-phieu/NT2/lich-su-gia
-  - tai_chinh_ngan_hang
+  - tai_chinh_ngan_hang:
     - https://simplize.vn/co-phieu/VCB/lich-su-gia
     - https://simplize.vn/co-phieu/BID/lich-su-gia
     - https://simplize.vn/co-phieu/CTG/lich-su-gia
@@ -171,47 +134,37 @@ urls:
     - https://simplize.vn/co-phieu/STB/lich-su-gia
     - https://simplize.vn/co-phieu/LPB/lich-su-gia
     - https://simplize.vn/co-phieu/ACB/lich-su-gia
-  - van_chuyen_hang_hoa_va_giao_nhan
-    - https://simplize.vn/co-phieu/MVN/lich-su-gia
-    - https://simplize.vn/co-phieu/VTP/lich-su-gia
-    - https://simplize.vn/co-phieu/TMS/lich-su-gia
-    - https://simplize.vn/co-phieu/VGR/lich-su-gia
-  - van_chuyen_hanh_khach
+  - van_chuyen_hanh_khach:
     - https://simplize.vn/co-phieu/VJC/lich-su-gia
     - https://simplize.vn/co-phieu/HVN/lich-su-gia
-  - vat_lieu_xay_dung
+  - vat_lieu_xay_dung:
     - https://simplize.vn/co-phieu/THD/lich-su-gia
     - https://simplize.vn/co-phieu/HT1/lich-su-gia
     - https://simplize.vn/co-phieu/FIC/lich-su-gia
     - https://simplize.vn/co-phieu/LIC/lich-su-gia
     - https://simplize.vn/co-phieu/VLB/lich-su-gia
-  - xay_dung
+  - xay_dung:
     - https://simplize.vn/co-phieu/HUT/lich-su-gia
     - https://simplize.vn/co-phieu/VCG/lich-su-gia
-    - https://simplize.vn/co-phieu/CC1/lich-su-gia
-    - https://simplize.vn/co-phieu/LGC/lich-su-gia
     - https://simplize.vn/co-phieu/PC1/lich-su-gia
-    - https://simplize.vn/co-phieu/SJG/lich-su-gia
     - https://simplize.vn/co-phieu/CTR/lich-su-gia
     - https://simplize.vn/co-phieu/CTD/lich-su-gia
-  - xay_dung_va_vat_lieu_xay_dung_dan_dung
+  - xay_dung_va_vat_lieu_xay_dung_dan_dung:
     - https://simplize.vn/co-phieu/VGC/lich-su-gia
     - https://simplize.vn/co-phieu/BMP/lich-su-gia
     - https://simplize.vn/co-phieu/NTP/lich-su-gia
     - https://simplize.vn/co-phieu/VCS/lich-su-gia
-  - o_to_va_phu_tung_o_to
+  - o_to_va_phu_tung_o_to:
     - https://simplize.vn/co-phieu/GVR/lich-su-gia
     - https://simplize.vn/co-phieu/TCH/lich-su-gia
     - https://simplize.vn/co-phieu/PHR/lich-su-gia
     - https://simplize.vn/co-phieu/HHS/lich-su-gia
     - https://simplize.vn/co-phieu/DPR/lich-su-gia
     - https://simplize.vn/co-phieu/VVS/lich-su-gia
-    - https://simplize.vn/co-phieu/HRC/lich-su-gia
     - https://simplize.vn/co-phieu/RTB/lich-su-gia
-    - https://simplize.vn/co-phieu/BRR/lich-su-gia
     - https://simplize.vn/co-phieu/DRC/lich-su-gia
     - https://simplize.vn/co-phieu/TRC/lich-su-gia
-  - do_uong
+  - do_uong:
     - https://simplize.vn/co-phieu/SAB/lich-su-gia
     - https://simplize.vn/co-phieu/BHN/lich-su-gia
     - https://simplize.vn/co-phieu/NAF/lich-su-gia

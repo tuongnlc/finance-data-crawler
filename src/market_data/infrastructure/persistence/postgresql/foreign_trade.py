@@ -63,5 +63,6 @@ class ForeignTradeRepository(BasePostgresRepository[ForeignTrade]):
             stock_price.foreign_room = foreign_room
             stock_price.buy_volume = buy_volume
             stock_price.sell_volume = sell_volume
-        await self.session.flush()
+        
+        await self.session.commit()
         return stock_price

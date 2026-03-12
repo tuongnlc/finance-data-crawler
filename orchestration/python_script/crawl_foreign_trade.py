@@ -75,10 +75,18 @@ async def run_crawl_foreign_trade(url: str, conn_id: str = None):
         use_case = CrawlForeignTradeUseCase(crawler, loader)
         
         urls = config.get("urls", [])
-        for url in urls:
-            print(f"Crawling: {url}")
-            result = await use_case.execute(url)
-            print(result)
+        for item in urls:
+            if isinstance(item, dict):
+                for category, url_list in item.items():
+                    print(f"Processing category: {category}")
+                    for url in url_list:
+                        print(f"Crawling: {url}")
+                        result = await use_case.execute(url)
+                        print(result)
+            elif isinstance(item, str):
+                print(f"Crawling: {item}")
+                result = await use_case.execute(item)
+                print(result)
 
 def main(url: str = "crawl_foreign_trade.yaml", conn_id: str = None):
     asyncio.run(run_crawl_foreign_trade(url, conn_id))
