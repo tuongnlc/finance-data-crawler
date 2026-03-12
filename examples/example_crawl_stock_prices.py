@@ -45,10 +45,18 @@ async def main():
         use_case = CrawlStockPriceUseCase(crawler, loader)
         
         urls = config.get("urls", [])
-        for url in urls:
-            print(f"Crawling: {url}")
-            result = await use_case.execute(url)
-            print(result)
+        for item in urls:
+            if isinstance(item, dict):
+                for category, url_list in item.items():
+                    print(f"Processing category: {category}")
+                    for url in url_list:
+                        print(f"Crawling: {url}")
+                        result = await use_case.execute(url)
+                        print(result)
+            elif isinstance(item, str):
+                print(f"Crawling: {item}")
+                result = await use_case.execute(item)
+                print(result)
 
 if __name__ == "__main__":
     asyncio.run(main())

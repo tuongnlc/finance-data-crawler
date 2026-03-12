@@ -69,5 +69,6 @@ class StockPriceRepository(BasePostgresRepository[StockPrice]):
             stock_price.low_price = low_price
             stock_price.close_price = close_price
             stock_price.volume = volume
-        await self.session.flush()
+        
+        await self.session.commit()
         return stock_price

@@ -4,9 +4,6 @@ Adapter: triển khai CompanyNameRepository bằng PostgreSQL (SQLAlchemy).
 Implement port market_data.domain.repository.CompanyNameRepositoryProtocol.
 """
 from __future__ import annotations
-
-import uuid
-
 from sqlalchemy import select
 
 from src.shared.infrastructure.db.models import CompanyName
