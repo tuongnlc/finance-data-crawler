@@ -7,7 +7,7 @@ from orchestration.python_script.crawl_stock_price import main
 with DAG(
     dag_id='crawl_stock_price',
     start_date=datetime(2024, 1, 1),
-    schedule='21 20 * * *', # Manual trigger only
+    schedule='10 20 * * *', # Manual trigger only
     catchup=False,
     tags=['Crawl Stock Price'],
 ) as dag:
