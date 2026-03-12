@@ -27,6 +27,7 @@ class CrawlCompanyNameUseCase:
                 stock_id = (item or {}).get("stock_id")
                 company_name = (item or {}).get("company_name")
                 business_sector = (item or {}).get("business_sector") or (item or {}).get("Sector")
+                capitalization = (item or {}).get("capitalization")
 
                 if not stock_id or not company_name or not business_sector:
                     continue
@@ -44,6 +45,7 @@ class CrawlCompanyNameUseCase:
                                 stock_id=stock_id,
                                 company_name=company_name,
                                 business_sector=business_sector,
+                                capitalization=capitalization,
                             ),
                             timeout=db_timeout,
                         )

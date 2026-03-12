@@ -49,12 +49,15 @@ class CrawlCompanyName(BasePlaywrightCrawler):
                 const companyName = row.querySelector('.css-skycj1')?.getAttribute('title') || 
                                     row.querySelector('.css-skycj1')?.innerText.trim();
                 const cells = row.querySelectorAll('td.simplize-table-cell');
+                const capitalization = cells[cells.length - 7]?.innerText.trim();
                 const sector = cells[cells.length - 1]?.innerText.trim();
+                
 
                 return {
                     stock_id: stockId,
                     company_name: companyName,
-                    business_sector: sector
+                    capitalization: capitalization,
+                    business_sector: sector,
                 };
             });
             }
@@ -74,6 +77,11 @@ class CrawlCompanyName(BasePlaywrightCrawler):
                 await self.page.wait_for_timeout(3000)
                 await self.page.wait_for_selector("tr.simplize-table-row")
                 items = await self._extract_single_page()
+
+                # convert capitalization to int: 1,125,080T to 1125080
+                for item in items:
+                    if item["capitalization"]:
+                        item["capitalization"] = int(item["capitalization"].replace(",", "").replace("T", ""))
                 print(items)
                 yield items
                 await self.page.wait_for_timeout(1500)
