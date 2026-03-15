@@ -1,7 +1,7 @@
-import asyncio
 from typing import Any
 from src.market_data.domain.repository import FundGavRepositoryProtocol
 from src.market_data.application.ports.crawl_data_port import CrawlDataPort
+from datetime import datetime
 
 
 class CrawlFundGavUseCase:
@@ -14,15 +14,16 @@ class CrawlFundGavUseCase:
         created = 0
         processed = 0
 
+        # Get report month
+        current_month = datetime.now().month
+        report_month = current_month - 1
+
         # Xóa dữ liệu cũ trước khi bắt đầu crawl mới (truncate)
         try:
-            print("Truncating old data before crawling...")
-            await self.loader.delete_all()
-            session = getattr(self.loader, "session", None)
-            if session is not None:
-                await session.commit()
+            print(f"Delete old data before loading month {report_month}...")
+            await self.loader.delete_before_load(report_month)
         except Exception as e:
-            print(f"Lỗi khi truncate database: {e}")
+            print(f"Lỗi khi delete old data: {e}")
 
         async for fund_gavs in self.crawler.crawl_pages(link, **kwargs):
             pages += 1
@@ -30,6 +31,8 @@ class CrawlFundGavUseCase:
                 continue
             
             for fund_gav in fund_gavs:
+                # get current month
+                fund_gav["month"] = report_month
                 try:
                     await self.loader.create(**fund_gav)
                     created += 1

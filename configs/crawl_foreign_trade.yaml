@@ -43,8 +43,6 @@ urls:
     - https://simplize.vn/co-phieu/TCM/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/PPH/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/STK/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/VGG/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/HTG/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/GIL/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   - dich_vu_vien_thong:
     - https://simplize.vn/co-phieu/VGI/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
@@ -54,10 +52,6 @@ urls:
     - https://simplize.vn/co-phieu/PVD/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/PVT/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/TOS/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-  - giay_va_lam_san:
-    - https://simplize.vn/co-phieu/ACG/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/VIF/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/HHP/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   - hoa_chat:
     - https://simplize.vn/co-phieu/DGC/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/DCM/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
@@ -79,7 +73,6 @@ urls:
     - https://simplize.vn/co-phieu/GEX/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   - phan_mem_dich_vu_cntt:
     - https://simplize.vn/co-phieu/FPT/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/VNZ/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/CMG/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   - quan_ly_phat_trien_bat_dong_san:
     - https://simplize.vn/co-phieu/KSF/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
@@ -96,12 +89,6 @@ urls:
     - https://simplize.vn/co-phieu/SJS/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/SIP/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/NLG/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-  - than:
-    - https://simplize.vn/co-phieu/MBB/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/TMB/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/CST/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/TVD/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/AAH/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   - thuc_pham_va_thuoc_la:
     - https://simplize.vn/co-phieu/VNM/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/MSN/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
@@ -139,11 +126,7 @@ urls:
     - https://simplize.vn/co-phieu/VJC/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/HVN/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   - vat_lieu_xay_dung:
-    - https://simplize.vn/co-phieu/THD/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/HT1/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/FIC/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/LIC/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/VLB/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   - xay_dung:
     - https://simplize.vn/co-phieu/HUT/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/VCG/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
@@ -162,11 +145,6 @@ urls:
     - https://simplize.vn/co-phieu/HHS/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/DPR/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/VVS/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/RTB/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/DRC/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
     - https://simplize.vn/co-phieu/TRC/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-  - do_uong:
-    - https://simplize.vn/co-phieu/SAB/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/BHN/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
-    - https://simplize.vn/co-phieu/NAF/lich-su-gia#giao-dich-nha-dau-tu-nuoc-ngoai
   

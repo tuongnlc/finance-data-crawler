@@ -38,11 +38,6 @@ class CrawlStockPriceUseCase:
                         date_iso = f"{year}-{month}-{day}"
                     else:
                         date_iso = date_str
-
-                    # Clean numeric strings (remove commas, handle abbreviations if any)
-                    def clean_price(s: str) -> float:
-                        s = s.replace(",", "").replace(".", "").replace(" ", "")
-                        return float(s) if s else 0.0
                     
                     open_price = float(stock_data["open_price"].replace(",", "").replace(".", ""))
                     high_price = float(stock_data["max_price"].replace(",", "").replace(".", ""))
