@@ -56,7 +56,7 @@ class CrawlCompanyName(BasePlaywrightCrawler):
                 return {
                     stock_id: stockId,
                     company_name: companyName,
-                    capitalization: capitalization,
+                    capitalization: capitalization
                     business_sector: sector,
                 };
             });

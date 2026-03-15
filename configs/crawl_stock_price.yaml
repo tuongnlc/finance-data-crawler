@@ -42,7 +42,6 @@ urls:
     - https://simplize.vn/co-phieu/TCM/lich-su-gia
     - https://simplize.vn/co-phieu/PPH/lich-su-gia
     - https://simplize.vn/co-phieu/STK/lich-su-gia
-    - https://simplize.vn/co-phieu/VGG/lich-su-gia
     - https://simplize.vn/co-phieu/HTG/lich-su-gia
     - https://simplize.vn/co-phieu/GIL/lich-su-gia
   - dich_vu_vien_thong:
@@ -53,10 +52,6 @@ urls:
     - https://simplize.vn/co-phieu/PVD/lich-su-gia
     - https://simplize.vn/co-phieu/PVT/lich-su-gia
     - https://simplize.vn/co-phieu/TOS/lich-su-gia
-  - giay_va_lam_san:
-    - https://simplize.vn/co-phieu/ACG/lich-su-gia
-    - https://simplize.vn/co-phieu/VIF/lich-su-gia
-    - https://simplize.vn/co-phieu/HHP/lich-su-gia
   - hoa_chat:
     - https://simplize.vn/co-phieu/DGC/lich-su-gia
     - https://simplize.vn/co-phieu/DCM/lich-su-gia
@@ -78,7 +73,6 @@ urls:
     - https://simplize.vn/co-phieu/GEX/lich-su-gia
   - phan_mem_dich_vu_cntt:
     - https://simplize.vn/co-phieu/FPT/lich-su-gia
-    - https://simplize.vn/co-phieu/VNZ/lich-su-gia
     - https://simplize.vn/co-phieu/CMG/lich-su-gia
   - quan_ly_phat_trien_bat_dong_san:
     - https://simplize.vn/co-phieu/KSF/lich-su-gia
@@ -95,12 +89,6 @@ urls:
     - https://simplize.vn/co-phieu/SJS/lich-su-gia
     - https://simplize.vn/co-phieu/SIP/lich-su-gia
     - https://simplize.vn/co-phieu/NLG/lich-su-gia
-  - than:
-    - https://simplize.vn/co-phieu/MBB/lich-su-gia
-    - https://simplize.vn/co-phieu/TMB/lich-su-gia
-    - https://simplize.vn/co-phieu/CST/lich-su-gia
-    - https://simplize.vn/co-phieu/TVD/lich-su-gia
-    - https://simplize.vn/co-phieu/AAH/lich-su-gia
   - thuc_pham_va_thuoc_la:
     - https://simplize.vn/co-phieu/VNM/lich-su-gia
     - https://simplize.vn/co-phieu/MSN/lich-su-gia
@@ -138,11 +126,7 @@ urls:
     - https://simplize.vn/co-phieu/VJC/lich-su-gia
     - https://simplize.vn/co-phieu/HVN/lich-su-gia
   - vat_lieu_xay_dung:
-    - https://simplize.vn/co-phieu/THD/lich-su-gia
     - https://simplize.vn/co-phieu/HT1/lich-su-gia
-    - https://simplize.vn/co-phieu/FIC/lich-su-gia
-    - https://simplize.vn/co-phieu/LIC/lich-su-gia
-    - https://simplize.vn/co-phieu/VLB/lich-su-gia
   - xay_dung:
     - https://simplize.vn/co-phieu/HUT/lich-su-gia
     - https://simplize.vn/co-phieu/VCG/lich-su-gia
@@ -161,11 +145,6 @@ urls:
     - https://simplize.vn/co-phieu/HHS/lich-su-gia
     - https://simplize.vn/co-phieu/DPR/lich-su-gia
     - https://simplize.vn/co-phieu/VVS/lich-su-gia
-    - https://simplize.vn/co-phieu/RTB/lich-su-gia
     - https://simplize.vn/co-phieu/DRC/lich-su-gia
     - https://simplize.vn/co-phieu/TRC/lich-su-gia
-  - do_uong:
-    - https://simplize.vn/co-phieu/SAB/lich-su-gia
-    - https://simplize.vn/co-phieu/BHN/lich-su-gia
-    - https://simplize.vn/co-phieu/NAF/lich-su-gia
   

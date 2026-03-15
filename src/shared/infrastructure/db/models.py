@@ -41,6 +41,7 @@ class FundGav(Base):
     stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     business_sector: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     gav: Mapped[float] = mapped_column(nullable=False)
+    month: Mapped[int] = mapped_column(nullable=True)
 
 
 class StockPrice(Base):

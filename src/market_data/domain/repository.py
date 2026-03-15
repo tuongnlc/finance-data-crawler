@@ -44,6 +44,7 @@ class FundGavRepositoryProtocol(Protocol):
         stock_id: str,
         business_sector: str,
         gav: float,
+        report_month: int,
     ) -> object:
         """Tạo một bản ghi FundGav. Trả về instance (ORM hoặc domain entity)."""
         ...
@@ -56,6 +57,9 @@ class FundGavRepositoryProtocol(Protocol):
         """Lấy theo fund_id (nếu cần cho domain)."""
         ...
 
+    async def delete_before_load(self, report_month: int) -> None:
+        """Xóa tất cả bản ghi FundGav cua tháng hien tai."""
+        ...
 
 class StockPriceRepositoryProtocol(Protocol):
     """Port: interface lưu / đọc StockPrice. Implementation là PostgreSQL adapter."""
@@ -95,7 +99,6 @@ class StockPriceRepositoryProtocol(Protocol):
     ) -> object:
         """Upsert (insert or update) một bản ghi StockPrice theo stock_id và date. Trả về instance (ORM hoặc domain entity)."""
         ...
-
 
 class ForeignTradeRepositoryProtocol(Protocol):
     """Port: interface lưu / đọc ForeignTrade. Implementation là PostgreSQL adapter."""
