@@ -13,13 +13,15 @@ from dotenv import load_dotenv
 from src.shared.infrastructure.db.connection import async_session_scope, get_async_engine, get_async_session_factory
 from src.shared.infrastructure.db.models import Base
 
-from src.market_data.application.crawler.crawl_stock_price import CrawlStockPrice
-from src.market_data.application.use_case.crawl_stock_price import CrawlStockPriceUseCase
-from src.market_data.infrastructure.persistence.postgresql import StockPriceRepository
-from src.shared.utils.load_yaml_config import load_config
+from src.market_data.application.crawler.crawl_vn_index import CrawlVnIndex
+from src.market_data.application.use_case.crawl_vn_index import CrawlVnIndexUseCase
+from src.market_data.infrastructure.persistence.postgresql.vn_index_repository import VNIndexRepository
 
 
-async def run_crawl_stock_price(url: str, conn_id: str = None):
+async def run_crawl_vn_index(
+    crawl_page_url: str = "https://simplize.vn/chi-so/VNINDEX/lich-su-gia", 
+    conn_id: str = None):
+
     if conn_id:
         try:
             from airflow.hooks.base import BaseHook
@@ -48,46 +50,24 @@ async def run_crawl_stock_price(url: str, conn_id: str = None):
             print("Warning: Airflow not installed, skipping connection lookup.")
         except Exception as e:
             print(f"Error fetching connection {conn_id}: {e}")
-    
-    config_path = Path(url)
-    if not config_path.exists():
-        # Try finding it in configs directory relative to project root
-        potential_path = PROJECT_ROOT / "configs" / url
-        if potential_path.exists():
-            config_path = potential_path
-            
-    print(f"Loading config from: {config_path}")
-    config = load_config(config_path)
-    
+
     engine = get_async_engine()
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-    crawler = CrawlStockPrice(headless=True)
+    crawler = CrawlVnIndex(headless=True)
     async for db in async_session_scope():
-        loader = StockPriceRepository(session=db)
-        use_case = CrawlStockPriceUseCase(crawler, loader)
+        loader = VNIndexRepository(session=db)
+        use_case = CrawlVnIndexUseCase(crawler, loader)
         
-        urls = config.get("urls", [])
-        for item in urls:
-            if isinstance(item, dict):
-                for category, url_list in item.items():
-                    print(f"Processing category: {category}")
-                    for url in url_list:
-                        print(f"Crawling: {url}")
-                        result = await use_case.execute(url)
-                        print(result)
-            elif isinstance(item, str):
-                print(f"Crawling: {item}")
-                result = await use_case.execute(item)
-                print(result)
+        result = await use_case.execute(crawl_page_url)
+        print(result)
 
-def main(url: str = "crawl_stock_price.yaml", conn_id: str = None):
-    asyncio.run(run_crawl_stock_price(url, conn_id))
+def main(conn_id: str = None):
+    asyncio.run(run_crawl_vn_index(conn_id=conn_id))
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Crawl stock prices based on config.")
-    parser.add_argument("--url", type=str, help="Path to the configuration YAML file", default="crawl_stock_price.yaml")
+    parser = argparse.ArgumentParser(description="Crawl VN Index based on config.")
     parser.add_argument("--conn-id", type=str, help="Airflow Connection ID", default=None)
     args = parser.parse_args()
-    main(args.url, args.conn_id)
+    main(args.conn_id)
