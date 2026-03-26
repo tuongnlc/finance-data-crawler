@@ -11,5 +11,8 @@ from src.market_data.infrastructure.persistence.postgresql.stock_price_repositor
 from src.market_data.infrastructure.persistence.postgresql.foreign_trade import (
     ForeignTradeRepository,
 )
+from src.market_data.infrastructure.persistence.postgresql.vn_index_repository import (
+    VNIndexRepository,
+)
 
-__all__ = ["CompanyNameRepository", "FundGavRepository", "StockPriceRepository", "ForeignTradeRepository"]
+__all__ = ["CompanyNameRepository", "FundGavRepository", "StockPriceRepository", "ForeignTradeRepository", "VNIndexRepository"]

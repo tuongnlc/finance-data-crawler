@@ -134,3 +134,34 @@ class ForeignTradeRepositoryProtocol(Protocol):
     ) -> object:
         """Upsert (insert or update) một bản ghi ForeignTrade theo stock_id và date. Trả về instance (ORM hoặc domain entity)."""
         ...
+
+
+### Protocol for Vn-Index Repository
+class VnIndexRepositoryProtocol(Protocol):
+    """Port: interface lưu / đọc VnIndex. Implementation là PostgreSQL adapter."""
+    async def create(
+        self,
+        *,
+        id: uuid.UUID | None = None,
+        trading_date: str,
+        open_index_value: float,
+        highest_index_value: float,
+        lowest_index_value: float,
+        close_index_value: float,
+        volume: int,
+    ) -> object:
+        """Tạo một bản ghi VnIndex. Trả về instance (ORM hoặc domain entity)."""
+        ...
+
+    async def upsert_by_trading_date(
+        self,
+        *,
+        trading_date: str,
+        open_index_value: float,
+        highest_index_value: float,
+        lowest_index_value: float,
+        close_index_value: float,
+        volume: int,
+    ) -> object:
+        """Upsert (insert or update) một bản ghi VnIndex theo trading_date. Trả về instance (ORM hoặc domain entity)."""
+        ...

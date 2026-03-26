@@ -78,3 +78,21 @@ class ForeignTrade(Base):
     foreign_room: Mapped[int] = mapped_column(BigInteger, nullable=True, index=True)
     buy_volume: Mapped[int] = mapped_column(BigInteger, nullable=True)
     sell_volume: Mapped[int] = mapped_column(BigInteger, nullable=True)
+
+
+class VnIndex(Base):
+    """
+        VnIndex data including: stock_id, date, index_value
+    """
+    __tablename__ = 'vn_index'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    trading_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    open_index_value: Mapped[int] = mapped_column(nullable=False)
+    highest_index_value: Mapped[int] = mapped_column(nullable=False)
+    lowest_index_value: Mapped[int] = mapped_column(nullable=False)
+    close_index_value: Mapped[int] = mapped_column(nullable=False)
+    volume: Mapped[int] = mapped_column(BigInteger, nullable=False)
