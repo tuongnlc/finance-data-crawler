@@ -36,7 +36,10 @@ class BasePlaywrightCrawler(BaseCrawler, ABC):
 
     async def _init_crawler(self) -> None:
         self._playwright = await async_playwright().start()
-        self._browser = await self._playwright.chromium.launch(headless=self.headless)
+        try:
+            self._browser = await self._playwright.chromium.launch(headless=self.headless, args=["--no-sandbox", "--disable-dev-shm-usage"], chromium_sandbox=False)
+        except Exception:
+            self._browser = await self._playwright.firefox.launch(headless=self.headless)
         self._context = await self._browser.new_context()
         self._page = await self._context.new_page()
         self._page.set_default_navigation_timeout(self.navigation_timeout_ms)
