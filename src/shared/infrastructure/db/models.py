@@ -80,11 +80,11 @@ class ForeignTrade(Base):
     sell_volume: Mapped[int] = mapped_column(BigInteger, nullable=True)
 
 
-class VnIndex(Base):
+class StockIndex(Base):
     """
-        VnIndex data including: stock_id, date, index_value
+        Stock index data including: stock_id, date, index_value
     """
-    __tablename__ = 'vn_index'
+    __tablename__ = 'stock_index'
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         primary_key=True,
@@ -96,3 +96,4 @@ class VnIndex(Base):
     lowest_index_value: Mapped[int] = mapped_column(nullable=False)
     close_index_value: Mapped[int] = mapped_column(nullable=False)
     volume: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    index_type: Mapped[str] = mapped_column(String(255), nullable=False, index=True)

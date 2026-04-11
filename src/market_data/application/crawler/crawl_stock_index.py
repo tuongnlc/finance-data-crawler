@@ -8,7 +8,7 @@ class CrawlVnIndex(BasePlaywrightCrawler):
 
     async def crawl_pages(
             self, 
-            link: str = "https://simplize.vn/chi-so/VNINDEX/lich-su-gia",
+            link: str,
             **kwargs: Any
         ) -> list[dict[str, Any]]:
         
