@@ -44,8 +44,6 @@ class CrawlFundGav(BasePlaywrightCrawler):
                 "gav": gav_float
             })
 
-           
-        
         # Click nút close (X) để đóng modal và quay lại danh sách quỹ
         # Sử dụng locator cụ thể hơn để tránh lỗi strict mode
         close_button = self.page.locator(".modal-header a").filter(has=self.page.locator("svg")).first
