@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from datetime import datetime
-from orchestration.python_script.crawl_stock_index import main
+from orchestration.python_script.crawl_market_data_v1 import main
 
 with DAG(
     dag_id='crawl_stock_index',
@@ -18,12 +18,13 @@ with DAG(
     )
 
     # Task 2: Python execution
-    crawl_index_task = PythonOperator(
+    crawl_stock_index = PythonOperator(
         task_id='crawl_stock_index_task',
         python_callable=main,
         op_kwargs={
-            "conn_id": "postgres_market_data"
+            "conn_id": "postgres_market_data",
+            "url": "crawl_stock_index.yaml",
         },
     )
 
-    start_crawl_dag >> crawl_index_task
+    start_crawl_dag >> crawl_stock_index

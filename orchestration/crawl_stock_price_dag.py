@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from datetime import datetime
-from orchestration.python_script.crawl_stock_price import main
+from orchestration.python_script.crawl_market_data_v1 import main
 
 with DAG(
     dag_id='crawl_stock_price',
