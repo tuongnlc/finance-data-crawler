@@ -8,37 +8,37 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from dotenv import load_dotenv
 from src.shared.infrastructure.db.connection import async_session_scope
 
-from src.market_data.application.crawler.crawl_foreign_trade import CrawlForeignTrade
-from src.market_data.application.use_case.crawl_foreign_trade import CrawlForeignTradeUseCase
-from src.market_data.infrastructure.persistence.postgresql import ForeignTradeRepository
+from src.market_data.application.crawler.crawl_stock_index import CrawlStockIndex
+from src.market_data.application.use_case.crawl_stock_index import CrawlStockIndexUseCase
+from src.market_data.infrastructure.persistence.postgresql.stock_index_repository import StockIndexRepository
 from orchestration.python_script.share.postgre_config import (
     configure_postgres_env_from_airflow_connection,
     init_db_schema,
 )
 from orchestration.python_script.share.config_loader import load_yaml_config
 
-async def run_crawl_foreign_trade(url: str, conn_id: str = None):
-    # Explicitly load .env from project root
-    env_path = PROJECT_ROOT / ".env"
-    if env_path.exists():
-        load_dotenv(dotenv_path=env_path)
-    else:
-        load_dotenv() # Fallback to default search
+
+async def run_crawl_stock_index(
+        url: str = "crawl_stock_index.yaml",
+        conn_id: str = None
+    ):
 
     configure_postgres_env_from_airflow_connection(conn_id)
     await init_db_schema()
 
     config = load_yaml_config(url, PROJECT_ROOT)
 
-    crawler = CrawlForeignTrade(headless=True)
+    crawler = CrawlStockIndex(headless=True)
     async for db in async_session_scope():
-        loader = ForeignTradeRepository(session=db)
-        use_case = CrawlForeignTradeUseCase(crawler, loader)
+        loader = StockIndexRepository(session=db)
+        use_case = CrawlStockIndexUseCase(crawler, loader)
         
+        # result = await use_case.execute(crawl_page_url)
+        # print(result)
         urls = config.get("urls", [])
+
         for url in urls:
             if isinstance(url, dict):
                 for category, url_list in url.items():
@@ -50,14 +50,13 @@ async def run_crawl_foreign_trade(url: str, conn_id: str = None):
             elif isinstance(url, str):
                 print(f"Crawling: {url}")
                 result = await use_case.execute(url)
-                print(result)
+                print(result)            
 
-def main(url: str = "crawl_foreign_trade.yaml", conn_id: str = None):
-    asyncio.run(run_crawl_foreign_trade(url, conn_id))
+def main(url: str = "crawl_stock_index.yaml", conn_id: str = None):
+    asyncio.run(run_crawl_stock_index(url, conn_id=conn_id))
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Crawl foreign trade based on config.")
-    parser.add_argument("--url", type=str, help="Path to the configuration YAML file", default="crawl_foreign_trade.yaml")
+    parser = argparse.ArgumentParser(description="Crawl VN Index based on config.")
     parser.add_argument("--conn-id", type=str, help="Airflow Connection ID", default=None)
     args = parser.parse_args()
     main(args.url, args.conn_id)

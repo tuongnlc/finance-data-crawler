@@ -1,4 +1,6 @@
 urls:
+  - vn_index:
+    - https://simplize.vn/chi-so/VNINDEX/lich-su-gia
   - dow_jones:
     - https://simplize.vn/chi-so/DOW-JONES/lich-su-gia
   - nasdaq:
@@ -9,8 +11,6 @@ urls:
     - https://simplize.vn/chi-so/SP500/lich-su-gia
   - sp_500_futures:
     - https://simplize.vn/chi-so/SP500-ES/lich-su-gia
-  - ftse_100:
-    - https://simplize.vn/chi-so/FTSE-100
   - cac_40:
     - https://simplize.vn/chi-so/CAC-40/lich-su-gia
   - swiss_market_index:
