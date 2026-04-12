@@ -1,0 +1,32 @@
+urls:
+  - vn_index:
+    - https://simplize.vn/chi-so/VNINDEX/lich-su-gia
+  - dow_jones:
+    - https://simplize.vn/chi-so/DOW-JONES/lich-su-gia
+  - nasdaq:
+    - https://simplize.vn/chi-so/NASDAQ/lich-su-gia
+  - russel_200:
+    - https://simplize.vn/chi-so/RUSELL-2000/lich-su-gia
+  - sp_500:
+    - https://simplize.vn/chi-so/SP500/lich-su-gia
+  - sp_500_futures:
+    - https://simplize.vn/chi-so/SP500-ES/lich-su-gia
+  - cac_40:
+    - https://simplize.vn/chi-so/CAC-40/lich-su-gia
+  - swiss_market_index:
+    - https://simplize.vn/chi-so/SMI-INDEX/lich-su-gia
+  - stoxx_50:
+    - https://simplize.vn/chi-so/STOXX-50/lich-su-gia
+  - amsterdam_exchange:
+    - https://simplize.vn/chi-so/AEX-INDEX/lich-su-gia
+  - nikkei_225: 
+    - https://simplize.vn/chi-so/NIKKEI-225/lich-su-gia
+  - szse_component:
+    - https://simplize.vn/chi-so/SZSE/lich-su-gia
+  - hang_send_composite:
+    - https://simplize.vn/chi-so/HANG-SENG/lich-su-gia
+  - kospi_composite:
+    - https://simplize.vn/chi-so/KOSPI/lich-su-gia
+  - tsec_weighted_index:
+    - https://simplize.vn/chi-so/TSEC/lich-su-gia
+    
