@@ -2,7 +2,8 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 from datetime import datetime
-from orchestration.python_script.crawl_foreign_trade import main
+from orchestration.python_script.crawl_market_data_v1 import main
+
 
 with DAG(
     dag_id='crawl_foreign_trade',
@@ -18,7 +19,7 @@ with DAG(
     )
 
     # Task 2: Python execution
-    crawl_price_task = PythonOperator(
+    crawl_foreign_trade = PythonOperator(
         task_id='crawl_foreign_trade_task',
         python_callable=main,
         op_kwargs={
@@ -27,4 +28,4 @@ with DAG(
         },
     )
 
-    start_crawl_dag >> crawl_price_task
+    start_crawl_dag >> crawl_foreign_trade

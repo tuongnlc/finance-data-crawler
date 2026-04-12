@@ -1,3 +1,5 @@
+kind: stock_index
+
 urls:
   - vn_index:
     - https://simplize.vn/chi-so/VNINDEX/lich-su-gia
