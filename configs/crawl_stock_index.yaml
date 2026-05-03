@@ -13,6 +13,8 @@ urls:
     - https://simplize.vn/chi-so/SP500/lich-su-gia
   - sp_500_futures:
     - https://simplize.vn/chi-so/SP500-ES/lich-su-gia
+  - sp_500_vix:
+    - https://simplize.vn/chi-so/SP500-VIX/lich-su-gia
   - cac_40:
     - https://simplize.vn/chi-so/CAC-40/lich-su-gia
   - swiss_market_index:
