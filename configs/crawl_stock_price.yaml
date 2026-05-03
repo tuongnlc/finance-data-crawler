@@ -30,7 +30,6 @@ urls:
   - duoc_pham:
     - https://simplize.vn/co-phieu/DHG/lich-su-gia
     - https://simplize.vn/co-phieu/IMP/lich-su-gia
-    - https://simplize.vn/co-phieu/DVN/lich-su-gia
     - https://simplize.vn/co-phieu/DCL/lich-su-gia
   - dau_va_khi_dot:
     - https://simplize.vn/co-phieu/GAS/lich-su-gia
