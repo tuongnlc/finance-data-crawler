@@ -48,6 +48,4 @@ class CrawlFundGavUseCase:
                 print(f"Lỗi khi commit: {e}")
 
         return {"pages": pages, "created": created, "processed": processed}
-        
-    
     
