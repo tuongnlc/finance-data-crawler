@@ -62,7 +62,7 @@ def delivery_report(err, msg):
 # 4. Produce a message (Asynchronous)
 topic = "test-kafka-topic"
 key = "user_123"
-value = {"order_id": "order_001", "amount": "123.45"}
+value = {"order_id": "order_002", "amount": "123.45"}
 
 producer.produce(
     topic, 
