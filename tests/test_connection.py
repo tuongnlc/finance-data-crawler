@@ -1,12 +1,10 @@
 import asyncio
 from sqlalchemy import text
-# from connection import async_session_scope
 from src.shared.infrastructure.db.connection import async_session_scope
 
-import os
-from dotenv import load_dotenv  # thêm
+from dotenv import load_dotenv 
 
-load_dotenv()  # load biến từ .env cùng thư mục project
+load_dotenv()  
 
 async def test_scope():
     print("--- Test với async_session_scope ---")

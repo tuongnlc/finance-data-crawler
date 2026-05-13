@@ -24,6 +24,6 @@ class FundGavRepository(BasePostgresRepository[FundGav]):
 
     async def delete_before_load(self, report_month: int) -> None:
         """Xóa tất cả bản ghi FundGav cua tháng hien tai."""
-        stmt = delete(FundGav).where(FundGav.report_month == report_month)
+        stmt = delete(FundGav).where(FundGav.month == report_month)
         await self.session.execute(stmt)
         await self.session.commit()
