@@ -1,15 +1,17 @@
 from confluent_kafka import Producer
 from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.schema_registry.avro import AvroSerializer
-from confluent_kafka.serialization import MessageField, SerializationContext, StringSerializer
+from confluent_kafka.serialization import MessageField, SerializationContext
 import os
 import requests
 import socket
+import time
+import uuid
 
 # 1. Configuration
 # 'bootstrap.servers' is the minimum required config
 conf = {
-    'bootstrap.servers': 'localhost:9094',
+    'bootstrap.servers': ['localhost:9094', 'localhost:9095'],
     'client.id': socket.gethostname()
 }
 
@@ -32,20 +34,40 @@ schema_registry_conf = {
 }
 schema_registry_client = SchemaRegistryClient(schema_registry_conf)
 
-schema_str = """{
+key_schema_str = """{
   "type": "record",
-  "name": "Order",
-  "namespace": "com.example",
+  "name": "CrawlErrorLogKey",
+  "namespace": "com.finance_ai.market_data",
   "fields": [
-    {"name": "order_id", "type": "string"},
-    {"name": "amount", "type": "double"}
+    {"name": "partition_key", "type": "string"}
   ]
 }"""
 
-key_serializer = StringSerializer("utf_8")
+value_schema_str = """{
+  "type": "record",
+  "name": "CrawlErrorLog",
+  "namespace": "com.finance_ai.market_data",
+  "fields": [
+    {"name": "event_id", "type": "string"},
+    {"name": "event_time", "type": {"type": "long", "logicalType": "timestamp-millis"}},
+    {"name": "service", "type": "string"},
+    {"name": "crawler_name", "type": "string"},
+    {"name": "job_name", "type": "string"},
+    {"name": "error_type", "type": "string"},
+    {"name": "error_message", "type": "string"},
+    {"name": "stage", "type": "string"},
+    {"name": "partition_key", "type": "string"}
+  ]
+}"""
+
+key_serializer = AvroSerializer(
+    schema_registry_client,
+    key_schema_str,
+    to_dict=lambda obj, ctx: obj,
+)
 value_serializer = AvroSerializer(
     schema_registry_client,
-    schema_str,
+    value_schema_str,
     to_dict=lambda obj, ctx: obj,
 )
 
@@ -60,9 +82,20 @@ def delivery_report(err, msg):
         print(f"Message delivered to {msg.topic()} [{msg.partition()}]")
 
 # 4. Produce a message (Asynchronous)
-topic = "test-kafka-topic"
-key = "user_123"
-value = {"order_id": "order_002", "amount": "123.45"}
+topic = "crawl-error-log"
+partition_key = "CrawlStockIndex"
+key = {"partition_key": partition_key}
+value = {
+    "event_id": str(uuid.uuid4()),
+    "event_time": int(time.time() * 1000),
+    "service": "finance-data-crawler",
+    "crawler_name": "CrawlStockIndex",
+    "job_name": "crawl_stock_index",
+    "error_type": "TimeoutError",
+    "error_message": "Page.goto: Timeout 30000ms exceeded",
+    "stage": "goto",
+    "partition_key": partition_key,
+}
 
 producer.produce(
     topic, 
