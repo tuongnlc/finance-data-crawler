@@ -22,9 +22,3 @@ class CrawlNewspaper(BaseCrawler):
             "content": content,
             "summary": summary,
         }
-
-#test here
-url = 'https://vneconomy.vn/vi-pham-5-loi-chung-khoan-bms-bi-phat-toi-780-trieu-dong.htm'
-test_crawler = CrawlNewspaper()
-result = test_crawler.extract(url)
-print(result)
