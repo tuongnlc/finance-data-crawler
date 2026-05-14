@@ -19,6 +19,11 @@ from src.market_data.infrastructure.persistence.postgresql.stock_index_repositor
 from src.market_data.infrastructure.persistence.postgresql.stock_price_repository import StockPriceRepository
 from src.market_data.application.use_case.crawl_foreign_trade import CrawlForeignTradeUseCase
 from src.market_data.application.use_case.crawl_stock_price import CrawlStockPriceUseCase
+from src.market_data.application.crawler.crawl_newspaper_url import CrawlNewspaperUrl
+from src.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
+from src.market_data.application.use_case.crawl_newspaper_url import CrawlNewspaperUrlUseCase
+
+
 
 from orchestration.python_script.share.postgre_config import (
     configure_postgres_env_from_airflow_connection,
@@ -44,6 +49,12 @@ CRAWLER_CLASS = {
             "crawler": CrawlStockPrice,
             "loader": StockPriceRepository,
             "use_case": CrawlStockPriceUseCase,
+        },
+    "newspaper_url": 
+        {
+            "crawler": CrawlNewspaperUrl,
+            "loader": NewspaperUrlRepository,
+            "use_case": CrawlNewspaperUrlUseCase,
         },
     }
 

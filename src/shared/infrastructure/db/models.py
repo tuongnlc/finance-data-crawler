@@ -112,6 +112,6 @@ class NewspaperUrl(Base):
     )
     newspaper_title: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     newspaper_url: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
-    created_at: Mapped[date] = mapped_column(Date, nullable=False, index=True)
     source: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     is_crawled: Mapped[int] = mapped_column(nullable=False, default=0)
+    created_at: Mapped[date] = mapped_column(Date, nullable=False, index=True)

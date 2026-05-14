@@ -1,0 +1,5 @@
+kind: newspaper_url
+
+urls:
+  - vietstock:
+    - 'https://vietstock.vn/chung-khoan.htm'
