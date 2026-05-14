@@ -32,8 +32,3 @@ class CrawlNewspaperUrlUseCase:
                 is_crawled=is_crawled,
                 created_at=created_at,
             )
-
-# #test_class_here
-# if __name__ == '__main__':
-#     use_case = CrawlNewspaperUrlUseCase(crawler=CrawlNewspaperUrl(), loader=NewspaperUrlRepository())
-#     asyncio.run(use_case.execute(links=['https://vietstock.vn/chung-khoan.htm']))

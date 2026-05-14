@@ -17,9 +17,6 @@ source = "Test Source"
 is_crawled = 0
 created_at = datetime.now().date()
 
-# newspaper_record_for_test = 
-
-
 async def test_scope():
     print("--- Test với async_session_scope ---")
     try:
