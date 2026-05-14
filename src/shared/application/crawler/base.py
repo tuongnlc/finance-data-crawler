@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 from playwright.async_api import Browser, BrowserContext, Page, Playwright, async_playwright
-
+import newspaper
 
 class BaseCrawler(ABC):
     @abstractmethod
@@ -72,3 +72,4 @@ class BasePlaywrightCrawler(BaseCrawler, ABC):
             return await self.extract(link, **kwargs)
         finally:
             await self._close_crawler()
+
