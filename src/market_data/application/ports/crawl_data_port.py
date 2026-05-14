@@ -1,7 +1,5 @@
 from typing import Any, AsyncIterator
-
 from abc import ABC, abstractmethod
-
 
 
 class CrawlDataPort(ABC):

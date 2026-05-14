@@ -44,7 +44,14 @@ class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
         else:
             newspaper_url_record.newspaper_title = newspaper_title
             newspaper_url_record.source = source
-            newspaper_url_record.is_crawled = is_crawled
             newspaper_url_record.created_at = created_at
         await self.session.flush()
         return newspaper_url_record
+
+    async def query_urls_by_is_crawled(
+        self,
+    ) -> list[str]:
+        """Query NewspaperUrl that not crawled"""
+        stmt = select(NewspaperUrl.newspaper_url).where(NewspaperUrl.is_crawled == 0)
+        result = await self.session.execute(stmt)
+        return result.scalars().all()
