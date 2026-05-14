@@ -97,3 +97,21 @@ class StockIndex(Base):
     close_index_value: Mapped[int] = mapped_column(nullable=False)
     volume: Mapped[int] = mapped_column(BigInteger, nullable=False)
     index_type: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+
+
+# Models for crawl market_news
+class NewspaperUrl(Base):
+    """
+        Newspaper url data including: url, title, content, date, source, is_crawled
+    """
+    __tablename__ = 'newspaper_url'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    newspaper_title: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    newspaper_url: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    source: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    is_crawled: Mapped[int] = mapped_column(nullable=False, default=0)
+    created_at: Mapped[date] = mapped_column(Date, nullable=False, index=True)

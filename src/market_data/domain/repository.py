@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import uuid
 from typing import Protocol, runtime_checkable
+from datetime import date
 
 
 @runtime_checkable
@@ -166,4 +167,19 @@ class StockIndexRepositoryProtocol(Protocol):
         index_type: str,
     ) -> object:
         """Upsert (insert or update) một bản ghi VnIndex theo trading_date. Trả về instance (ORM hoặc domain entity)."""
+        ...
+
+
+### Protocol for Newspaper-Url Repository
+class NewspaperUrlRepositoryProtocol(Protocol):
+    """Port: interface write / read NewspaperUrl"""
+    async def upsert_by_newspaper_url(
+        self,
+        *,
+        newspaper_url: str,
+        source: str,
+        is_crawled: int,
+        created_at: date,
+    ) -> object:
+        """Upsert (insert or update) NewspaperUrl based on newspaper_url."""
         ...

@@ -14,3 +14,4 @@ confluent-kafka==2.14.0
 Authlib==1.7.2
 cachetools==7.1.1
 fastavro==1.12.2
+newspaper4k==0.9.5
