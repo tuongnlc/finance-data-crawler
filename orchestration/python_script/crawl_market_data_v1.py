@@ -87,7 +87,7 @@ async def run_crawler(
     crawler = crawler_cls(headless=True)
     query_to_db = config.get("query_to_db", False)
     
-    if query_to_db:
+    if query_to_db: #Determine whether dag need too query to db or not
         async for db in async_session_scope():
             extractor = extractor_cls(session=db)
             loader = loader_cls(session=db)
