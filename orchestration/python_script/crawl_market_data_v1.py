@@ -22,8 +22,9 @@ from src.market_data.application.use_case.crawl_stock_price import CrawlStockPri
 from src.market_data.application.crawler.crawl_newspaper_url import CrawlNewspaperUrl
 from src.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
 from src.market_data.application.use_case.crawl_newspaper_url import CrawlNewspaperUrlUseCase
-
-
+from src.market_data.application.crawler.crawl_newspaper import CrawlNewspaper
+from src.market_data.infrastructure.persistence.postgresql.newspaper_repository import NewspaperRepository
+from src.market_data.application.use_case.crawl_newspaper import CrawlNewspaperUseCase
 
 from orchestration.python_script.share.postgre_config import (
     configure_postgres_env_from_airflow_connection,
@@ -56,6 +57,13 @@ CRAWLER_CLASS = {
             "loader": NewspaperUrlRepository,
             "use_case": CrawlNewspaperUrlUseCase,
         },
+    "newspaper": 
+        {
+            "crawler": CrawlNewspaper,
+            "extractor": NewspaperUrlRepository, #using to read news paper url from newspaper_url table
+            "loader": NewspaperRepository,
+            "use_case": CrawlNewspaperUseCase,
+        },
     }
 
 async def run_crawler(
@@ -74,25 +82,39 @@ async def run_crawler(
     loader_cls = CRAWLER_CLASS[crawler_type]["loader"]
     use_case_cls = CRAWLER_CLASS[crawler_type]["use_case"]
 
+    extractor_cls = CRAWLER_CLASS[crawler_type].get("extractor", None) #Using if we need to read data from postgresql
+    
     crawler = crawler_cls(headless=True)
-
-    async for db in async_session_scope():
-        loader = loader_cls(session=db)
-        use_case = use_case_cls(crawler, loader)
-        
-        urls = config.get("urls", [])
-        for item in urls:
-            if isinstance(item, dict):
-                for category, url_list in item.items():
-                    print(f"Processing category: {category}")
-                    for url in url_list:
-                        print(f"Crawling: {url}")
-                        result = await use_case.execute(url)
-                        print(result)
-            elif isinstance(item, str):
-                print(f"Crawling: {item}")
-                result = await use_case.execute(item)
-                print(result)
+    query_to_db = config.get("query_to_db", False)
+    
+    if query_to_db:
+        async for db in async_session_scope():
+            extractor = extractor_cls(session=db)
+            loader = loader_cls(session=db)
+            use_case = use_case_cls(
+                extractor=extractor,
+                crawler=crawler,
+                loader=loader
+            )
+            await use_case.execute()
+    else:
+        async for db in async_session_scope():
+            loader = loader_cls(session=db)
+            use_case = use_case_cls(crawler, loader)
+            
+            urls = config.get("urls", [])
+            for item in urls:
+                if isinstance(item, dict):
+                    for category, url_list in item.items():
+                        print(f"Processing category: {category}")
+                        for url in url_list:
+                            print(f"Crawling: {url}")
+                            result = await use_case.execute(url)
+                            print(result)
+                elif isinstance(item, str):
+                    print(f"Crawling: {item}")
+                    result = await use_case.execute(item)
+                    print(result)
 
 def main(url: str, conn_id: str = None):
     asyncio.run(run_crawler(url=url, conn_id=conn_id))

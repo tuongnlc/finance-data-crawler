@@ -12,7 +12,7 @@ import uuid
 
 
 class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
-    """Repository cụ thể cho bảng stock_price. Dùng trong market_data use cases."""
+    """Repository cụ thể cho bảng newspaper_url"""
 
     model_class = NewspaperUrl
 
@@ -20,11 +20,11 @@ class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
         self,
         *,
         id: uuid.UUID | None = None,
-        newspaper_title: str,
+        newspaper_title: str | None = None,
         newspaper_url: str,
-        source: str,
+        source: str | None = None,
         is_crawled: int,
-        created_at: date,
+        created_at: date | None = None,
     ) -> object:
         """Upsert (insert or update) NewspaperUrl based on newspaper_url."""
         stmt = select(NewspaperUrl).where(NewspaperUrl.newspaper_url == newspaper_url)
@@ -32,6 +32,10 @@ class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
         newspaper_url_record = result.scalar_one_or_none()
 
         if newspaper_url_record is None:
+            if newspaper_title is None or source is None or created_at is None:
+                raise ValueError(
+                    "newspaper_title, source, created_at are required when inserting a new NewspaperUrl record"
+                )
             newspaper_url_record = NewspaperUrl(
                 id=id,
                 newspaper_title=newspaper_title,
@@ -42,9 +46,15 @@ class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
             )
             self.session.add(newspaper_url_record)
         else:
-            newspaper_url_record.newspaper_title = newspaper_title
-            newspaper_url_record.source = source
-            newspaper_url_record.is_crawled = is_crawled
-            newspaper_url_record.created_at = created_at
+            if newspaper_url_record.is_crawled != is_crawled:
+                newspaper_url_record.is_crawled = is_crawled
         await self.session.flush()
         return newspaper_url_record
+
+    async def query_urls_by_is_crawled(
+        self,
+    ) -> list[str]:
+        """Query NewspaperUrl that not crawled"""
+        stmt = select(NewspaperUrl.newspaper_url).where(NewspaperUrl.is_crawled == 0)
+        result = await self.session.execute(stmt)
+        return result.scalars().all()

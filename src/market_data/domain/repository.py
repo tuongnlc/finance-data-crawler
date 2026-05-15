@@ -176,10 +176,36 @@ class NewspaperUrlRepositoryProtocol(Protocol):
     async def upsert_by_newspaper_url(
         self,
         *,
+        id: uuid.UUID | None = None,
+        newspaper_title: str | None = None,
         newspaper_url: str,
-        source: str,
+        source: str | None = None,
         is_crawled: int,
-        created_at: date,
+        created_at: date | None = None,
     ) -> object:
         """Upsert (insert or update) NewspaperUrl based on newspaper_url."""
+        ...
+
+    async def query_urls_by_is_crawled(
+        self
+    ) -> list[str]:
+        """Query NewspaperUrl that not crawled"""
+
+
+### Protocol for Newspaper Repository
+class NewspaperRepositoryProtocol(Protocol):
+    """Port: interface write / read Newspaper"""
+    async def upsert_by_newspaper_url(
+        self,
+        *,
+        id: uuid.UUID | None = None,
+        title: str,
+        url: str,
+        publish_date: str,
+        content: str,
+        summary: str,
+        is_embedded: int,
+        created_at: date,
+    ) -> object:
+        """Upsert (insert or update) Newspaper based on newspaper_url."""
         ...

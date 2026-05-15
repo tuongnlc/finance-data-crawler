@@ -1,6 +1,6 @@
 """SQLAlchemy declarative models (bảng) dùng cho PostgreSQL."""
 import uuid
-from sqlalchemy import DateTime, String, func, Date
+from sqlalchemy import DateTime, String, func, Date, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from datetime import date
@@ -110,8 +110,27 @@ class NewspaperUrl(Base):
         primary_key=True,
         default=uuid.uuid4,
     )
-    newspaper_title: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
-    newspaper_url: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
-    source: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    newspaper_title: Mapped[str] = mapped_column(String(255))
+    newspaper_url: Mapped[str] = mapped_column(String(255), index=True)
+    source: Mapped[str] = mapped_column(String(255))
     is_crawled: Mapped[int] = mapped_column(nullable=False, default=0)
-    created_at: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    created_at: Mapped[date] = mapped_column(Date, nullable=False)
+
+
+class Newspaper(Base):
+    """
+        Newspaper data including: id, title, url, publish_date, content, summary
+    """
+    __tablename__ = 'newspaper'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    title: Mapped[str] = mapped_column(Text)
+    url: Mapped[str] = mapped_column(String(255))
+    publish_date: Mapped[date] = mapped_column(Date, nullable=True)
+    content: Mapped[str] = mapped_column(Text)
+    summary: Mapped[str] = mapped_column(Text)
+    is_embedded: Mapped[int] = mapped_column(nullable=False, default=0)
+    created_at: Mapped[date] = mapped_column(Date, nullable=False)
