@@ -19,8 +19,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
-
 loader = NewspaperRepository()
 
 async def run_crawler():

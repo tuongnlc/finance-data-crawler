@@ -12,7 +12,7 @@ import uuid
 
 
 class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
-    """Repository cụ thể cho bảng stock_price. Dùng trong market_data use cases."""
+    """Repository cụ thể cho bảng newspaper_url"""
 
     model_class = NewspaperUrl
 

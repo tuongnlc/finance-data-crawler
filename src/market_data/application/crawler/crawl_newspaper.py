@@ -1,13 +1,13 @@
 from src.shared.application.crawler.base import BaseCrawler
 import newspaper
 from typing import Any
-from datetime import datetime, date
+from datetime import datetime
 
 
 
 class CrawlNewspaper(BaseCrawler):
-    def __init__(self, **kwargs) -> None:
-        super().__init__(**kwargs)
+    def __init__(self, headless: bool = True, **kwargs: Any) -> None:
+        super().__init__()
 
     def extract(self, link: str, **kwargs: Any) -> Any:
         article = newspaper.article(link)
