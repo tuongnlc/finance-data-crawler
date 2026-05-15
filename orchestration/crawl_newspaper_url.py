@@ -6,16 +6,16 @@ from orchestration.python_script.crawl_market_data_v1 import main
 
 
 with DAG(
-    dag_id='crawl_newspaper_url',
+    dag_id='crawl_newspapers',
     start_date=datetime(2024, 1, 1),
     schedule='05 21 * * *', # Manual trigger only
     catchup=False,
-    tags=['Newspaper Url'],   
+    tags=['Newspapers', 'Newspaper Urls'],   
 ) as dag:
     # Task 1: Bash execution
     start_crawl_dag = BashOperator(
         task_id='start_crawl_dag',
-        bash_command='echo "Start Crawl Newspaper URL!"'
+        bash_command='echo "Start Crawl Newspapers!"'
     )
 
     # Task 2: Python execution
@@ -28,4 +28,14 @@ with DAG(
         },
     )
 
-    start_crawl_dag >> crawl_newspaper_url
+    # Task 3: Crawl Newspaper
+    crawl_newspaper = PythonOperator(
+        task_id='crawl_newspaper_task',
+        python_callable=main,
+        op_kwargs={
+            "url": "crawl_newspaper.yaml",
+            "conn_id": "postgres_market_data"
+        },
+    )
+
+    start_crawl_dag >> crawl_newspaper_url >> crawl_newspaper
