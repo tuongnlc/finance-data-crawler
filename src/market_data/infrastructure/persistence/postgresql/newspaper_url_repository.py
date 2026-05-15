@@ -45,9 +45,9 @@ class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
                 created_at=created_at,
             )
             self.session.add(newspaper_url_record)
-        else:
-            if newspaper_url_record.is_crawled != is_crawled:
-                newspaper_url_record.is_crawled = is_crawled
+        elif is_crawled == 1: #upsert is_crawled to 1
+            if newspaper_url_record.is_crawled == 0:
+                newspaper_url_record.is_crawled = 1
         await self.session.flush()
         return newspaper_url_record
 
