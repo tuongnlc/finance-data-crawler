@@ -24,6 +24,10 @@ class CrawlNewspaperUseCase:
     async def execute(self) -> None:
 
         newspaper_urls = await self.query_newspaper_url()
+        
+        if len(newspaper_urls) == 0:
+            print("No new url to crawl")
+            return
 
         for url in newspaper_urls:
             print(f"Crawling: {url}")
@@ -51,3 +55,10 @@ class CrawlNewspaperUseCase:
             )
             print(f"Done load {url} to postgres")
             print(" ")
+
+            #Upsert is_crawled to 1
+            await self.extractor.upsert_by_newspaper_url(
+                newspaper_url=url,
+                is_crawled=1,
+            )
+            print(f"Done update is_crawled to 1 for {url}")

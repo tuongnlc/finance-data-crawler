@@ -176,10 +176,12 @@ class NewspaperUrlRepositoryProtocol(Protocol):
     async def upsert_by_newspaper_url(
         self,
         *,
+        id: uuid.UUID | None = None,
+        newspaper_title: str | None = None,
         newspaper_url: str,
-        source: str,
+        source: str | None = None,
         is_crawled: int,
-        created_at: date,
+        created_at: date | None = None,
     ) -> object:
         """Upsert (insert or update) NewspaperUrl based on newspaper_url."""
         ...
