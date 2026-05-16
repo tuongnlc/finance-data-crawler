@@ -199,12 +199,12 @@ class NewspaperRepositoryProtocol(Protocol):
         self,
         *,
         id: uuid.UUID | None = None,
-        title: str,
-        url: str,
+        newspaper_title: str,
+        newspaper_url: str,
         publish_date: str,
-        content: str,
-        summary: str,
-        is_embedded: int,
+        newspaper_content: str,
+        newspaper_summary: str,
+        is_load_to_qrant: int,
         created_at: date,
     ) -> object:
         """Upsert (insert or update) Newspaper based on newspaper_url."""

@@ -12,18 +12,18 @@ class CrawlNewspaper(BaseCrawler):
     def extract(self, link: str, **kwargs: Any) -> Any:
         article = newspaper.article(link)
 
-        title = article.title
+        newspaper_title = article.title
         publish_date = article.publish_date
-        content = article.text
+        newspaper_content = article.text
 
         article.nlp()
-        summary = article.summary
+        newspaper_summary = article.summary
         return {
-            "title": title,
-            "url": link,
+            "newspaper_title": newspaper_title,
+            "newspaper_url": link,
             "publish_date": publish_date,
-            "content": content,
-            "summary": summary,
-            "is_embedded": 0,
+            "newspaper_content": newspaper_content,
+            "newspaper_summary": newspaper_summary,
+            "is_load_to_qrant": 0,
             "created_at": datetime.now().date(),
         }

@@ -36,21 +36,21 @@ class CrawlNewspaperUseCase:
 
             print(f"Done crawl {url}")
             print(" ")
-            newspaper_title = newspaper['title']
-            newspaper_url = newspaper['url']
+            newspaper_title = newspaper['newspaper_title']
+            newspaper_url = newspaper['newspaper_url']
             publish_date = newspaper['publish_date'].date() if newspaper['publish_date'] else None
-            newspaper_content = newspaper['content']
-            newspaper_summary = newspaper['summary']
-            is_embedded = 0
+            newspaper_content = newspaper['newspaper_content']
+            newspaper_summary = newspaper['newspaper_summary']
+            is_load_to_qrant = 0
             created_at = datetime.now().date()
 
             await self.loader.upsert_by_newspaper_url(
-                title=newspaper_title,
-                url=newspaper_url,
+                newspaper_title=newspaper_title,
+                newspaper_url=newspaper_url,
                 publish_date=publish_date,
-                content=newspaper_content,
-                summary=newspaper_summary,
-                is_embedded=is_embedded,
+                newspaper_content=newspaper_content,
+                newspaper_summary=newspaper_summary,
+                is_load_to_qrant=is_load_to_qrant,
                 created_at=created_at,
             )
             print(f"Done load {url} to postgres")
