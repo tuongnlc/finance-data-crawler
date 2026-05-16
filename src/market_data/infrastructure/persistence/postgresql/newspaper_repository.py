@@ -20,38 +20,38 @@ class NewspaperRepository(BasePostgresRepository[Newspaper]):
         self,
         *,
         id: uuid.UUID | None = None,
-        title: str,
-        url: str,
+        newspaper_title: str,
+        newspaper_url: str,
         publish_date: str,
-        content: str,
-        summary: str,
-        is_embedded: int,
+        newspaper_content: str,
+        newspaper_summary: str,
+        is_load_to_qrant: int,
         created_at: date,
     ) -> object:
         """Upsert (insert or update) Newspaper based on newspaper_url."""
         ...
-        stmt = select(Newspaper).where(Newspaper.url == url)
+        stmt = select(Newspaper).where(Newspaper.newspaper_url == newspaper_url)
         result = await self.session.execute(stmt)
         newspaper_record = result.scalar_one_or_none()
 
         if newspaper_record is None:
             newspaper_record = self.model_class(
                 id=id,
-                title=title,
-                url=url,
+                newspaper_title=newspaper_title,
+                newspaper_url=newspaper_url,
                 publish_date=publish_date,
-                content=content,
-                summary=summary,
-                is_embedded=is_embedded,
+                newspaper_content=newspaper_content,
+                newspaper_summary=newspaper_summary,
+                is_load_to_qrant=is_load_to_qrant,
                 created_at=created_at,
             )
             self.session.add(newspaper_record)
         else:
-            newspaper_record.title = title
-            newspaper_record.url = url
+            newspaper_record.newspaper_title = newspaper_title
+            newspaper_record.newspaper_url = newspaper_url
             newspaper_record.publish_date = publish_date
-            newspaper_record.content = content
-            newspaper_record.summary = summary
+            newspaper_record.newspaper_content = newspaper_content
+            newspaper_record.newspaper_summary = newspaper_summary
         await self.session.flush()
         return newspaper_record
 
