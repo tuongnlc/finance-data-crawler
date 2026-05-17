@@ -25,7 +25,7 @@ class NewspaperRepository(BasePostgresRepository[Newspaper]):
         publish_date: str,
         newspaper_content: str,
         newspaper_summary: str,
-        is_load_to_qrant: int,
+        is_load_to_qdrant: int,
         created_at: date,
     ) -> object:
         """Upsert (insert or update) Newspaper based on newspaper_url."""
@@ -42,7 +42,7 @@ class NewspaperRepository(BasePostgresRepository[Newspaper]):
                 publish_date=publish_date,
                 newspaper_content=newspaper_content,
                 newspaper_summary=newspaper_summary,
-                is_load_to_qrant=is_load_to_qrant,
+                is_load_to_qdrant=is_load_to_qdrant,
                 created_at=created_at,
             )
             self.session.add(newspaper_record)

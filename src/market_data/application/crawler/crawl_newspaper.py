@@ -24,6 +24,6 @@ class CrawlNewspaper(BaseCrawler):
             "publish_date": publish_date,
             "newspaper_content": newspaper_content,
             "newspaper_summary": newspaper_summary,
-            "is_load_to_qrant": 0,
+            "is_load_to_qdrant": 0,
             "created_at": datetime.now().date(),
         }

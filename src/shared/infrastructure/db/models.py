@@ -119,7 +119,7 @@ class NewspaperUrl(Base):
 
 class Newspaper(Base):
     """
-        Newspaper data including: id, newspaper_title, newspaper_url, publish_date, content, summary, is_load_to_qrant
+        Newspaper data including: id, newspaper_title, newspaper_url, publish_date, content, summary, is_load_to_qdrant
     """
     __tablename__ = 'newspaper'
     id: Mapped[uuid.UUID] = mapped_column(
@@ -132,5 +132,5 @@ class Newspaper(Base):
     publish_date: Mapped[date] = mapped_column(Date, nullable=True)
     newspaper_content: Mapped[str] = mapped_column(Text, nullable=True)
     newspaper_summary: Mapped[str] = mapped_column(Text)
-    is_load_to_qrant: Mapped[int] = mapped_column(nullable=False, default=0)
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, default=0)
     created_at: Mapped[date] = mapped_column(Date, nullable=False)
