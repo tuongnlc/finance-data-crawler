@@ -204,7 +204,7 @@ class NewspaperRepositoryProtocol(Protocol):
         publish_date: str,
         newspaper_content: str,
         newspaper_summary: str,
-        is_load_to_qrant: int,
+        is_load_to_qdrant: int,
         created_at: date,
     ) -> object:
         """Upsert (insert or update) Newspaper based on newspaper_url."""

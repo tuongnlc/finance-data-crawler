@@ -41,7 +41,7 @@ class CrawlNewspaperUseCase:
             publish_date = newspaper['publish_date'].date() if newspaper['publish_date'] else None
             newspaper_content = newspaper['newspaper_content']
             newspaper_summary = newspaper['newspaper_summary']
-            is_load_to_qrant = 0
+            is_load_to_qdrant = 0
             created_at = datetime.now().date()
 
             await self.loader.upsert_by_newspaper_url(
@@ -50,7 +50,7 @@ class CrawlNewspaperUseCase:
                 publish_date=publish_date,
                 newspaper_content=newspaper_content,
                 newspaper_summary=newspaper_summary,
-                is_load_to_qrant=is_load_to_qrant,
+                is_load_to_qdrant=is_load_to_qdrant,
                 created_at=created_at,
             )
             print(f"Done load {url} to postgres")
