@@ -3,3 +3,5 @@ kind: newspaper_url
 urls:
   - vietstock:
     - 'https://vietstock.vn/chung-khoan.htm'
+  - cafef:
+    - https://cafef.vn/thi-truong-chung-khoan.chn
