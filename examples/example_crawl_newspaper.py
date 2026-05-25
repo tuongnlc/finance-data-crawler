@@ -27,9 +27,6 @@ async def run_crawler():
         loader = NewspaperRepository(session=db)
         crawler = CrawlNewspaper()
         use_case = CrawlNewspaperUseCase(extractor, crawler, loader)
-        
-       
-
         await use_case.execute()
 
 def main():
