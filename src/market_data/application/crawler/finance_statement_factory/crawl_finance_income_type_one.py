@@ -1,20 +1,12 @@
-from typing import Any, AsyncIterator
 from src.shared.application.crawler.base import BasePlaywrightCrawler
-import asyncio
-import time
+from typing import Any, Callable, ClassVar, TypeVar
 from bs4 import BeautifulSoup
-from src.shared.infrastructure.db.models import IncomeStatementType1
-from src.market_data.infrastructure.persistence.postgresql.final_statement_repository import FinalStatementRepository
-from src.shared.infrastructure.db.connection import async_session_scope, get_async_engine
-
-#load dot_env
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from typing import Any, AsyncIterator
 
 
-class CrawlBCTC(BasePlaywrightCrawler):
+TProduct = TypeVar("TProduct", bound=BasePlaywrightCrawler)
+
+class CrawlIncomeStatementTypeOne(BasePlaywrightCrawler):
     def __init__(self, headless: bool = True) -> None:
         super().__init__(headless=headless)
 
@@ -36,6 +28,7 @@ class CrawlBCTC(BasePlaywrightCrawler):
                     return int(value)
                 except:
                     return value
+
         else:
             raise ValueError(f"Expected str or int, got {type(value)}")
 
@@ -148,62 +141,18 @@ class CrawlBCTC(BasePlaywrightCrawler):
         self._map_keys(final_result)
         return final_result
 
-    async def _upsert_to_postgresql(self, results: list[dict[str, Any]]) -> None:
-        try:
-            async for db in async_session_scope():
-                model_path = "src.shared.infrastructure.db.models.IncomeStatementType1"
-                final_repo = FinalStatementRepository(model_path=model_path, session=db)
-
-                for result in results:
-                    # data = {k: self._parse_string_to_int(v) for k, v in item.items()}
-                    await final_repo.upsert_by_year_quarter_stock_id(
-                        stock_id=result["stock_id"],
-                        year=result["year"],
-                        quarter=result["quarter"],
-                        data=result,
-                    )
-        except Exception as e:
-            print(f"Error inserting data to PostgreSQL: {e}")
-            raise
-
     async def crawl_pages(self, links: list[str], **kwargs: Any) -> AsyncIterator[list[dict[str, Any]]]:
         await self._init_crawler()
-        results: list[dict[str, Any]] = []
         try:
             for link in links:
                 items = await self._extract_single_link(link)
-                for item in items:
-                    data = {k: self._parse_string_to_int(v) for k, v in item.items()}
-                    results.append(data)
-                yield results
+                batch: list[dict[str, Any]] = [
+                    {k: self._parse_string_to_int(v) for k, v in item.items()} for item in items
+                ]
+                yield batch
         finally:
             await self._close_crawler()
 
-    async def crawl(self, links: list[str], **kwargs: Any) -> list[dict[str, Any]]:
-        results: list[dict[str, Any]] = []
+    async def extract(self, links: list[str], **kwargs: Any) -> AsyncIterator[list[dict[str, Any]]]:
         async for batch in self.crawl_pages(links, **kwargs):
-            results.extend(batch)
-        return results
-
-    async def extract(self, link: str | list[str], **kwargs: Any) -> list[dict[str, Any]]:
-        links = link if isinstance(link, list) else [link]
-        return await self.crawl(links, **kwargs)
-
-
-test_crawler = CrawlBCTC(
-    headless=False,
-)
-
-test_links = [
-    "https://fireant.vn/ma-chung-khoan/MWG",
-]
-
-async def test_extract():
-    async for batch in test_crawler.crawl_pages(test_links):
-        await test_crawler._upsert_to_postgresql(batch)
-        print(f"Extracted {len(batch)} records for stock_id={batch[0]['stock_id'] if batch else None}")
-    # await asyncio.sleep(5)
-    # print(f"Extracted {len(data)} records")
-    
-if __name__ == "__main__":
-    asyncio.run(test_extract())
+            yield batch

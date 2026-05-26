@@ -56,9 +56,6 @@ class FinalStatementRepository(BasePostgresRepository[Any]):
         
         if final_statement is None:
             final_statement = self.model_class(
-                # stock_id=stock_id,
-                # year=year,
-                # quarter=quarter,
                 **data,
             )
             self.session.add(final_statement)

@@ -8,7 +8,7 @@ from __future__ import annotations
 import uuid
 from typing import Protocol, runtime_checkable
 from datetime import date
-
+from typing import Any
 
 @runtime_checkable
 class CompanyNameRepositoryProtocol(Protocol):
@@ -208,4 +208,17 @@ class NewspaperRepositoryProtocol(Protocol):
         created_at: date,
     ) -> object:
         """Upsert (insert or update) Newspaper based on newspaper_url."""
+        ...
+
+
+#Protocol for Finance-Statement Repository
+class FinanceStatementRepositoryProtocol(Protocol):
+    """Port: interface write / read FinanceStatement"""
+    async def upsert_by_year_quarter_stock_id(
+        self,
+        *,
+        id: uuid.UUID | None = None,
+        **kwargs: Any,
+    ) -> object:
+        """Upsert (insert or update) FinanceStatement based on year_quarter_stock_id."""
         ...
