@@ -134,3 +134,43 @@ class Newspaper(Base):
     newspaper_summary: Mapped[str] = mapped_column(Text)
     is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, default=0)
     created_at: Mapped[date] = mapped_column(Date, nullable=False)
+
+
+# Models for crawl bctc
+class IncomeStatementType1(Base):
+    """
+        Income statement type 1 for product company like HPG, MWG, VNM ...
+
+        Total: 21 columns
+    """
+    __tablename__ = 'fs_income_statement_type_one'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    year: Mapped[int] = mapped_column(nullable=False, index=True)
+    quarter: Mapped[str] = mapped_column(nullable=False, index=True)
+    gross_revenue: Mapped[int] = mapped_column(nullable=False, comment='1. Tổng doanh thu hoạt động kinh doanh')
+    revenue_deductions: Mapped[int] = mapped_column(nullable=False, comment='2. Các khoản giảm trừ doanh thu')
+    net_revenue: Mapped[int] = mapped_column(nullable=False, comment='3. Doanh thu thuần (1)-(2)')
+    cost_of_goods_sold: Mapped[int] = mapped_column(nullable=False, comment='4. Giá vốn hàng bán')
+    gross_profit: Mapped[int] = mapped_column(nullable=False, comment='5. Lợi nhuận gộp (3)-(4)')
+    financial_income: Mapped[int] = mapped_column(nullable=False, comment='6. Doanh thu hoạt động tài chính')
+    financial_expenses: Mapped[int] = mapped_column(nullable=False, comment='7. Chi phí tài chính')
+    interest_expense: Mapped[int] = mapped_column(nullable=False, comment='Trong đó: Chi phí lãi vay')
+    jv_associates_profit: Mapped[int] = mapped_column(nullable=False, comment='8. Phần lợi nhuận hoặc lỗ trong công ty liên kết liên doanh')
+    selling_expenses: Mapped[int] = mapped_column(nullable=False, comment='9. Chi phí bán hàng')
+    general_and_administrative_expenses: Mapped[int] = mapped_column(nullable=False, comment='10. Chi phí quản lý doanh nghiệp')
+    net_operating_profit: Mapped[int] = mapped_column(nullable=False, comment='11. Lợi nhuận thuần từ hoạt động kinh doanh (5)+(6)-(7)+(8)-(9)-(10)')
+    other_income: Mapped[int] = mapped_column(nullable=False, comment='12. Thu nhập khác')
+    other_expenses: Mapped[int] = mapped_column(nullable=False, comment='13. Chi phí khác')
+    other_profit: Mapped[int] = mapped_column(nullable=False, comment='14. Lợi nhuận khác (12)-(13)')
+    total_accounting_profit_before_tax: Mapped[int] = mapped_column(nullable=False, comment='15. Tổng lợi nhuận kế toán trước thuế (11)+(14)')
+    current_corporate_income_tax_expense: Mapped[int] = mapped_column(nullable=False, comment='16. Chi phí thuế TNDN hiện hành')
+    deferred_corporate_income_tax_expense: Mapped[int] = mapped_column(nullable=False, comment='17. Chi phí thuế TNDN hoãn lại')
+    corporate_income_tax_expense: Mapped[int] = mapped_column(nullable=False, comment='18. Chi phí thuế TNDN (16)+(17)')
+    net_profit_after_corporate_income_tax: Mapped[int] = mapped_column(nullable=False, comment='19. Lợi nhuận sau thuế thu nhập doanh nghiệp (15)-(18)')
+    non_controlling_interests: Mapped[int] = mapped_column(nullable=False, comment='20. Lợi nhuận sau thuế của cổ đông không kiểm soát')
+    net_profit_parent: Mapped[int] = mapped_column(nullable=False, comment='21. Lợi nhuận sau thuế của cổ đông của công ty mẹ (19)-(20)')

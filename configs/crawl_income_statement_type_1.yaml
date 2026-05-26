@@ -1,0 +1,10 @@
+
+data_type: finance_statement
+kind: income_statement_type_one
+
+urls:
+  - https://fireant.vn/ma-chung-khoan/HSG
+  - https://fireant.vn/ma-chung-khoan/HPG
+  - https://fireant.vn/ma-chung-khoan/MWG
+  - https://fireant.vn/ma-chung-khoan/PNJ
+  
