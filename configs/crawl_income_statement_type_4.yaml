@@ -1,0 +1,15 @@
+
+data_type: finance_statement
+kind: income_statement_type_four
+
+urls:
+  - https://fireant.vn/ma-chung-khoan/VCB
+  - https://fireant.vn/ma-chung-khoan/BID
+  - https://fireant.vn/ma-chung-khoan/CTG
+  - https://fireant.vn/ma-chung-khoan/TCB
+  - https://fireant.vn/ma-chung-khoan/MBB
+  - https://fireant.vn/ma-chung-khoan/VPB
+  - https://fireant.vn/ma-chung-khoan/HDB
+  - https://fireant.vn/ma-chung-khoan/STB
+  - https://fireant.vn/ma-chung-khoan/LPB
+  - https://fireant.vn/ma-chung-khoan/ACB
