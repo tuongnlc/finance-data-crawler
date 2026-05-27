@@ -3,6 +3,7 @@ from typing import Any, Callable, ClassVar, TypeVar
 from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_one import CrawlIncomeStatementTypeOne
 from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_four import CrawlIncomeStatementTypeFour   
 from src.market_data.application.crawler.finance_statement_factory.crawl_balance_sheet_type_one import CrawlBalanceSheetTypeOne
+from src.market_data.application.crawler.finance_statement_factory.crawl_balance_sheet_type_four import CrawlBalanceSheetTypeFour
 
 
 
@@ -13,9 +14,8 @@ class CrawlFinanceStatementFactory:
         "income_statement_type_one": lambda headless: CrawlIncomeStatementTypeOne(headless=headless),
         "income_statement_type_four": lambda headless: CrawlIncomeStatementTypeFour(headless=headless),
         "balance_sheet_type_one": lambda headless: CrawlBalanceSheetTypeOne(headless=headless),
+        "balance_sheet_type_four": lambda headless: CrawlBalanceSheetTypeFour(headless=headless),
     }
-
-
 
     @classmethod
     def register(cls, crawler_type: str, builder: Callable[[bool], TProduct]) -> None:
