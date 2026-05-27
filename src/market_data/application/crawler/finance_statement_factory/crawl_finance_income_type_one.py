@@ -145,11 +145,13 @@ class CrawlIncomeStatementTypeOne(BasePlaywrightCrawler):
         await self._init_crawler()
         try:
             for link in links:
+                print(f"Processing link: {link}")
                 items = await self._extract_single_link(link)
                 batch: list[dict[str, Any]] = [
                     {k: self._parse_string_to_int(v) for k, v in item.items()} for item in items
                 ]
-                yield batch
+                print(f"Success extract from link: {link}")
+                yield batch 
         finally:
             await self._close_crawler()
 
