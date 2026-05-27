@@ -1,0 +1,16 @@
+
+data_type: finance_statement
+kind: income_statement_type_three
+
+urls:
+  - https://fireant.vn/ma-chung-khoan/TCX
+  - https://fireant.vn/ma-chung-khoan/SSI
+  - https://fireant.vn/ma-chung-khoan/VCK
+  - https://fireant.vn/ma-chung-khoan/VPX
+  - https://fireant.vn/ma-chung-khoan/VIX
+  - https://fireant.vn/ma-chung-khoan/VCI
+  - https://fireant.vn/ma-chung-khoan/VND
+  - https://fireant.vn/ma-chung-khoan/HCM
+  - https://fireant.vn/ma-chung-khoan/MBS
+  - https://fireant.vn/ma-chung-khoan/SHS
+  - https://fireant.vn/ma-chung-khoan/DSE
