@@ -2,6 +2,7 @@ from src.shared.application.crawler.base import BasePlaywrightCrawler
 from typing import Any, Callable, ClassVar, TypeVar
 from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_one import CrawlIncomeStatementTypeOne
 from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_four import CrawlIncomeStatementTypeFour   
+from src.market_data.application.crawler.finance_statement_factory.crawl_balance_sheet_type_one import CrawlBalanceSheetTypeOne
 
 
 
@@ -11,7 +12,10 @@ class CrawlFinanceStatementFactory:
     _registry: ClassVar[dict[str, Callable[[bool], BasePlaywrightCrawler]]] = {
         "income_statement_type_one": lambda headless: CrawlIncomeStatementTypeOne(headless=headless),
         "income_statement_type_four": lambda headless: CrawlIncomeStatementTypeFour(headless=headless),
+        "balance_sheet_type_one": lambda headless: CrawlBalanceSheetTypeOne(headless=headless),
     }
+
+
 
     @classmethod
     def register(cls, crawler_type: str, builder: Callable[[bool], TProduct]) -> None:
