@@ -1,7 +1,7 @@
 from src.shared.application.crawler.base import BasePlaywrightCrawler
 from typing import Any, Callable, ClassVar, TypeVar
 from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_one import CrawlIncomeStatementTypeOne
-from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_two import CrawlIncomeStatementTypeTwo
+from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_four import CrawlIncomeStatementTypeFour   
 
 
 
@@ -10,7 +10,7 @@ TProduct = TypeVar("TProduct", bound=BasePlaywrightCrawler)
 class CrawlFinanceStatementFactory:
     _registry: ClassVar[dict[str, Callable[[bool], BasePlaywrightCrawler]]] = {
         "income_statement_type_one": lambda headless: CrawlIncomeStatementTypeOne(headless=headless),
-        "income_statement_type_two": lambda headless: CrawlIncomeStatementTypeTwo(headless=headless),
+        "income_statement_type_four": lambda headless: CrawlIncomeStatementTypeFour(headless=headless),
     }
 
     @classmethod

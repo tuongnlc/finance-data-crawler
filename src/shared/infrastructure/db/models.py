@@ -174,3 +174,41 @@ class IncomeStatementType1(Base):
     net_profit_after_corporate_income_tax: Mapped[int] = mapped_column(nullable=False, comment='19. Lợi nhuận sau thuế thu nhập doanh nghiệp (15)-(18)')
     non_controlling_interests: Mapped[int] = mapped_column(nullable=False, comment='20. Lợi nhuận sau thuế của cổ đông không kiểm soát')
     net_profit_parent: Mapped[int] = mapped_column(nullable=False, comment='21. Lợi nhuận sau thuế của cổ đông của công ty mẹ (19)-(20)')
+
+
+class IncomeStatementTypeFour(Base):
+    """
+        Income statement type 4 for bank like ACB, TCB, CTG ...
+    """
+    __tablename__ = 'fs_income_statement_type_four'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    year: Mapped[int] = mapped_column(nullable=False, index=True)
+    quarter: Mapped[str] = mapped_column(nullable=False, index=True)
+    net_interest_income: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập lãi thuần')
+    interest_and_similar_income: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập từ lãi và các khoản thu nhập tương tự')
+    interest_and_similar_expenses: Mapped[int] = mapped_column(nullable=False, comment='Chi phí lãi và các chi phí tương tự')
+    net_fee_and_commission_income: Mapped[int] = mapped_column(nullable=False, comment='Lãi/Lỗ thuần từ hoạt động dịch vụ')
+    fee_and_commission_income: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập từ hoạt động dịch vụ')
+    fee_and_commission_expenses: Mapped[int] = mapped_column(nullable=False, comment='Chi phí hoạt động dịch vụ')
+    net_gain_loss_from_foreign_currency_and_gold_dealings: Mapped[int] = mapped_column(nullable=False, comment='Lãi/Lỗ thuần từ hoạt động kinh doanh ngoại hối')
+    net_gain_loss_from_trading_securities: Mapped[int] = mapped_column(nullable=False, comment='Lãi/Lỗ thuần từ mua bán chứng khoán kinh doanh')
+    net_gain_loss_from_investment_securities: Mapped[int] = mapped_column(nullable=False, comment='Lãi/Lỗ thuần từ mua bán chứng khoán đầu tư')
+    net_gain_loss_from_other_operating_activities: Mapped[int] = mapped_column(nullable=False, comment='Lãi/Lỗ thuần từ hoạt động khác')
+    other_operating_income: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập từ hoạt động khác')
+    other_operating_expenses: Mapped[int] = mapped_column(nullable=False, comment='Chi phí hoạt động khác')
+    income_from_long_term_investments: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập từ hoạt động góp vốn mua cổ phần')
+    operating_expenses: Mapped[int] = mapped_column(nullable=False, comment='Chi phí hoạt động')
+    net_operating_profit_before_provision_for_credit_losses: Mapped[int] = mapped_column(nullable=False, comment='Lợi nhuận từ HDKD trước chi phí dự phòng rủi ro tín dụng')
+    provision_expenses_for_credit_losses: Mapped[int] = mapped_column(nullable=False, comment='Chi phí dự phòng rủi ro tín dụng')
+    total_accounting_profit_before_tax: Mapped[int] = mapped_column(nullable=False, comment='Tổng lợi nhuận trước thuế')
+    corporate_income_tax_expense: Mapped[int] = mapped_column(nullable=False, comment='Chi phí thuế TNDN')
+    current_corporate_income_tax_expense: Mapped[int] = mapped_column(nullable=False, comment='Chi phí thuế thu nhập hiện hành')
+    deferred_corporate_income_tax_expense: Mapped[int] = mapped_column(nullable=False, comment='Chi phí thuế TNDN giữ lại')
+    net_profit_after_corporate_income_tax: Mapped[int] = mapped_column(nullable=False, comment='Lợi nhuận sau thuế thu nhập doanh nghiệp')
+    non_controlling_interests_and_preferred_dividends: Mapped[int] = mapped_column(nullable=False, comment='Lợi ích của cổ đông thiểu số và cổ tức ưu đãi')
+    net_profit_parent: Mapped[int] = mapped_column(nullable=False, comment='LNST sau khi điều chỉnh Lợi ích của CĐTS và Cổ tức ưu đãi')

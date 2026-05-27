@@ -60,32 +60,36 @@ class CrawlBCTC(BasePlaywrightCrawler):
 
     def _map_keys(self, items: list[dict[str, Any]]) -> None:
         mapping_keyword = {
-            "stock_id": "stock_id",
-            "year": "year",
-            "quarter": "quarter",
-            "1. Tổng doanh thu hoạt động kinh doanh": "gross_revenue",
-            "2. Các khoản giảm trừ doanh thu": "revenue_deductions",
-            "3. Doanh thu thuần (1)-(2)": "net_revenue",
-            "4. Giá vốn hàng bán": "cost_of_goods_sold",
-            "5. Lợi nhuận gộp (3)-(4)": "gross_profit",
-            "6. Doanh thu hoạt động tài chính": "financial_income",
-            "7. Chi phí tài chính": "financial_expenses",
-            "Trong đó: Chi phí lãi vay": "interest_expense",
-            "8. Phần lợi nhuận hoặc lỗ trong công ty liên kết liên doanh": "jv_associates_profit",
-            "9. Chi phí bán hàng": "selling_expenses",
-            "10. Chi phí quản lý doanh nghiệp": "general_and_administrative_expenses",
-            "11. Lợi nhuận thuần từ hoạt động kinh doanh (5)+(6)-(7)+(8)-(9)-(10)": "net_operating_profit",
-            "12. Thu nhập khác": "other_income",
-            "13. Chi phí khác": "other_expenses",
-            "14. Lợi nhuận khác (12)-(13)": "other_profit",
-            "15. Tổng lợi nhuận kế toán trước thuế (11)+(14)": "total_accounting_profit_before_tax",
-            "16. Chi phí thuế TNDN hiện hành": "current_corporate_income_tax_expense",
-            "17. Chi phí thuế TNDN hoãn lại": "deferred_corporate_income_tax_expense",
-            "18. Chi phí thuế TNDN (16)+(17)": "corporate_income_tax_expense",
-            "19. Lợi nhuận sau thuế thu nhập doanh nghiệp (15)-(18)": "net_profit_after_corporate_income_tax",
-            "20. Lợi nhuận sau thuế của cổ đông không kiểm soát": "non_controlling_interests",
-            "21. Lợi nhuận sau thuế của cổ đông của công ty mẹ (19)-(20)": "net_profit_parent",
-        }
+    # Giữ nguyên từ danh sách cũ
+    "stock_id": "stock_id",
+    "year": "year",
+    "quarter": "quarter",
+    
+    # Bổ sung các key mới cho ngành Ngân hàng (ACB)
+    "Thu nhập lãi thuần": "net_interest_income",
+    "Thu nhập từ lãi và các khoản thu nhập tương tự": "interest_and_similar_income",
+    "Chi phí lãi và các chi phí tương tự": "interest_and_similar_expenses",
+    "Lãi/Lỗ thuần từ hoạt động dịch vụ": "net_fee_and_commission_income",
+    "Thu nhập từ hoạt động dịch vụ": "fee_and_commission_income",
+    "Chi phí hoạt động dịch vụ": "fee_and_commission_expenses",
+    "Lãi/Lỗ thuần từ hoạt động kinh doanh ngoại hối": "net_gain_loss_from_foreign_currency_and_gold_dealings",
+    "Lãi/Lỗ thuần từ mua bán chứng khoán kinh doanh": "net_gain_loss_from_trading_securities",
+    "Lãi/Lỗ thuần từ mua bán chứng khoán đầu tư": "net_gain_loss_from_investment_securities",
+    "Lãi/Lỗ thuần từ hoạt động khác": "net_gain_loss_from_other_operating_activities",
+    "Thu nhập từ hoạt động khác": "other_operating_income",
+    "Chi phí hoạt động khác": "other_operating_expenses",
+    "Thu nhập từ hoạt động góp vốn mua cổ phần": "income_from_long_term_investments",
+    "Chi phí hoạt động": "operating_expenses",
+    "Lợi nhuận từ HDKD trước chi phí dự phòng rủi ro tín dụng": "net_operating_profit_before_provision_for_credit_losses",
+    "Chi phí dự phòng rủi ro tín dụng": "provision_expenses_for_credit_losses",
+    "Tổng lợi nhuận trước thuế": "total_accounting_profit_before_tax",
+    "Chi phí thuế TNDN": "corporate_income_tax_expense",
+    "Chi phí thuế thu nhập hiện hành": "current_corporate_income_tax_expense",
+    "Chi phí thuế TNDN giữ lại": "deferred_corporate_income_tax_expense",
+    "Lợi nhuận sau thuế thu nhập doanh nghiệp": "net_profit_after_corporate_income_tax",
+    "Lợi ích của cổ đông thiểu số và cổ tức ưu đãi": "non_controlling_interests_and_preferred_dividends",
+    "LNST sau khi điều chỉnh Lợi ích của CĐTS và Cổ tức ưu đãi": "net_profit_parent"
+}
 
         for item in items:
             for key, value in mapping_keyword.items():
@@ -148,23 +152,23 @@ class CrawlBCTC(BasePlaywrightCrawler):
         self._map_keys(final_result)
         return final_result
 
-    async def _upsert_to_postgresql(self, results: list[dict[str, Any]]) -> None:
-        try:
-            async for db in async_session_scope():
-                model_path = "src.shared.infrastructure.db.models.IncomeStatementType1"
-                final_repo = FinalStatementRepository(model_path=model_path, session=db)
+    # async def _upsert_to_postgresql(self, results: list[dict[str, Any]]) -> None:
+    #     try:
+    #         async for db in async_session_scope():
+    #             model_path = "src.shared.infrastructure.db.models.IncomeStatementType1"
+    #             final_repo = FinalStatementRepository(model_path=model_path, session=db)
 
-                for result in results:
-                    # data = {k: self._parse_string_to_int(v) for k, v in item.items()}
-                    await final_repo.upsert_by_year_quarter_stock_id(
-                        stock_id=result["stock_id"],
-                        year=result["year"],
-                        quarter=result["quarter"],
-                        data=result,
-                    )
-        except Exception as e:
-            print(f"Error inserting data to PostgreSQL: {e}")
-            raise
+    #             for result in results:
+    #                 # data = {k: self._parse_string_to_int(v) for k, v in item.items()}
+    #                 await final_repo.upsert_by_year_quarter_stock_id(
+    #                     stock_id=result["stock_id"],
+    #                     year=result["year"],
+    #                     quarter=result["quarter"],
+    #                     data=result,
+    #                 )
+    #     except Exception as e:
+    #         print(f"Error inserting data to PostgreSQL: {e}")
+    #         raise
 
     async def crawl_pages(self, links: list[str], **kwargs: Any) -> AsyncIterator[list[dict[str, Any]]]:
         await self._init_crawler()
@@ -195,12 +199,14 @@ test_crawler = CrawlBCTC(
 )
 
 test_links = [
-    "https://fireant.vn/ma-chung-khoan/MWG",
+    "https://fireant.vn/ma-chung-khoan/ACB",
 ]
 
 async def test_extract():
     async for batch in test_crawler.crawl_pages(test_links):
-        await test_crawler._upsert_to_postgresql(batch)
+        # await test_crawler._upsert_to_postgresql(batch)
+        print(batch)
+        print("-----------------")
         print(f"Extracted {len(batch)} records for stock_id={batch[0]['stock_id'] if batch else None}")
     # await asyncio.sleep(5)
     # print(f"Extracted {len(data)} records")
