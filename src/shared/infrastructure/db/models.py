@@ -585,3 +585,38 @@ class CashFlowStatementTypeFour(Base):
     cash_and_cash_equivalents_at_start_of_period: Mapped[int] = mapped_column(nullable=False, comment='Tiền và tương đương tiền đầu kỳ')
     effect_of_exchange_rate_changes: Mapped[int] = mapped_column(nullable=False, comment='Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ')
     cash_and_cash_equivalents_at_end_of_period: Mapped[int] = mapped_column(nullable=False, comment='Tiền và tương đương tiền cuối kỳ')
+
+
+class FinancialStatisticsOverviewTypeFour(Base):
+    """
+        Financial statistics overview for any stock
+    """
+    __tablename__ = 'fs_financial_statistics_overview_type_four'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    year: Mapped[int] = mapped_column(nullable=False, index=True)
+    quarter: Mapped[str] = mapped_column(String(10), nullable=False, index=True)
+    p_e: Mapped[float] = mapped_column(nullable=False, comment='P/E')
+    p_s: Mapped[float] = mapped_column(nullable=False, comment='P/S')
+    p_b: Mapped[float] = mapped_column(nullable=False, comment='P/B')
+    eps: Mapped[float] = mapped_column(nullable=False, comment='EPS')
+    net_profit_margin: Mapped[float] = mapped_column(nullable=False, comment='Net Profit Margin')
+    yoea: Mapped[float] = mapped_column(nullable=False, comment='YOE')
+    nim: Mapped[float] = mapped_column(nullable=False, comment='NIM')
+    cof: Mapped[float] = mapped_column(nullable=False, comment='COF')
+    lar: Mapped[float] = mapped_column(nullable=False, comment='LAR')
+    ldr: Mapped[float] = mapped_column(nullable=False, comment='LDR')
+    clr: Mapped[float] = mapped_column(nullable=False, comment='CLR')
+    cta: Mapped[float] = mapped_column(nullable=False, comment='CTA')
+    elr: Mapped[float] = mapped_column(nullable=False, comment='ELR')
+    roa: Mapped[float] = mapped_column(nullable=False, comment='ROA')
+    roe: Mapped[float] = mapped_column(nullable=False, comment='ROE')
+    cir: Mapped[float] = mapped_column(nullable=False, comment='CIR')
+    llrl: Mapped[float] = mapped_column(nullable=False, comment='LLRL')
+    llrnpl: Mapped[float] = mapped_column(nullable=False, comment='LLRNPL')
+    npl_ratio: Mapped[float] = mapped_column(nullable=False, comment='NPL Ratio')
+    pcl: Mapped[float] = mapped_column(nullable=False, comment='PCL')

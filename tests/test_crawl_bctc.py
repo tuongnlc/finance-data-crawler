@@ -75,7 +75,7 @@ class CrawlBCTC(BasePlaywrightCrawler):
         await self.page.evaluate("window.scrollTo(0, document.body.scrollHeight);")
         await self.page.wait_for_timeout(500)
 
-    def _parse_string_to_int(self, value: Any) -> Any:
+    def _parse_string_to_float(self, value: Any) -> Any:
         if value is None:
             return 0
 
@@ -84,16 +84,16 @@ class CrawlBCTC(BasePlaywrightCrawler):
 
         if isinstance(value, str):
             if "," in value:
-                return int(value.replace(",", ""))
+                return float(value.replace(",", ""))
             if value == "":
                 return 0
             else:
                 try:
-                    return int(value)
+                    return float(value)
                 except:
                     return value
         else:
-            raise ValueError(f"Expected str or int, got {type(value)}")
+            raise ValueError(f"Expected str or float, got {type(value)}")
 
     def _remove_blank_data(
         self,
@@ -127,12 +127,12 @@ class CrawlBCTC(BasePlaywrightCrawler):
         await tai_chinh_tab.click()
         await self.page.wait_for_timeout(1000)
 
-        bao_cao_tai_chinh_tab = self.page.get_by_role("tab", name="Báo cáo tài chính").first
-        await bao_cao_tai_chinh_tab.wait_for(state="visible", timeout=5000)
-        await bao_cao_tai_chinh_tab.click()
-        await self.page.wait_for_timeout(1000)
+        # bao_cao_tai_chinh_tab = self.page.get_by_role("tab", name="Báo cáo tài chính").first
+        # await bao_cao_tai_chinh_tab.wait_for(state="visible", timeout=5000)
+        # await bao_cao_tai_chinh_tab.click()
+        # await self.page.wait_for_timeout(1000)
 
-        can_doi_ke_toan_tag = self.page.get_by_role("tab", name="LCTT trực tiếp").first
+        can_doi_ke_toan_tag = self.page.get_by_role("tab", name="Chỉ tiêu tài chính").first
         await can_doi_ke_toan_tag.wait_for(state="visible", timeout=5000)
         await can_doi_ke_toan_tag.click()
         await self.page.wait_for_timeout(1000)
@@ -144,59 +144,27 @@ class CrawlBCTC(BasePlaywrightCrawler):
     "year": "year",
     "quarter": "quarter",
 
-    # ==================== I. DÒNG TIỀN TỪ HOẠT ĐỘNG KINH DOANH ====================
-    "Thu nhập lãi và các khoản thu nhập tương tự nhận được": "interest_and_similar_income_received",
-    "Chi phí lãi và các chi phí tương tự đã trả": "interest_and_similar_expenses_paid",
-    "Thu nhập từ hoạt động dịch vụ nhận được": "fee_and_commission_income_received",
-    "Chênh lệch số tiền thực thu/ thực chi từ hoạt động kinh doanh (ngoại tệ, vàng bạc, chứng khoán)": "net_gain_loss_from_trading_activities",
-    "Thu nhập khác": "other_operating_income",
-    "Tiền thu các khoản nợ đã được xử lý xóa, bù đắp bằng nguồn rủi ro": "cash_recovered_from_bad_debts_written_off",
-    "Tiền chi trả cho nhân viên và hoạt động quản lý, công vụ": "cash_paid_to_employees_and_for_operating_expenses",
-    "Tiền thuế thu nhập thực nộp trong kỳ": "corporate_income_tax_paid",
-    "Lưu chuyển tiền thuần từ hoạt động kinh doanh trước những thay đổi về tài sản và vốn lưu động": "operating_cash_flows_before_working_capital_changes",
-    "(Tăng)/Giảm các khoản tiền, vàng gửi và cho vay các TCTD khác": "change_in_deposits_and_loans_to_other_cits",
-    "(Tăng)/Giảm các khoản về kinh doanh chứng khoán": "change_in_trading_securities",
-    "(Tăng)/Giảm các công cụ tài chính phái sinh và các tài sản tài chính khác": "change_in_derivative_financial_assets",
-    "(Tăng)/Giảm các khoản cho vay khách hàng": "change_in_loans_to_customers",
-    "(Tăng)/Giảm nguồn dự phòng để bù bắp tổn thất các khoản": "change_in_provisions_for_credit_losses",
-    "(Tăng)/Giảm khác về tài sản hoạt động": "change_in_other_operating_assets",
-    "Tăng/(Giảm) các khoản nợ chính phủ và NHNN": "change_in_due_to_government_and_sbv",
-    "Tăng/(Giảm) các khoản tiền gửi, tiền vay các TCTD": "change_in_deposits_and_borrowings_from_other_cits",
-    "Tăng/(Giảm) tiền gửi của khách hàng": "change_in_deposits_from_customers",
-    "Tăng/(Giảm) phát hành giấy tờ có giá": "change_in_valuable_papers_issued",
-    "Tăng/(Giảm) vốn tài trợ, ủy thác đầu tư, cho vay mà TCTD chịu rủi ro": "change_in_entrusted_funds_and_loans",
-    "Tăng/(Giảm) các công cụ tài chính phái sinh và các khoản nợ tài chính khác": "change_in_derivative_financial_liabilities",
-    "Tăng/(Giảm) khác về công nợ hoạt động": "change_in_other_operating_liabilities",
-    "Chi từ các quỹ của TCTD": "payments_from_welfare_and_other_funds",
-    "Lưu chuyển tiền thuần từ hoạt động kinh doanh": "net_cash_flows_from_operating_activities",
-
-    # ==================== II. DÒNG TIỀN TỪ HOẠT ĐỘNG ĐẦU TƯ ====================
-    "Tiền giảm do bán công ty con": "cash_proceeds_from_disposal_of_subsidiaries",
-    "Mua sắm TSCĐ": "cash_paid_for_fixed_assets",
-    "Tiền thu từ thanh lý, nhượng bán TSCĐ": "cash_received_from_disposal_of_fixed_assets",
-    "Tiền chi từ thanh lý, nhượng bán TSCĐ": "cash_paid_for_disposal_of_fixed_assets",
-    "Mua sắm bất động sản đầu tư": "cash_paid_for_investment_properties",
-    "Tiền thu từ bán, thanh lý bất động sản đầu tư": "cash_received_from_disposal_of_investment_properties",
-    "Tiền chi ra do bán, thanh lý bất động sản đầu tư": "cash_paid_for_disposal_of_investment_properties",
-    "Tiền chi đầu tư, góp vốn vào các đơn vị khác": "cash_paid_for_equity_investments",
-    "Tiền thu đầu tư, góp vốn vào các đơn vị khác": "cash_received_from_equity_investments",
-    "Tiền thu cổ tức và lợi nhuận được chia từ các khoản đầu tư, góp vốn dài hạn": "dividends_and_profits_received",
-    "Lưu chuyển tiền thuần từ hoạt động đầu tư": "net_cash_flows_from_investing_activities",
-
-    # ==================== III. DÒNG TIỀN TỪ HOẠT ĐỘNG TÀI CHÍNH ====================
-    "Tăng vốn cổ phần từ góp vốn và phát hành cổ phiếu": "cash_received_from_issuing_shares",
-    "Tiền thu từ phát hành giấy tờ có giá dài hạn có đủ điều kiện tính vào vốn tự có và các khoản vốn vay dài hạn khác": "cash_received_from_long_term_eligible_papers_and_loans",
-    "Tiền chi thanh toán giấy tờ có giá dài hạn có đủ điều kiện tính vào vốn tự có và các khoản vốn vay dài hạn khác": "cash_repayments_of_long_term_eligible_papers_and_loans",
-    "Cổ tức trả cho cổ đông, lợi nhuận đã chia": "dividends_paid_to_shareholders",
-    "Tiền chi ra mua cổ phiếu ngân quỹ": "cash_paid_for_treasury_shares_buyback",
-    "Tiền thu được do bán cổ phiếu ngân quỹ": "cash_received_from_disposal_of_treasury_shares",
-    "Lưu chuyển tiền từ hoạt động tài chính": "net_cash_flows_from_financing_activities",
-
-    # ==================== TỔNG KẾT CUỐI KỲ ====================
-    "Lưu chuyển tiền thuần trong kỳ": "net_change_in_cash",
-    "Tiền và tương đương tiền đầu kỳ": "cash_and_cash_equivalents_at_start_of_period",
-    "Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ": "effect_of_exchange_rate_changes",
-    "Tiền và tương đương tiền cuối kỳ": "cash_and_cash_equivalents_at_end_of_period",
+    # Các chỉ số tài chính
+    "P/E": "p_e",
+    "P/S": "p_s",
+    "P/B": "p_b",
+    "EPS": "eps",
+    "Tỷ lệ lãi ròng (%)": "net_profit_margin",
+    "YOEA (%)": "yoea",
+    "NIM (%)": "nim",
+    "COF (%)": "cof",
+    "LAR (%)": "lar",
+    "LDR (%)": "ldr",
+    "CLR (%)": "clr",
+    "CTA (%)": "cta",
+    "ELR (%)": "elr",
+    "ROA (%)": "roa",
+    "ROE (%)": "roe",
+    "CIR (%)": "cir",
+    "LLRL (%)": "llrl",
+    "LLRNPL (%)": "llrnpl",
+    "Tỷ lệ nợ xấu (%)": "npl_ratio",
+    "PCL (%)": "pcl"
 }
 
         for item in items:
@@ -216,58 +184,85 @@ class CrawlBCTC(BasePlaywrightCrawler):
         html_content = await self.page.content()
 
         soup = BeautifulSoup(html_content, "html.parser")
-        table = soup.find("table", class_=lambda x: x and "border-collapse" in x)
-        if not table:
+        tables = soup.select("table.border-collapse")
+        target_tables: list[Any] = []
+        for candidate in tables:
+            thead = candidate.find("thead")
+            if not thead:
+                continue
+            header_cells = thead.find_all("th")
+            if any(th.get_text(strip=True).startswith("Q") for th in header_cells):
+                target_tables.append(candidate)
+
+        if not target_tables:
             print("Không tìm thấy bảng dữ liệu!")
             raise ValueError("Không tìm thấy bảng dữ liệu!")
 
         stock_id = link.split("/")[-1]
 
-        quarters: list[str] = []
-        header_cells = table.find("thead").find_all("th")
-        for th in header_cells:
-            text = th.get_text(strip=True)
-            if text.startswith("Q"):
-                quarters.append(text)
+        quarter_labels: list[str] = []
+        quarter_label_to_key: dict[str, tuple[str, int, str]] = {}
+        for table in target_tables:
+            header_cells = table.find("thead").find_all("th")
+            for th in header_cells:
+                label = th.get_text(strip=True)
+                if not label.startswith("Q"):
+                    continue
+                if label in quarter_label_to_key:
+                    continue
+                quarter, year = label.split("/")
+                key = (stock_id, int(year), quarter)
+                quarter_label_to_key[label] = key
+                quarter_labels.append(label)
 
-        quarter_keys: list[tuple[str, int, str]] = []
-        for q in quarters:
-            quarter, year = q.split(" ")
-            quarter_keys.append((stock_id, int(year), quarter))
+        quarter_keys = [quarter_label_to_key[label] for label in quarter_labels]
 
         data_by_quarter: dict[tuple[str, int, str], dict[str, Any]] = {
             (sid, year, quarter): {"stock_id": sid, "year": year, "quarter": quarter}
             for sid, year, quarter in quarter_keys
         }
 
-        rows = table.find("tbody").find_all("tr")
-        for row in rows:
-            cells = row.find_all("td")
-            values_start = len(cells) - len(quarters)
-            if values_start <= 0:
+        representative_key = quarter_keys[0] if quarter_keys else None
+        for table in target_tables:
+            table_quarters: list[str] = []
+            header_cells = table.find("thead").find_all("th")
+            for th in header_cells:
+                label = th.get_text(strip=True)
+                if label.startswith("Q"):
+                    table_quarters.append(label)
+
+            tbody = table.find("tbody")
+            if not tbody:
                 continue
 
-            indicator_name_raw = cells[0].get_text(" ", strip=True)
-            indicator_name_raw = " ".join(indicator_name_raw.split())
-            indicator_name = indicator_name_raw.lstrip("-+ ").rstrip()
-            indicator_name = re.sub(r"\s*\(\s*\d+\s*\)\s*$", "", indicator_name).strip()
+            rows = tbody.find_all("tr")
+            for row in rows:
+                cells = row.find_all("td")
+                values_start = len(cells) - len(table_quarters)
+                if values_start <= 0:
+                    continue
 
-            unique_indicator_name = indicator_name
-            if quarter_keys:
-                sid0, year0, quarter0 = quarter_keys[0]
-                existing0 = data_by_quarter[(sid0, year0, quarter0)]
-                if unique_indicator_name in existing0:
-                    suffix = 2
-                    while f"{indicator_name} ({suffix})" in existing0:
-                        suffix += 1
-                    unique_indicator_name = f"{indicator_name} ({suffix})"
+                indicator_name_raw = cells[0].get_text(" ", strip=True)
+                indicator_name_raw = " ".join(indicator_name_raw.split())
+                indicator_name = indicator_name_raw.lstrip("-+ ").rstrip()
+                indicator_name = re.sub(r"\s*\(\s*\d+\s*\)\s*$", "", indicator_name).strip()
 
-            for index in range(len(quarters)):
-                value_cell = cells[values_start + index]
-                value = value_cell.get_text(strip=True)
+                unique_indicator_name = indicator_name
+                if representative_key:
+                    existing0 = data_by_quarter[representative_key]
+                    if unique_indicator_name in existing0:
+                        suffix = 2
+                        while f"{indicator_name} ({suffix})" in existing0:
+                            suffix += 1
+                        unique_indicator_name = f"{indicator_name} ({suffix})"
 
-                sid, year, quarter = quarter_keys[index]
-                data_by_quarter[(sid, year, quarter)][unique_indicator_name] = value
+                for index, label in enumerate(table_quarters):
+                    quarter_key = quarter_label_to_key.get(label)
+                    if not quarter_key:
+                        continue
+                    value_cell = cells[values_start + index]
+                    value = value_cell.get_text(strip=True)
+                    data_by_quarter[quarter_key][unique_indicator_name] = value
 
         final_result = [data_by_quarter[key] for key in quarter_keys]
         self._remove_blank_data(final_result, 
@@ -280,7 +275,7 @@ class CrawlBCTC(BasePlaywrightCrawler):
     async def _upsert_to_postgresql(self, results: list[dict[str, Any]]) -> None:
         try:
             async for db in async_session_scope():
-                model_path = "src.shared.infrastructure.db.models.CashFlowStatementTypeFour"
+                model_path = "src.shared.infrastructure.db.models.FinancialStatisticsOverview"
                 final_repo = FinalStatementRepository(model_path=model_path, session=db)
 
                 for result in results:
@@ -302,7 +297,7 @@ class CrawlBCTC(BasePlaywrightCrawler):
             for link in links:
                 items = await self._extract_single_link(link)
                 for item in items:
-                    data = {k: self._parse_string_to_int(v) for k, v in item.items()}
+                    data = {k: self._parse_string_to_float(v) for k, v in item.items()}
                     results.append(data)
                 yield results
                 # await asyncio.sleep(60)

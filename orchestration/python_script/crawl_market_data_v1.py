@@ -103,6 +103,12 @@ CRAWLER_CLASS = {
         "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.CashFlowStatementTypeFour"},
         "use_case": CrawlFinanceStatementUseCase,
     },
+    "financial_statistics_overview_type_four": {
+        "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("financial_statistics_overview_type_four", headless=headless),
+        "loader": FinalStatementRepository,
+        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeFour"},
+        "use_case": CrawlFinanceStatementUseCase,
+    },
 }
 
 async def run_crawler(
