@@ -22,7 +22,6 @@ urls:
   - https://fireant.vn/ma-chung-khoan/OIL
   - https://fireant.vn/ma-chung-khoan/VGT
   - https://fireant.vn/ma-chung-khoan/MSH
-  - https://fireant.vn/ma-chung-khoan/TNG
   - https://fireant.vn/ma-chung-khoan/TCM
   - https://fireant.vn/ma-chung-khoan/HTG
   - https://fireant.vn/ma-chung-khoan/GIL
@@ -34,7 +33,6 @@ urls:
   - https://fireant.vn/ma-chung-khoan/DGC
   - https://fireant.vn/ma-chung-khoan/DCM
   - https://fireant.vn/ma-chung-khoan/DPM
-  - https://fireant.vn/ma-chung-khoan/DHC
   - https://fireant.vn/ma-chung-khoan/AAA
   - https://fireant.vn/ma-chung-khoan/TDP
   - https://fireant.vn/ma-chung-khoan/MZG
@@ -55,7 +53,6 @@ urls:
   - https://fireant.vn/ma-chung-khoan/NVL
   - https://fireant.vn/ma-chung-khoan/VPI
   - https://fireant.vn/ma-chung-khoan/IDC
-  - https://fireant.vn/ma-chung-khoan/DXG
   - https://fireant.vn/ma-chung-khoan/PDR
   - https://fireant.vn/ma-chung-khoan/TAL
   - https://fireant.vn/ma-chung-khoan/SIP
@@ -94,5 +91,6 @@ urls:
   - https://fireant.vn/ma-chung-khoan/HHS
   - https://fireant.vn/ma-chung-khoan/DPR
   - https://fireant.vn/ma-chung-khoan/VVS
-  - https://fireant.vn/ma-chung-khoan/DRC
   - https://fireant.vn/ma-chung-khoan/TRC
+  - https://fireant.vn/ma-chung-khoan/DXG
+

@@ -6,7 +6,7 @@ from typing import Any, AsyncIterator
 
 TProduct = TypeVar("TProduct", bound=BasePlaywrightCrawler)
 
-class CrawlCashFlowStatementTypeOne(BasePlaywrightCrawler):
+class CrawlCashFlowStatementTypeFour(BasePlaywrightCrawler):
     def __init__(self, headless: bool = True) -> None:
         super().__init__(headless=headless)
 
@@ -123,7 +123,7 @@ class CrawlCashFlowStatementTypeOne(BasePlaywrightCrawler):
         await bao_cao_tai_chinh_tab.click()
         await self.page.wait_for_timeout(1000)
 
-        bao_cao_luu_chuyen_tien_te_tag = self.page.get_by_role("tab", name="LCTT gián tiếp").first
+        bao_cao_luu_chuyen_tien_te_tag = self.page.get_by_role("tab", name="LCTT trực tiếp").first
         await bao_cao_luu_chuyen_tien_te_tag.wait_for(state="visible", timeout=5000)
         await bao_cao_luu_chuyen_tien_te_tag.click()
         await self.page.wait_for_timeout(1000)
@@ -136,57 +136,52 @@ class CrawlCashFlowStatementTypeOne(BasePlaywrightCrawler):
             "quarter": "quarter",
 
             # ==================== I. DÒNG TIỀN TỪ HOẠT ĐỘNG KINH DOANH ====================
-            "1. Lợi nhuận trước thuế": "profit_before_tax",
-            "2. Điều chỉnh cho các khoản": "total_adjustments",
-            "Khấu hao TSCĐ": "depreciation_of_fixed_assets",
-            "Các khoản dự phòng": "provisions",
-            "Lợi nhuận thuần từ đầu tư vào công ty liên kết": "share_of_profit_from_associates",
-            "Xóa sổ tài sản cố định (thuần)": "write_offs_of_fixed_assets",
-            "Lãi, lỗ chênh lệch tỷ giá hối đoái chưa thực hiện": "unrealized_foreign_exchange_changes",
-            "Lãi, lỗ từ thanh lý TSCĐ": "gain_loss_from_disposal_of_fixed_assets",
-            "Lãi, lỗ từ hoạt động đầu tư": "gain_loss_from_investing_activities",
-            "Lãi tiền gửi": "interest_income_from_deposits",
-            "Thu nhập lãi": "interest_income",
-            "Chi phí lãi vay": "interest_expense",
-            "Các khoản chi trực tiếp từ lợi nhuận": "direct_appropriations_from_profit",
-            "3. Lợi nhuận từ hoạt động kinh doanh trước thay đổi vốn lưu động": "operating_profit_before_working_capital_change",
-            "Tăng, giảm các khoản phải thu": "change_in_receivables",
-            "Tăng, giảm hàng tồn kho": "change_in_inventory",
-            "Tăng, giảm các khoản phải trả (Không kể lãi vay phải trả, thuế thu nhập doanh nghiệp phải nộp)": "change_in_payables_excl_tax_and_interest",
-            "Tăng giảm chi phí trả trước": "change_in_prepaid_expenses",
-            "Tăng giảm tài sản ngắn hạn khác": "change_in_other_current_assets",
-            "Tiền lãi vay phải trả": "interest_paid",
-            "Thuế thu nhập doanh nghiệp đã nộp": "corporate_income_tax_paid",
-            "Tiền thu khác từ hoạt động kinh doanh": "other_operating_cash_receipts",
-            "Tiền chi khác từ hoạt động kinh doanh": "other_operating_cash_payments",
+            "Thu nhập lãi và các khoản thu nhập tương tự nhận được": "interest_and_similar_income_received",
+            "Chi phí lãi và các chi phí tương tự đã trả": "interest_and_similar_expenses_paid",
+            "Thu nhập từ hoạt động dịch vụ nhận được": "fee_and_commission_income_received",
+            "Chênh lệch số tiền thực thu/ thực chi từ hoạt động kinh doanh (ngoại tệ, vàng bạc, chứng khoán)": "net_gain_loss_from_trading_activities",
+            "Thu nhập khác": "other_operating_income",
+            "Tiền thu các khoản nợ đã được xử lý xóa, bù đắp bằng nguồn rủi ro": "cash_recovered_from_bad_debts_written_off",
+            "Tiền chi trả cho nhân viên và hoạt động quản lý, công vụ": "cash_paid_to_employees_and_for_operating_expenses",
+            "Tiền thuế thu nhập thực nộp trong kỳ": "corporate_income_tax_paid",
+            "Lưu chuyển tiền thuần từ hoạt động kinh doanh trước những thay đổi về tài sản và vốn lưu động": "operating_cash_flows_before_working_capital_changes",
+            "(Tăng)/Giảm các khoản tiền, vàng gửi và cho vay các TCTD khác": "change_in_deposits_and_loans_to_other_cits",
+            "(Tăng)/Giảm các khoản về kinh doanh chứng khoán": "change_in_trading_securities",
+            "(Tăng)/Giảm các công cụ tài chính phái sinh và các tài sản tài chính khác": "change_in_derivative_financial_assets",
+            "(Tăng)/Giảm các khoản cho vay khách hàng": "change_in_loans_to_customers",
+            "(Tăng)/Giảm nguồn dự phòng để bù bắp tổn thất các khoản": "change_in_provisions_for_credit_losses",
+            "(Tăng)/Giảm khác về tài sản hoạt động": "change_in_other_operating_assets",
+            "Tăng/(Giảm) các khoản nợ chính phủ và NHNN": "change_in_due_to_government_and_sbv",
+            "Tăng/(Giảm) các khoản tiền gửi, tiền vay các TCTD": "change_in_deposits_and_borrowings_from_other_cits",
+            "Tăng/(Giảm) tiền gửi của khách hàng": "change_in_deposits_from_customers",
+            "Tăng/(Giảm) phát hành giấy tờ có giá": "change_in_valuable_papers_issued",
+            "Tăng/(Giảm) vốn tài trợ, ủy thác đầu tư, cho vay mà TCTD chịu rủi ro": "change_in_entrusted_funds_and_loans",
+            "Tăng/(Giảm) các công cụ tài chính phái sinh và các khoản nợ tài chính khác": "change_in_derivative_financial_liabilities",
+            "Tăng/(Giảm) khác về công nợ hoạt động": "change_in_other_operating_liabilities",
+            "Chi từ các quỹ của TCTD": "payments_from_welfare_and_other_funds",
             "Lưu chuyển tiền thuần từ hoạt động kinh doanh": "net_cash_flows_from_operating_activities",
 
             # ==================== II. DÒNG TIỀN TỪ HOẠT ĐỘNG ĐẦU TƯ ====================
-            "1. Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác": "cash_paid_for_fixed_assets",
-            "2. Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác": "cash_received_from_disposal_of_fixed_assets",
-            "3. Tiền chi cho vay, mua các công cụ nợ của đơn vị khác": "cash_paid_for_loans_and_debt_instruments",
-            "4. Tiền thu hồi cho vay, bán lại các công cụ nợ của các đơn vị khác": "cash_received_from_loans_and_debt_instruments",
-            "5. Đầu tư góp vốn vào công ty liên doanh liên kết": "investments_in_joint_ventures_and_associates",
-            "6. Chi đầu tư ngắn hạn": "cash_paid_for_short_term_investments",
-            "7. Tiền chi đầu tư góp vốn vào đơn vị khác": "cash_paid_for_equity_investments",
-            "8. Tiền thu hồi đầu tư góp vốn vào đơn vị khác": "cash_received_from_equity_investments",
-            "9. Lãi tiền gửi đã thu": "interest_received_from_deposits",
-            "10. Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia": "interest_and_dividends_received",
-            "11. Tiền chi mua lại phần vốn góp của các cổ đông thiểu số": "cash_paid_to_buy_back_minority_interests",
+            "Tiền giảm do bán công ty con": "cash_proceeds_from_disposal_of_subsidiaries",
+            "Mua sắm TSCĐ": "cash_paid_for_fixed_assets",
+            "Tiền thu từ thanh lý, nhượng bán TSCĐ": "cash_received_from_disposal_of_fixed_assets",
+            "Tiền chi từ thanh lý, nhượng bán TSCĐ": "cash_paid_for_disposal_of_fixed_assets",
+            "Mua sắm bất động sản đầu tư": "cash_paid_for_investment_properties",
+            "Tiền thu từ bán, thanh lý bất động sản đầu tư": "cash_received_from_disposal_of_investment_properties",
+            "Tiền chi ra do bán, thanh lý bất động sản đầu tư": "cash_paid_for_disposal_of_investment_properties",
+            "Tiền chi đầu tư, góp vốn vào các đơn vị khác": "cash_paid_for_equity_investments",
+            "Tiền thu đầu tư, góp vốn vào các đơn vị khác": "cash_received_from_equity_investments",
+            "Tiền thu cổ tức và lợi nhuận được chia từ các khoản đầu tư, góp vốn dài hạn": "dividends_and_profits_received",
             "Lưu chuyển tiền thuần từ hoạt động đầu tư": "net_cash_flows_from_investing_activities",
 
             # ==================== III. DÒNG TIỀN TỪ HOẠT ĐỘNG TÀI CHÍNH ====================
-            "1. Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu": "cash_received_from_issuing_shares",
-            "2. Tiền chi trả vốn góp cho các chủ sở hữu, mua lại cổ phiếu của doanh nghiệp đã phát hành": "cash_paid_for_share_buybacks",
-            "3. Tiền vay ngắn hạn, dài hạn nhận được": "cash_received_from_borrowings",
-            "4. Tiền chi trả nợ gốc vay": "cash_repayments_of_borrowings",
-            "5. Tiền chi trả nợ thuê tài chính": "cash_repayments_of_finance_lease_liabilities",
-            "6. Tiền chi khác từ hoạt động tài chính": "other_financing_cash_payments",
-            "7. Tiền chi trả từ cổ phần hóa": "payments_for_privatization",
-            "8. Cổ tức, lợi nhuận đã trả cho chủ sở hữu": "dividends_paid_to_owners",
-            "9. Vốn góp của các cổ đông thiểu số vào các công ty con": "minority_capital_contribution_into_subsidiaries",
-            "10. Chi tiêu quỹ phúc lợi xã hội": "payments_for_welfare_and_social_funds",
-            "Lưu chuyển tiền thuần từ hoạt động tài chính": "net_cash_flows_from_financing_activities",
+            "Tăng vốn cổ phần từ góp vốn và phát hành cổ phiếu": "cash_received_from_issuing_shares",
+            "Tiền thu từ phát hành giấy tờ có giá dài hạn có đủ điều kiện tính vào vốn tự có và các khoản vốn vay dài hạn khác": "cash_received_from_long_term_eligible_papers_and_loans",
+            "Tiền chi thanh toán giấy tờ có giá dài hạn có đủ điều kiện tính vào vốn tự có và các khoản vốn vay dài hạn khác": "cash_repayments_of_long_term_eligible_papers_and_loans",
+            "Cổ tức trả cho cổ đông, lợi nhuận đã chia": "dividends_paid_to_shareholders",
+            "Tiền chi ra mua cổ phiếu ngân quỹ": "cash_paid_for_treasury_shares_buyback",
+            "Tiền thu được do bán cổ phiếu ngân quỹ": "cash_received_from_disposal_of_treasury_shares",
+            "Lưu chuyển tiền từ hoạt động tài chính": "net_cash_flows_from_financing_activities",
 
             # ==================== TỔNG KẾT CUỐI KỲ ====================
             "Lưu chuyển tiền thuần trong kỳ": "net_change_in_cash",
@@ -194,7 +189,6 @@ class CrawlCashFlowStatementTypeOne(BasePlaywrightCrawler):
             "Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ": "effect_of_exchange_rate_changes",
             "Tiền và tương đương tiền cuối kỳ": "cash_and_cash_equivalents_at_end_of_period",
         }
-
 
         for item in items:
             for key, value in mapping_keyword.items():
@@ -266,7 +260,10 @@ class CrawlCashFlowStatementTypeOne(BasePlaywrightCrawler):
                 data_by_quarter[(sid, year, quarter)][unique_indicator_name] = value
 
         final_result = [data_by_quarter[key] for key in quarter_keys]
-        self._remove_blank_data(final_result, ["TÀI SẢN", "NGUỒN VỐN", "I. Lưu chuyển tiền từ hoạt động kinh doanh", "II. Lưu chuyển tiền từ hoạt động đầu tư", "III. Lưu chuyển tiền từ hoạt động tài chính", "III. Lưu chuyển tiền từ hoạt động tài chính"])
+        self._remove_blank_data(final_result, 
+        ["TÀI SẢN", "NGUỒN VỐN", "I. Lưu chuyển tiền từ hoạt động kinh doanh", "II. Lưu chuyển tiền từ hoạt động đầu tư", "III. Lưu chuyển tiền từ hoạt động tài chính", "III. Lưu chuyển tiền từ hoạt động tài chính",
+            "1. Những thay đổi về tài sản hoạt động", "2. Những thay đổi về công nợ hoạt động"
+        ])
         self._map_keys(final_result)
         return final_result
 
