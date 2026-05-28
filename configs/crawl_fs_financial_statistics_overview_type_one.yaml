@@ -3,11 +3,11 @@ data_type: finance_statement
 kind: financial_statistics_overview_type_one
 
 urls:
-  # - https://fireant.vn/ma-chung-khoan/MWG
-  # - https://fireant.vn/ma-chung-khoan/PNJ
-  # - https://fireant.vn/ma-chung-khoan/FRT
-  # - https://fireant.vn/ma-chung-khoan/DGW
-  # - https://fireant.vn/ma-chung-khoan/PVI
+  - https://fireant.vn/ma-chung-khoan/MWG
+  - https://fireant.vn/ma-chung-khoan/PNJ
+  - https://fireant.vn/ma-chung-khoan/FRT
+  - https://fireant.vn/ma-chung-khoan/DGW
+  - https://fireant.vn/ma-chung-khoan/PVI
   - https://fireant.vn/ma-chung-khoan/ACV
   - https://fireant.vn/ma-chung-khoan/GMD
   - https://fireant.vn/ma-chung-khoan/PHP

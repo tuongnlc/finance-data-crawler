@@ -6,16 +6,16 @@ from orchestration.python_script.crawl_market_data_v1 import main
 
 
 with DAG(
-    dag_id='crawl_balance_sheet_type_one',
+    dag_id='crawl_fs_balance_sheet_type_four',
     start_date=datetime(2024, 1, 1),
     schedule=None,
     catchup=False,
-    tags=['Crawl Balance Sheet Type One', 'Product Company'],   
+    tags=['Crawl Balance Sheet Type Four', 'Bank', 'Balance Sheet', 'Financial Statement'],   
 ) as dag:
     # Task 1: Bash execution
     start_crawl_dag = BashOperator(
         task_id='start_crawl_dag',
-        bash_command='echo "Start Crawl Balance Sheet Type One!"'
+        bash_command='echo "Start Crawl Balance Sheet Type Four!"'
     )
 
     # Task 2: Python execution
@@ -23,7 +23,7 @@ with DAG(
         task_id='crawl_balance_sheet_task',
         python_callable=main,
         op_kwargs={
-            "url": "crawl_balance_sheet_type_1.yaml",
+            "url": "crawl_fs_balance_sheet_type_4.yaml",
             "conn_id": "postgres_market_data"
         },
     )
