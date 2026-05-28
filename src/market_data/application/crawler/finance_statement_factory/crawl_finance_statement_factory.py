@@ -6,7 +6,8 @@ from src.market_data.application.crawler.finance_statement_factory.crawl_balance
 from src.market_data.application.crawler.finance_statement_factory.crawl_balance_sheet_type_four import CrawlBalanceSheetTypeFour
 from src.market_data.application.crawler.finance_statement_factory.crawl_cash_flow_statement_type_one import CrawlCashFlowStatementTypeOne
 from src.market_data.application.crawler.finance_statement_factory.crawl_cash_flow_statement_type_four import CrawlCashFlowStatementTypeFour
-from src.market_data.application.crawler.finance_statement_factory.crawl_financial_statistics_type_four import CrawlFinancialStatisticsOverviewTypeFour
+from src.market_data.application.crawler.finance_statement_factory.crawl_financial_statistics_overview_type_four import CrawlFinancialStatisticsOverviewTypeFour
+from src.market_data.application.crawler.finance_statement_factory.crawl_financial_statistics_overview_type_one import CrawlFinancialStatisticsOverviewTypeOne
 
 
 
@@ -21,6 +22,7 @@ class CrawlFinanceStatementFactory:
         "cash_flow_statement_type_one": lambda headless: CrawlCashFlowStatementTypeOne(headless=headless),
         "cash_flow_statement_type_four": lambda headless: CrawlCashFlowStatementTypeFour(headless=headless),
         "financial_statistics_overview_type_four": lambda headless: CrawlFinancialStatisticsOverviewTypeFour(headless=headless),
+        "financial_statistics_overview_type_one": lambda headless: CrawlFinancialStatisticsOverviewTypeOne(headless=headless),
     }
 
     @classmethod
