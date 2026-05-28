@@ -439,3 +439,80 @@ class BalanceSheetTypeFour(Base):
     other_reserves_and_funds: Mapped[int] = mapped_column(nullable=False, comment='6. Nguồn kinh phí, Quỹ khác')
     non_controlling_interests: Mapped[int] = mapped_column(nullable=False, comment='IX. Lợi ích của cổ đông thiểu số')
     total_liabilities_and_equity: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='TỔNG CỘNG NGUỒN VỐN')    
+
+
+class CashFlowStatementTypeOne(Base):
+    """
+    Cash Flow Statement (Báo cáo lưu chuyển tiền tệ) - Gián tiếp 
+    Áp dụng cho doanh nghiệp sản xuất, thương mại (Ví dụ: HPG, DGC, MWG...)
+    """
+    __tablename__ = 'fs_cash_flow_statement_type_one'
+
+    # --- Thông tin cấu trúc dữ liệu ---
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    year: Mapped[int] = mapped_column(nullable=False, index=True)
+    quarter: Mapped[str] = mapped_column(String(10), nullable=False, index=True)
+
+    # ==================== I. DÒNG TIỀN TỪ HOẠT ĐỘNG KINH DOANH ====================
+    profit_before_tax: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='1. Lợi nhuận trước thuế')
+    total_adjustments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='2. Điều chỉnh cho các khoản')
+    depreciation_of_fixed_assets: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Khấu hao TSCĐ')
+    provisions: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Các khoản dự phòng')
+    share_of_profit_from_associates: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lợi nhuận thuần từ đầu tư vào công ty liên kết')
+    write_offs_of_fixed_assets: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Xóa sổ tài sản cố định (thuần)')
+    unrealized_foreign_exchange_changes: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lãi, lỗ chênh lệch tỷ giá hối đoái chưa thực hiện')
+    gain_loss_from_disposal_of_fixed_assets: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lãi, lỗ từ thanh lý TSCĐ')
+    gain_loss_from_investing_activities: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lãi, lỗ từ hoạt động đầu tư')
+    interest_income_from_deposits: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lãi tiền gửi')
+    interest_income: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Thu nhập lãi')
+    interest_expense: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Chi phí lãi vay')
+    direct_appropriations_from_profit: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Các khoản chi trực tiếp từ lợi nhuận')
+    operating_profit_before_working_capital_change: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='3. Lợi nhuận từ hoạt động kinh doanh trước thay đổi vốn lưu động')
+    change_in_receivables: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tăng, giảm các khoản phải thu')
+    change_in_inventory: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tăng, giảm hàng tồn kho')
+    change_in_payables_excl_tax_and_interest: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tăng, giảm các khoản phải trả (Không kể lãi vay phải trả, thuế thu nhập doanh nghiệp phải nộp)')
+    change_in_prepaid_expenses: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tăng giảm chi phí trả trước')
+    change_in_other_current_assets: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tăng giảm tài sản ngắn hạn khác')
+    interest_paid: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền lãi vay phải trả')
+    corporate_income_tax_paid: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Thuế thu nhập doanh nghiệp đã nộp')
+    other_operating_cash_receipts: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền thu khác từ hoạt động kinh doanh')
+    other_operating_cash_payments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền chi khác từ hoạt động kinh doanh')
+    net_cash_flows_from_operating_activities: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lưu chuyển tiền thuần từ hoạt động kinh doanh')
+
+    # ==================== II. DÒNG TIỀN TỪ HOẠT ĐỘNG ĐẦU TƯ ====================
+    cash_paid_for_fixed_assets: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='1. Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác')
+    cash_received_from_disposal_of_fixed_assets: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='2. Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác')
+    cash_paid_for_loans_and_debt_instruments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='3. Tiền chi cho vay, mua các công cụ nợ của đơn vị khác')
+    cash_received_from_loans_and_debt_instruments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='4. Tiền thu hồi cho vay, bán lại các công cụ nợ của các đơn vị khác')
+    investments_in_joint_ventures_and_associates: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='5. Đầu tư góp vốn vào công ty liên doanh liên kết')
+    cash_paid_for_short_term_investments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='6. Chi đầu tư ngắn hạn')
+    cash_paid_for_equity_investments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='7. Tiền chi đầu tư góp vốn vào đơn vị khác')
+    cash_received_from_equity_investments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='8. Tiền thu hồi đầu tư góp vốn vào đơn vị khác')
+    interest_received_from_deposits: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='9. Lãi tiền gửi đã thu')
+    interest_and_dividends_received: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='10. Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia')
+    cash_paid_to_buy_back_minority_interests: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='11. Tiền chi mua lại phần vốn góp của các cổ đông thiểu số')
+    net_cash_flows_from_investing_activities: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lưu chuyển tiền thuần từ hoạt động đầu tư')
+
+    # ==================== III. DÒNG TIỀN TỪ HOẠT ĐỘNG TÀI CHÍNH ====================
+    cash_received_from_issuing_shares: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='1. Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu')
+    cash_paid_for_share_buybacks: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='2. Tiền chi trả vốn góp cho các chủ sở hữu, mua lại cổ phiếu của doanh nghiệp đã phát hành')
+    cash_received_from_borrowings: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='3. Tiền vay ngắn hạn, dài hạn nhận được')
+    cash_repayments_of_borrowings: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='4. Tiền chi trả nợ gốc vay')
+    cash_repayments_of_finance_lease_liabilities: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='5. Tiền chi trả nợ thuê tài chính')
+    other_financing_cash_payments: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='6. Tiền chi khác từ hoạt động tài chính')
+    payments_for_privatization: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='7. Tiền chi trả từ cổ phần hóa')
+    dividends_paid_to_owners: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='8. Cổ tức, lợi nhuận đã trả cho chủ sở hữu')
+    minority_capital_contribution_into_subsidiaries: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='9. Vốn góp của các cổ đông thiểu số vào các công ty con')
+    payments_for_welfare_and_social_funds: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='10. Chi tiêu quỹ phúc lợi xã hội')
+    net_cash_flows_from_financing_activities: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lưu chuyển tiền thuần từ hoạt động tài chính')
+
+    # ==================== TỔNG KẾT CUỐI KỲ ====================
+    net_change_in_cash: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Lưu chuyển tiền thuần trong kỳ')
+    cash_and_cash_equivalents_at_start_of_period: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền và tương đương tiền đầu kỳ')
+    effect_of_exchange_rate_changes: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ')
+    cash_and_cash_equivalents_at_end_of_period: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền và tương đương tiền cuối kỳ')

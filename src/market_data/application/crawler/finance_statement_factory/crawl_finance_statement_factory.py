@@ -4,6 +4,8 @@ from src.market_data.application.crawler.finance_statement_factory.crawl_finance
 from src.market_data.application.crawler.finance_statement_factory.crawl_finance_income_type_four import CrawlIncomeStatementTypeFour   
 from src.market_data.application.crawler.finance_statement_factory.crawl_balance_sheet_type_one import CrawlBalanceSheetTypeOne
 from src.market_data.application.crawler.finance_statement_factory.crawl_balance_sheet_type_four import CrawlBalanceSheetTypeFour
+# from src.market_data.application.crawler.finance_statement_factory.crawl_cash_flow_statement_type_one import CrawlCashFlowStatementTypeOne
+from src.market_data.application.crawler.finance_statement_factory.crawl_cash_flow_statement_type_one import CrawlCashFlowStatementTypeOne
 
 
 
@@ -15,6 +17,7 @@ class CrawlFinanceStatementFactory:
         "income_statement_type_four": lambda headless: CrawlIncomeStatementTypeFour(headless=headless),
         "balance_sheet_type_one": lambda headless: CrawlBalanceSheetTypeOne(headless=headless),
         "balance_sheet_type_four": lambda headless: CrawlBalanceSheetTypeFour(headless=headless),
+        "cash_flow_statement_type_one": lambda headless: CrawlCashFlowStatementTypeOne(headless=headless),
     }
 
     @classmethod
