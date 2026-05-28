@@ -1,24 +1,16 @@
-from typing import Any, AsyncIterator
 from src.shared.application.crawler.base import BasePlaywrightCrawler
-import asyncio
-import time
+from typing import Any, Callable, ClassVar, TypeVar
 from bs4 import BeautifulSoup
-from src.shared.infrastructure.db.models import IncomeStatementType1
-from src.market_data.infrastructure.persistence.postgresql.final_statement_repository import FinalStatementRepository
-from src.shared.infrastructure.db.connection import async_session_scope, get_async_engine
-
-#load dot_env
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from typing import Any, AsyncIterator
 
 
-class CrawlBCTC(BasePlaywrightCrawler):
+TProduct = TypeVar("TProduct", bound=BasePlaywrightCrawler)
+
+class CrawlCashFlowStatementTypeOne(BasePlaywrightCrawler):
     def __init__(self, headless: bool = True) -> None:
         super().__init__(headless=headless)
 
-    async def scroll_page(self):
+    async def scroll_page(self): #same with crawl balance sheet
         plus_icon = self.page.locator(
             "svg.lucide-plus, svg.lucide.lucide-plus, svg path[d='M12 5v14']"
         )
@@ -138,70 +130,70 @@ class CrawlBCTC(BasePlaywrightCrawler):
 
     def _map_keys(self, items: list[dict[str, Any]]) -> None:
         mapping_keyword = {
-    # Thông tin cấu trúc dữ liệu
-    "stock_id": "stock_id",
-    "year": "year",
-    "quarter": "quarter",
+            # Thông tin cấu trúc dữ liệu
+            "stock_id": "stock_id",
+            "year": "year",
+            "quarter": "quarter",
 
-    # ==================== I. DÒNG TIỀN TỪ HOẠT ĐỘNG KINH DOANH ====================
-    "1. Lợi nhuận trước thuế": "profit_before_tax",
-    "2. Điều chỉnh cho các khoản": "total_adjustments",
-    "Khấu hao TSCĐ": "depreciation_of_fixed_assets",
-    "Các khoản dự phòng": "provisions",
-    "Lợi nhuận thuần từ đầu tư vào công ty liên kết": "share_of_profit_from_associates",
-    "Xóa sổ tài sản cố định (thuần)": "write_offs_of_fixed_assets",
-    "Lãi, lỗ chênh lệch tỷ giá hối đoái chưa thực hiện": "unrealized_foreign_exchange_changes",
-    "Lãi, lỗ từ thanh lý TSCĐ": "gain_loss_from_disposal_of_fixed_assets",
-    "Lãi, lỗ từ hoạt động đầu tư": "gain_loss_from_investing_activities",
-    "Lãi tiền gửi": "interest_income_from_deposits",
-    "Thu nhập lãi": "interest_income",
-    "Chi phí lãi vay": "interest_expense",
-    "Các khoản chi trực tiếp từ lợi nhuận": "direct_appropriations_from_profit",
-    "3. Lợi nhuận từ hoạt động kinh doanh trước thay đổi vốn lưu động": "operating_profit_before_working_capital_change",
-    "Tăng, giảm các khoản phải thu": "change_in_receivables",
-    "Tăng, giảm hàng tồn kho": "change_in_inventory",
-    "Tăng, giảm các khoản phải trả (Không kể lãi vay phải trả, thuế thu nhập doanh nghiệp phải nộp)": "change_in_payables_excl_tax_and_interest",
-    "Tăng giảm chi phí trả trước": "change_in_prepaid_expenses",
-    "Tăng giảm tài sản ngắn hạn khác": "change_in_other_current_assets",
-    "Tiền lãi vay phải trả": "interest_paid",
-    "Thuế thu nhập doanh nghiệp đã nộp": "corporate_income_tax_paid",
-    "Tiền thu khác từ hoạt động kinh doanh": "other_operating_cash_receipts",
-    "Tiền chi khác từ hoạt động kinh doanh": "other_operating_cash_payments",
-    "Lưu chuyển tiền thuần từ hoạt động kinh doanh": "net_cash_flows_from_operating_activities",
+            # ==================== I. DÒNG TIỀN TỪ HOẠT ĐỘNG KINH DOANH ====================
+            "1. Lợi nhuận trước thuế": "profit_before_tax",
+            "2. Điều chỉnh cho các khoản": "total_adjustments",
+            "Khấu hao TSCĐ": "depreciation_of_fixed_assets",
+            "Các khoản dự phòng": "provisions",
+            "Lợi nhuận thuần từ đầu tư vào công ty liên kết": "share_of_profit_from_associates",
+            "Xóa sổ tài sản cố định (thuần)": "write_offs_of_fixed_assets",
+            "Lãi, lỗ chênh lệch tỷ giá hối đoái chưa thực hiện": "unrealized_foreign_exchange_changes",
+            "Lãi, lỗ từ thanh lý TSCĐ": "gain_loss_from_disposal_of_fixed_assets",
+            "Lãi, lỗ từ hoạt động đầu tư": "gain_loss_from_investing_activities",
+            "Lãi tiền gửi": "interest_income_from_deposits",
+            "Thu nhập lãi": "interest_income",
+            "Chi phí lãi vay": "interest_expense",
+            "Các khoản chi trực tiếp từ lợi nhuận": "direct_appropriations_from_profit",
+            "3. Lợi nhuận từ hoạt động kinh doanh trước thay đổi vốn lưu động": "operating_profit_before_working_capital_change",
+            "Tăng, giảm các khoản phải thu": "change_in_receivables",
+            "Tăng, giảm hàng tồn kho": "change_in_inventory",
+            "Tăng, giảm các khoản phải trả (Không kể lãi vay phải trả, thuế thu nhập doanh nghiệp phải nộp)": "change_in_payables_excl_tax_and_interest",
+            "Tăng giảm chi phí trả trước": "change_in_prepaid_expenses",
+            "Tăng giảm tài sản ngắn hạn khác": "change_in_other_current_assets",
+            "Tiền lãi vay phải trả": "interest_paid",
+            "Thuế thu nhập doanh nghiệp đã nộp": "corporate_income_tax_paid",
+            "Tiền thu khác từ hoạt động kinh doanh": "other_operating_cash_receipts",
+            "Tiền chi khác từ hoạt động kinh doanh": "other_operating_cash_payments",
+            "Lưu chuyển tiền thuần từ hoạt động kinh doanh": "net_cash_flows_from_operating_activities",
 
-    # ==================== II. DÒNG TIỀN TỪ HOẠT ĐỘNG ĐẦU TƯ ====================
-    "1. Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác": "cash_paid_for_fixed_assets",
-    "2. Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác": "cash_received_from_disposal_of_fixed_assets",
-    "3. Tiền chi cho vay, mua các công cụ nợ của đơn vị khác": "cash_paid_for_loans_and_debt_instruments",
-    "4. Tiền thu hồi cho vay, bán lại các công cụ nợ của các đơn vị khác": "cash_received_from_loans_and_debt_instruments",
-    "5. Đầu tư góp vốn vào công ty liên doanh liên kết": "investments_in_joint_ventures_and_associates",
-    "6. Chi đầu tư ngắn hạn": "cash_paid_for_short_term_investments",
-    "7. Tiền chi đầu tư góp vốn vào đơn vị khác": "cash_paid_for_equity_investments",
-    "8. Tiền thu hồi đầu tư góp vốn vào đơn vị khác": "cash_received_from_equity_investments",
-    "9. Lãi tiền gửi đã thu": "interest_received_from_deposits",
-    "10. Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia": "interest_and_dividends_received",
-    "11. Tiền chi mua lại phần vốn góp của các cổ đông thiểu số": "cash_paid_to_buy_back_minority_interests",
-    "Lưu chuyển tiền thuần từ hoạt động đầu tư": "net_cash_flows_from_investing_activities",
+            # ==================== II. DÒNG TIỀN TỪ HOẠT ĐỘNG ĐẦU TƯ ====================
+            "1. Tiền chi để mua sắm, xây dựng TSCĐ và các tài sản dài hạn khác": "cash_paid_for_fixed_assets",
+            "2. Tiền thu từ thanh lý, nhượng bán TSCĐ và các tài sản dài hạn khác": "cash_received_from_disposal_of_fixed_assets",
+            "3. Tiền chi cho vay, mua các công cụ nợ của đơn vị khác": "cash_paid_for_loans_and_debt_instruments",
+            "4. Tiền thu hồi cho vay, bán lại các công cụ nợ của các đơn vị khác": "cash_received_from_loans_and_debt_instruments",
+            "5. Đầu tư góp vốn vào công ty liên doanh liên kết": "investments_in_joint_ventures_and_associates",
+            "6. Chi đầu tư ngắn hạn": "cash_paid_for_short_term_investments",
+            "7. Tiền chi đầu tư góp vốn vào đơn vị khác": "cash_paid_for_equity_investments",
+            "8. Tiền thu hồi đầu tư góp vốn vào đơn vị khác": "cash_received_from_equity_investments",
+            "9. Lãi tiền gửi đã thu": "interest_received_from_deposits",
+            "10. Tiền thu lãi cho vay, cổ tức và lợi nhuận được chia": "interest_and_dividends_received",
+            "11. Tiền chi mua lại phần vốn góp của các cổ đông thiểu số": "cash_paid_to_buy_back_minority_interests",
+            "Lưu chuyển tiền thuần từ hoạt động đầu tư": "net_cash_flows_from_investing_activities",
 
-    # ==================== III. DÒNG TIỀN TỪ HOẠT ĐỘNG TÀI CHÍNH ====================
-    "1. Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu": "cash_received_from_issuing_shares",
-    "2. Tiền chi trả vốn góp cho các chủ sở hữu, mua lại cổ phiếu của doanh nghiệp đã phát hành": "cash_paid_for_share_buybacks",
-    "3. Tiền vay ngắn hạn, dài hạn nhận được": "cash_received_from_borrowings",
-    "4. Tiền chi trả nợ gốc vay": "cash_repayments_of_borrowings",
-    "5. Tiền chi trả nợ thuê tài chính": "cash_repayments_of_finance_lease_liabilities",
-    "6. Tiền chi khác từ hoạt động tài chính": "other_financing_cash_payments",
-    "7. Tiền chi trả từ cổ phần hóa": "payments_for_privatization",
-    "8. Cổ tức, lợi nhuận đã trả cho chủ sở hữu": "dividends_paid_to_owners",
-    "9. Vốn góp của các cổ đông thiểu số vào các công ty con": "minority_capital_contribution_into_subsidiaries",
-    "10. Chi tiêu quỹ phúc lợi xã hội": "payments_for_welfare_and_social_funds",
-    "Lưu chuyển tiền thuần từ hoạt động tài chính": "net_cash_flows_from_financing_activities",
+            # ==================== III. DÒNG TIỀN TỪ HOẠT ĐỘNG TÀI CHÍNH ====================
+            "1. Tiền thu từ phát hành cổ phiếu, nhận vốn góp của chủ sở hữu": "cash_received_from_issuing_shares",
+            "2. Tiền chi trả vốn góp cho các chủ sở hữu, mua lại cổ phiếu của doanh nghiệp đã phát hành": "cash_paid_for_share_buybacks",
+            "3. Tiền vay ngắn hạn, dài hạn nhận được": "cash_received_from_borrowings",
+            "4. Tiền chi trả nợ gốc vay": "cash_repayments_of_borrowings",
+            "5. Tiền chi trả nợ thuê tài chính": "cash_repayments_of_finance_lease_liabilities",
+            "6. Tiền chi khác từ hoạt động tài chính": "other_financing_cash_payments",
+            "7. Tiền chi trả từ cổ phần hóa": "payments_for_privatization",
+            "8. Cổ tức, lợi nhuận đã trả cho chủ sở hữu": "dividends_paid_to_owners",
+            "9. Vốn góp của các cổ đông thiểu số vào các công ty con": "minority_capital_contribution_into_subsidiaries",
+            "10. Chi tiêu quỹ phúc lợi xã hội": "payments_for_welfare_and_social_funds",
+            "Lưu chuyển tiền thuần từ hoạt động tài chính": "net_cash_flows_from_financing_activities",
 
-    # ==================== TỔNG KẾT CUỐI KỲ ====================
-    "Lưu chuyển tiền thuần trong kỳ": "net_change_in_cash",
-    "Tiền và tương đương tiền đầu kỳ": "cash_and_cash_equivalents_at_start_of_period",
-    "Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ": "effect_of_exchange_rate_changes",
-    "Tiền và tương đương tiền cuối kỳ": "cash_and_cash_equivalents_at_end_of_period",
-}
+            # ==================== TỔNG KẾT CUỐI KỲ ====================
+            "Lưu chuyển tiền thuần trong kỳ": "net_change_in_cash",
+            "Tiền và tương đương tiền đầu kỳ": "cash_and_cash_equivalents_at_start_of_period",
+            "Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ": "effect_of_exchange_rate_changes",
+            "Tiền và tương đương tiền cuối kỳ": "cash_and_cash_equivalents_at_end_of_period",
+        }
 
 
         for item in items:
@@ -278,65 +270,20 @@ class CrawlBCTC(BasePlaywrightCrawler):
         self._map_keys(final_result)
         return final_result
 
-    async def _upsert_to_postgresql(self, results: list[dict[str, Any]]) -> None:
-        try:
-            async for db in async_session_scope():
-                model_path = "src.shared.infrastructure.db.models.CashFlowStatementTypeOne"
-                final_repo = FinalStatementRepository(model_path=model_path, session=db)
-
-                for result in results:
-                    # data = {k: self._parse_string_to_int(v) for k, v in item.items()}
-                    await final_repo.upsert_by_year_quarter_stock_id(
-                        stock_id=result["stock_id"],
-                        year=result["year"],
-                        quarter=result["quarter"],
-                        data=result,
-                    )
-        except Exception as e:
-            print(f"Error inserting data to PostgreSQL: {e}")
-            raise
-
     async def crawl_pages(self, links: list[str], **kwargs: Any) -> AsyncIterator[list[dict[str, Any]]]:
         await self._init_crawler()
-        results: list[dict[str, Any]] = []
         try:
             for link in links:
+                print(f"Processing link: {link}")
                 items = await self._extract_single_link(link)
-                for item in items:
-                    data = {k: self._parse_string_to_int(v) for k, v in item.items()}
-                    results.append(data)
-                yield results
-                # await asyncio.sleep(60)
+                batch: list[dict[str, Any]] = [
+                    {k: self._parse_string_to_int(v) for k, v in item.items()} for item in items
+                ]
+                print(f"Success extract from link: {link}")
+                yield batch 
         finally:
             await self._close_crawler()
-
-    async def crawl(self, links: list[str], **kwargs: Any) -> list[dict[str, Any]]:
-        results: list[dict[str, Any]] = []
-        async for batch in self.crawl_pages(links, **kwargs):
-            results.extend(batch)
-        return results
-
-    async def extract(self, link: str | list[str], **kwargs: Any) -> list[dict[str, Any]]:
-        links = link if isinstance(link, list) else [link]
-        return await self.crawl(links, **kwargs)
-
-
-test_crawler = CrawlBCTC(
-    headless=False,
-)
-
-test_links = [
-    "https://fireant.vn/ma-chung-khoan/HPG",
-]
-
-async def test_extract():
-    async for batch in test_crawler.crawl_pages(test_links):
-        await test_crawler._upsert_to_postgresql(batch)
-        print(batch)
-        print("-----------------")
-        print(f"Extracted {len(batch)} records for stock_id={batch[0]['stock_id'] if batch else None}")
-    # await asyncio.sleep(5)
-    # print(f"Extracted {len(data)} records")
     
-if __name__ == "__main__":
-    asyncio.run(test_extract())
+    async def extract(self, links: list[str], **kwargs: Any) -> AsyncIterator[list[dict[str, Any]]]:
+        async for batch in self.crawl_pages(links, **kwargs):
+            yield batch
