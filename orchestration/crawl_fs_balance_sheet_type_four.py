@@ -10,7 +10,7 @@ with DAG(
     start_date=datetime(2024, 1, 1),
     schedule=None,
     catchup=False,
-    tags=['Crawl Balance Sheet Type Four', 'Bank', 'Balance Sheet'],   
+    tags=['Crawl Balance Sheet Type Four', 'Bank', 'Balance Sheet', 'Financial Statement'],   
 ) as dag:
     # Task 1: Bash execution
     start_crawl_dag = BashOperator(
