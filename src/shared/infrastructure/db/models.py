@@ -516,3 +516,72 @@ class CashFlowStatementTypeOne(Base):
     cash_and_cash_equivalents_at_start_of_period: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền và tương đương tiền đầu kỳ')
     effect_of_exchange_rate_changes: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ')
     cash_and_cash_equivalents_at_end_of_period: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền và tương đương tiền cuối kỳ')
+
+
+class CashFlowStatementTypeFour(Base):
+    """
+        Cash flow statement for bank like ACB, TCB, CTG ...
+    """
+    __tablename__ = 'fs_cash_flow_statement_type_four'
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    year: Mapped[int] = mapped_column(nullable=False, index=True)
+    quarter: Mapped[str] = mapped_column(String(10), nullable=False, index=True)
+
+    # ==================== I. DÒNG TIỀN TỪ HOẠT ĐỘNG KINH DOANH ====================
+    interest_and_similar_income_received: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập lãi và các khoản thu nhập tương tự nhận được')
+    interest_and_similar_expenses_paid: Mapped[int] = mapped_column(nullable=False, comment='Chi phí lãi và các chi phí tương tự đã trả')
+    fee_and_commission_income_received: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập từ hoạt động dịch vụ nhận được')
+    net_gain_loss_from_trading_activities: Mapped[int] = mapped_column(nullable=False, comment='Chênh lệch số tiền thực thu/ thực chi từ hoạt động kinh doanh (ngoại tệ, vàng bạc, chứng khoán)')
+    other_operating_income: Mapped[int] = mapped_column(nullable=False, comment='Thu nhập khác')
+    cash_recovered_from_bad_debts_written_off: Mapped[int] = mapped_column(nullable=False, comment='Tiền thu các khoản nợ đã được xử lý xóa, bù đắp bằng nguồn rủi ro')
+    cash_paid_to_employees_and_for_operating_expenses: Mapped[int] = mapped_column(nullable=False, comment='Tiền chi trả cho nhân viên và hoạt động quản lý, công vụ')
+    corporate_income_tax_paid: Mapped[int] = mapped_column(nullable=False, comment='Tiền thuế thu nhập thực nộp trong kỳ')
+    operating_cash_flows_before_working_capital_changes: Mapped[int] = mapped_column(nullable=False, comment='Lưu chuyển tiền thuần từ hoạt động kinh doanh trước những thay đổi về tài sản và vốn lưu động')
+    change_in_deposits_and_loans_to_other_cits: Mapped[int] = mapped_column(nullable=False, comment='(Tăng)/Giảm các khoản tiền, vàng gửi và cho vay các TCTD khác')
+    change_in_trading_securities: Mapped[int] = mapped_column(nullable=False, comment='(Tăng)/Giảm các khoản về kinh doanh chứng khoán')
+    change_in_derivative_financial_assets: Mapped[int] = mapped_column(nullable=False, comment='(Tăng)/Giảm các công cụ tài chính phái sinh và các tài sản tài chính khác')
+    change_in_loans_to_customers: Mapped[int] = mapped_column(nullable=False, comment='(Tăng)/Giảm các khoản cho vay khách hàng')
+    change_in_provisions_for_credit_losses: Mapped[int] = mapped_column(nullable=False, comment='(Tăng)/Giảm nguồn dự phòng để bù bắp tổn thất các khoản')
+    change_in_other_operating_assets: Mapped[int] = mapped_column(nullable=False, comment='(Tăng)/Giảm khác về tài sản hoạt động')
+    change_in_due_to_government_and_sbv: Mapped[int] = mapped_column(nullable=False, comment='Tăng/(Giảm) các khoản nợ chính phủ và NHNN')
+    change_in_deposits_and_borrowings_from_other_cits: Mapped[int] = mapped_column(nullable=False, comment='Tăng/(Giảm) các khoản tiền gửi, tiền vay các TCTD')
+    change_in_deposits_from_customers: Mapped[int] = mapped_column(nullable=False, comment='Tăng/(Giảm) tiền gửi của khách hàng')
+    change_in_valuable_papers_issued: Mapped[int] = mapped_column(nullable=False, comment='Tăng/(Giảm) phát hành giấy tờ có giá')
+    change_in_entrusted_funds_and_loans: Mapped[int] = mapped_column(nullable=False, comment='Tăng/(Giảm) vốn tài trợ, ủy thác đầu tư, cho vay mà TCTD chịu rủi ro')
+    change_in_derivative_financial_liabilities: Mapped[int] = mapped_column(nullable=False, comment='Tăng/(Giảm) các công cụ tài chính phái sinh và các khoản nợ tài chính khác')
+    change_in_other_operating_liabilities: Mapped[int] = mapped_column(nullable=False, comment='Tăng/(Giảm) khác về công nợ hoạt động')
+    payments_from_welfare_and_other_funds: Mapped[int] = mapped_column(nullable=False, comment='Chi từ các quỹ của TCTD')
+    net_cash_flows_from_operating_activities: Mapped[int] = mapped_column(nullable=False, comment='Lưu chuyển tiền thuần từ hoạt động kinh doanh')
+
+    # ==================== II. DÒNG TIỀN TỪ HOẠT ĐỘNG ĐẦU TƯ ====================
+    cash_proceeds_from_disposal_of_subsidiaries: Mapped[int] = mapped_column(nullable=False, comment='Tiền giảm do bán công ty con')
+    cash_paid_for_fixed_assets: Mapped[int] = mapped_column(nullable=False, comment='Mua sắm TSCĐ')
+    cash_received_from_disposal_of_fixed_assets: Mapped[int] = mapped_column(nullable=False, comment='Tiền thu từ thanh lý, nhượng bán TSCĐ')
+    cash_paid_for_disposal_of_fixed_assets: Mapped[int] = mapped_column(nullable=False, comment='Tiền chi từ thanh lý, nhượng bán TSCĐ')
+    cash_paid_for_investment_properties: Mapped[int] = mapped_column(nullable=False, comment='Mua sắm bất động sản đầu tư')
+    cash_received_from_disposal_of_investment_properties: Mapped[int] = mapped_column(nullable=False, comment='Tiền thu từ bán, thanh lý bất động sản đầu tư')
+    cash_paid_for_disposal_of_investment_properties: Mapped[int] = mapped_column(nullable=False, comment='Tiền chi ra do bán, thanh lý bất động sản đầu tư')
+    cash_paid_for_equity_investments: Mapped[int] = mapped_column(nullable=False, comment='Tiền chi đầu tư, góp vốn vào các đơn vị khác')
+    cash_received_from_equity_investments: Mapped[int] = mapped_column(nullable=False, comment='Tiền thu đầu tư, góp vốn vào các đơn vị khác')
+    dividends_and_profits_received: Mapped[int] = mapped_column(nullable=False, comment='Tiền thu cổ tức và lợi nhuận được chia từ các khoản đầu tư, góp vốn dài hạn')
+    net_cash_flows_from_investing_activities: Mapped[int] = mapped_column(nullable=False, comment='Lưu chuyển tiền thuần từ hoạt động đầu tư')
+
+    # ==================== III. DÒNG TIỀN TỪ HOẠT ĐỘNG TÀI CHÍNH ====================
+    cash_received_from_issuing_shares: Mapped[int] = mapped_column(nullable=False, comment='Tăng vốn cổ phần từ góp vốn và phát hành cổ phiếu')
+    cash_received_from_long_term_eligible_papers_and_loans: Mapped[int] = mapped_column(nullable=False, comment='Tiền thu từ phát hành giấy tờ có giá dài hạn có đủ điều kiện tính vào vốn tự có và các khoản vốn vay dài hạn khác')
+    cash_repayments_of_long_term_eligible_papers_and_loans: Mapped[int] = mapped_column(nullable=False, comment='Tiền chi thanh toán giấy tờ có giá dài hạn có đủ điều kiện tính vào vốn tự có và các khoản vốn vay dài hạn khác')
+    dividends_paid_to_shareholders: Mapped[int] = mapped_column(nullable=False, comment='Cổ tức trả cho cổ đông, lợi nhuận đã chia')
+    cash_paid_for_treasury_shares_buyback: Mapped[int] = mapped_column(nullable=False, comment='Tiền chi ra mua cổ phiếu ngân quỹ')
+    cash_received_from_disposal_of_treasury_shares: Mapped[int] = mapped_column(nullable=False, comment='Tiền thu được do bán cổ phiếu ngân quỹ')
+    net_cash_flows_from_financing_activities: Mapped[int] = mapped_column(nullable=False, comment='Lưu chuyển tiền từ hoạt động tài chính')
+
+    # ==================== TỔNG KẾT CUỐI KỲ ====================
+    net_change_in_cash: Mapped[int] = mapped_column(nullable=False, comment='Lưu chuyển tiền thuần trong kỳ')
+    cash_and_cash_equivalents_at_start_of_period: Mapped[int] = mapped_column(nullable=False, comment='Tiền và tương đương tiền đầu kỳ')
+    effect_of_exchange_rate_changes: Mapped[int] = mapped_column(nullable=False, comment='Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ')
+    cash_and_cash_equivalents_at_end_of_period: Mapped[int] = mapped_column(nullable=False, comment='Tiền và tương đương tiền cuối kỳ')
