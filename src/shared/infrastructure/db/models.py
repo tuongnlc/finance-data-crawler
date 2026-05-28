@@ -620,3 +620,44 @@ class FinancialStatisticsOverviewTypeFour(Base):
     llrnpl: Mapped[float] = mapped_column(nullable=False, comment='LLRNPL')
     npl_ratio: Mapped[float] = mapped_column(nullable=False, comment='NPL Ratio')
     pcl: Mapped[float] = mapped_column(nullable=False, comment='PCL')
+
+
+class FinancialStatisticsOverviewTypeOne(Base):
+    """
+        Financial statistics overview for any stock - Type One
+    """
+    __tablename__ = 'fs_financial_statistics_overview_type_one'
+    
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+    )
+    stock_id: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
+    year: Mapped[int] = mapped_column(nullable=False, index=True)
+    quarter: Mapped[str] = mapped_column(String(10), nullable=False, index=True)
+    
+    p_e: Mapped[float] = mapped_column(nullable=False, comment='P/E')
+    p_s: Mapped[float] = mapped_column(nullable=False, comment='P/S')
+    p_b: Mapped[float] = mapped_column(nullable=False, comment='P/B')
+    eps: Mapped[float] = mapped_column(nullable=False, comment='EPS')
+    
+    net_profit_margin: Mapped[float] = mapped_column(nullable=False, comment='Tỷ lệ lãi ròng (%)')
+    gross_profit_margin: Mapped[float] = mapped_column(nullable=False, comment='Tỷ lệ lãi gộp (%)')
+    ebit_margin: Mapped[float] = mapped_column(nullable=False, comment='Tỷ lệ EBIT (%)')
+    operating_profit_margin: Mapped[float] = mapped_column(nullable=False, comment='Tỷ lệ lãi từ HĐKD (%)')
+    
+    current_ratio: Mapped[float] = mapped_column(nullable=False, comment='Thanh toán hiện hành')
+    quick_ratio: Mapped[float] = mapped_column(nullable=False, comment='Thanh toán nhanh')
+    interest_coverage_ratio: Mapped[float] = mapped_column(nullable=False, comment='Thanh toán lãi vay')
+    debt_to_equity: Mapped[float] = mapped_column(nullable=False, comment='Nợ/VCSH')
+    
+    roa: Mapped[float] = mapped_column(nullable=False, comment='ROA (%)')
+    roe: Mapped[float] = mapped_column(nullable=False, comment='ROE (%)')
+    roic: Mapped[float] = mapped_column(nullable=False, comment='ROIC (%)')
+    roce: Mapped[float] = mapped_column(nullable=False, comment='ROCE (%)')
+    
+    total_asset_turnover: Mapped[float] = mapped_column(nullable=False, comment='Vòng quay tổng TS')
+    inventory_turnover: Mapped[float] = mapped_column(nullable=False, comment='Vòng quay HTK')
+    receivables_turnover: Mapped[float] = mapped_column(nullable=False, comment='Vòng quay các KPT')
+    short_term_asset_turnover: Mapped[float] = mapped_column(nullable=False, comment='Vòng quay TSNH')

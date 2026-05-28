@@ -150,21 +150,21 @@ class CrawlBCTC(BasePlaywrightCrawler):
     "P/B": "p_b",
     "EPS": "eps",
     "Tỷ lệ lãi ròng (%)": "net_profit_margin",
-    "YOEA (%)": "yoea",
-    "NIM (%)": "nim",
-    "COF (%)": "cof",
-    "LAR (%)": "lar",
-    "LDR (%)": "ldr",
-    "CLR (%)": "clr",
-    "CTA (%)": "cta",
-    "ELR (%)": "elr",
+    "Tỷ lệ lãi gộp (%)": "gross_profit_margin",
+    "Tỷ lệ EBIT (%)": "ebit_margin",
+    "Tỷ lệ lãi từ HĐKD (%)": "operating_profit_margin",
+    "Thanh toán hiện hành": "current_ratio",
+    "Thanh toán nhanh": "quick_ratio",
+    "Thanh toán lãi vay": "interest_coverage_ratio",
+    "Nợ/VCSH": "debt_to_equity",
     "ROA (%)": "roa",
     "ROE (%)": "roe",
-    "CIR (%)": "cir",
-    "LLRL (%)": "llrl",
-    "LLRNPL (%)": "llrnpl",
-    "Tỷ lệ nợ xấu (%)": "npl_ratio",
-    "PCL (%)": "pcl"
+    "ROIC (%)": "roic",
+    "ROCE (%)": "roce",
+    "Vòng quay tổng TS": "total_asset_turnover",
+    "Vòng quay HTK": "inventory_turnover",
+    "Vòng quay các KPT": "receivables_turnover",
+    "Vòng quay TSNH": "short_term_asset_turnover"
 }
 
         for item in items:
@@ -275,7 +275,7 @@ class CrawlBCTC(BasePlaywrightCrawler):
     async def _upsert_to_postgresql(self, results: list[dict[str, Any]]) -> None:
         try:
             async for db in async_session_scope():
-                model_path = "src.shared.infrastructure.db.models.FinancialStatisticsOverview"
+                model_path = "src.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeOne"
                 final_repo = FinalStatementRepository(model_path=model_path, session=db)
 
                 for result in results:
@@ -320,7 +320,7 @@ test_crawler = CrawlBCTC(
 )
 
 test_links = [
-    "https://fireant.vn/ma-chung-khoan/ACB",
+    "https://fireant.vn/ma-chung-khoan/HPG",
 ]
 
 async def test_extract():
