@@ -6,7 +6,7 @@ from orchestration.python_script.crawl_market_data_v1 import main
 
 
 with DAG(
-    dag_id='crawl_balance_sheet_type_one',
+    dag_id='crawl_fs_balance_sheet_type_one',
     start_date=datetime(2024, 1, 1),
     schedule=None,
     catchup=False,
@@ -23,7 +23,7 @@ with DAG(
         task_id='crawl_balance_sheet_task',
         python_callable=main,
         op_kwargs={
-            "url": "crawl_balance_sheet_type_1.yaml",
+            "url": "crawl_fs_balance_sheet_type_1.yaml",
             "conn_id": "postgres_market_data"
         },
     )
