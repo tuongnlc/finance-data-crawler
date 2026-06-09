@@ -6,11 +6,11 @@ from orchestration.python_script.crawl_market_data_v1 import main
 
 
 with DAG(
-    dag_id='crawl_foreign_trade',
-    start_date=datetime(2024, 1, 1),
-    schedule='40 20 * * *', # Manual trigger only
+    dag_id='2026_09_06_foreign_trade_crawler',
+    start_date=datetime(2026, 9, 6),
+    schedule=None,
     catchup=False,
-    tags=['Crawl Foreign Trade'],   
+    tags=['Foreign Trade', 'Crawler'],   
 ) as dag:
     # Task 1: Bash execution
     start_crawl_dag = BashOperator(

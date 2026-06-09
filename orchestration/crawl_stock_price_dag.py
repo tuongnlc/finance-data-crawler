@@ -5,11 +5,11 @@ from datetime import datetime
 from orchestration.python_script.crawl_market_data_v1 import main
 
 with DAG(
-    dag_id='crawl_stock_price',
-    start_date=datetime(2024, 1, 1),
-    schedule='10 20 * * *', # Manual trigger only
+    dag_id='2026_06_09_stock_price_crawler',
+    start_date=datetime(2026, 6, 9),
+    schedule=None,
     catchup=False,
-    tags=['Crawl Stock Price'],
+    tags=['Stock Price', 'Crawler'],
 ) as dag:
     # Task 1: Bash execution
     start_crawl_dag = BashOperator(
