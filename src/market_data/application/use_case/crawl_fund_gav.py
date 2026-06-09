@@ -5,6 +5,16 @@ from datetime import datetime
 
 
 class CrawlFundGavUseCase:
+    """
+        Crawl fund gav from fmarket.vn
+
+        Each month we go to fmarket.vn crawl data then save to database
+
+        Here is the logic to extract data in this month:
+        - current_month = datetime.now().month
+        - report_month = current_month - 1 
+
+    """
     def __init__(self, crawler: CrawlDataPort, loader: FundGavRepositoryProtocol):
         self.crawler = crawler
         self.loader = loader
@@ -16,7 +26,7 @@ class CrawlFundGavUseCase:
 
         # Get report month
         current_month = datetime.now().month
-        report_month = current_month - 1
+        report_month = current_month - 1 
 
         # Xóa dữ liệu cũ trước khi bắt đầu crawl mới (truncate)
         try:
@@ -48,4 +58,5 @@ class CrawlFundGavUseCase:
                 print(f"Lỗi khi commit: {e}")
 
         return {"pages": pages, "created": created, "processed": processed}
+
     

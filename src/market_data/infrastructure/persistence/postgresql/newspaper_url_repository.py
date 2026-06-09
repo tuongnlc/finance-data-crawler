@@ -29,14 +29,20 @@ class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
         """Upsert (insert or update) NewspaperUrl based on newspaper_url."""
         stmt = select(NewspaperUrl).where(NewspaperUrl.newspaper_url == newspaper_url)
         result = await self.session.execute(stmt)
-        newspaper_url_record = result.scalar_one_or_none()
 
-        if newspaper_url_record is None:
+        records = list(result.scalars().all())
+        record = records[0] if records else None
+
+        if len(records) > 1:
+            for duplicate in records[1:]: #if record is duplicate. Delete all duplicate records
+                await self.session.delete(duplicate)
+
+        if record is None:
             if newspaper_title is None or source is None or created_at is None:
                 raise ValueError(
                     "newspaper_title, source, created_at are required when inserting a new NewspaperUrl record"
                 )
-            newspaper_url_record = NewspaperUrl(
+            record = NewspaperUrl(
                 id=id,
                 newspaper_title=newspaper_title,
                 newspaper_url=newspaper_url,
@@ -44,12 +50,13 @@ class NewspaperUrlRepository(BasePostgresRepository[NewspaperUrl]):
                 is_crawled=is_crawled,
                 created_at=created_at,
             )
-            self.session.add(newspaper_url_record)
-        elif is_crawled == 1: #upsert is_crawled to 1
-            if newspaper_url_record.is_crawled == 0:
-                newspaper_url_record.is_crawled = 1
+            self.session.add(record)
+        else:
+            if is_crawled == 1 and record.is_crawled == 0:
+                record.is_crawled = 1
+
         await self.session.flush()
-        return newspaper_url_record
+        return record
 
     async def query_urls_by_is_crawled(
         self,
