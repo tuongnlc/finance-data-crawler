@@ -6,7 +6,7 @@ import asyncio
 
 
 class CrawlNewspaperUrl(BasePlaywrightCrawler):
-    def __init__(self, headless: bool = False):
+    def __init__(self, headless: bool = True):
         super().__init__(headless=headless)
 
     async def _extract_single_page(self, url: str, page: Any) -> AsyncIterator[dict]:
@@ -29,12 +29,3 @@ class CrawlNewspaperUrl(BasePlaywrightCrawler):
         except Exception as e:
             raise e
         return newspaper_urls
-
-#etst function here 
-async def test_crawl_newspaper_url():
-    crawler = CrawlNewspaperUrl()
-    urls = await crawler.run("https://cafef.vn/thi-truong-chung-khoan.chn")
-    # assert len(urls) > 0
-
-if __name__ == "__main__":
-    asyncio.run(test_crawl_newspaper_url())
