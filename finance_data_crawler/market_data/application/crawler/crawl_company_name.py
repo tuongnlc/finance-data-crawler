@@ -1,6 +1,6 @@
 from typing import Any, AsyncIterator
 
-from src.shared.application.crawler.base import BasePlaywrightCrawler
+from finance_data_crawler.shared.application.crawler.base import BasePlaywrightCrawler
 
 
 class CrawlCompanyName(BasePlaywrightCrawler):

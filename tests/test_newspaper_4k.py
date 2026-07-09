@@ -7,15 +7,15 @@ PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from src.market_data.infrastructure.persistence.postgresql.newspaper_repository import NewspaperRepository
-from src.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_repository import NewspaperRepository
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
 
 
 import asyncio
 from sqlalchemy import text
-from src.shared.infrastructure.db.connection import async_session_scope, get_async_engine
+from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope, get_async_engine
 from datetime import datetime
-from src.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
 import uuid
 
 

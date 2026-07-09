@@ -66,8 +66,8 @@ Use case / application layer nhận `CompanyNameRepositoryProtocol` (type hint) 
 **Ví dụ:** `src/market_data/infrastructure/persistence/postgresql/company_name_repository.py`
 
 ```python
-from src.shared.infrastructure.db.models import CompanyName
-from src.shared.infrastructure.persistence.postgresql.repository import BasePostgresRepository
+from finance_data_crawler.shared.infrastructure.db.models import CompanyName
+from finance_data_crawler.shared.infrastructure.persistence.postgresql.repository import BasePostgresRepository
 
 class CompanyNameRepository(BasePostgresRepository[CompanyName]):
     model_class = CompanyName
@@ -115,13 +115,13 @@ Subclass chỉ cần khai báo `model_class` là dùng được toàn bộ; có 
 
 ## 4. Ví dụ sử dụng CRUD
 
-Session và engine lấy từ `src.shared.infrastructure.db.connection` (vd: `async_session_scope`, `get_async_engine`). Repository nhận `session` để dùng chung transaction.
+Session và engine lấy từ `finance_data_crawler.shared.infrastructure.db.connection` (vd: `async_session_scope`, `get_async_engine`). Repository nhận `session` để dùng chung transaction.
 
 ### Create
 
 ```python
-from src.market_data.infrastructure.persistence.postgresql import CompanyNameRepository
-from src.shared.infrastructure.db.connection import async_session_scope
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql import CompanyNameRepository
+from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope
 import uuid
 
 async for db in async_session_scope():

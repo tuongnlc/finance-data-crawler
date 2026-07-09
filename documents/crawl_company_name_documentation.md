@@ -44,9 +44,9 @@ Tham khảo file ví dụ tại `examples/example_crawl_company_name.py`:
 
 ```python
 import asyncio
-from src.market_data.application.crawler.crawl_company_name import CrawlCompanyName
-from src.market_data.application.use_case.crawl_company_name import CrawlCompanyNameUseCase
-from src.market_data.infrastructure.persistence.postgresql import CompanyNameRepository
+from finance_data_crawler.market_data.application.crawler.crawl_company_name import CrawlCompanyName
+from finance_data_crawler.market_data.application.use_case.crawl_company_name import CrawlCompanyNameUseCase
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql import CompanyNameRepository
 
 async def main():
     # Khởi tạo crawler (headless=False nếu muốn debug giao diện)

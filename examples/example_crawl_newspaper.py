@@ -8,13 +8,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.shared.infrastructure.db.connection import async_session_scope
+from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope
 
-from src.market_data.application.crawler.crawl_newspaper import CrawlNewspaper
-from src.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
-from src.market_data.application.use_case.crawl_newspaper_url import CrawlNewspaperUrlUseCase
-from src.market_data.infrastructure.persistence.postgresql.newspaper_repository import NewspaperRepository
-from src.market_data.application.use_case.crawl_newspaper import CrawlNewspaperUseCase
+from finance_data_crawler.market_data.application.crawler.crawl_newspaper import CrawlNewspaper
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
+from finance_data_crawler.market_data.application.use_case.crawl_newspaper_url import CrawlNewspaperUrlUseCase
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_repository import NewspaperRepository
+from finance_data_crawler.market_data.application.use_case.crawl_newspaper import CrawlNewspaperUseCase
 from dotenv import load_dotenv
 
 load_dotenv()

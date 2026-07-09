@@ -47,9 +47,9 @@ Tài liệu hướng dẫn cách tổ chức và sử dụng CRUD trong dự án
 Ví dụ tạo bảng nếu chưa có, sau đó chạy CRUD đầy đủ:
 ```python
 import uuid
-from src.market_data.infrastructure.persistence.postgresql import CompanyNameRepository
-from src.shared.infrastructure.db.connection import async_session_scope, get_async_engine
-from src.shared.infrastructure.db.models import Base
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql import CompanyNameRepository
+from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope, get_async_engine
+from finance_data_crawler.shared.infrastructure.db.models import Base
 
 async def run():
     engine = get_async_engine()
@@ -96,8 +96,8 @@ Lưu ý: commit/rollback được quản lý bởi `async_session_scope`, commit
 Ví dụ:
 ```python
 from sqlalchemy import select
-from src.shared.infrastructure.persistence.postgresql.repository import BasePostgresRepository
-from src.shared.infrastructure.db.models import CompanyName
+from finance_data_crawler.shared.infrastructure.persistence.postgresql.repository import BasePostgresRepository
+from finance_data_crawler.shared.infrastructure.db.models import CompanyName
 
 class CompanyNameRepository(BasePostgresRepository[CompanyName]):
     model_class = CompanyName
