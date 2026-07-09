@@ -1,6 +1,6 @@
 # from market_data.application.crawler.finance_statement_factory.crawl_finance_statement_factory import CrawlFinanceStatementFactory
-from src.market_data.domain.repository import FinanceStatementRepositoryProtocol
-from src.market_data.application.ports.crawl_data_port import CrawlDataPort
+from finance_data_crawler.market_data.domain.repository import FinanceStatementRepositoryProtocol
+from finance_data_crawler.market_data.application.ports.crawl_data_port import CrawlDataPort
 
 
 class CrawlFinanceStatementUseCase:

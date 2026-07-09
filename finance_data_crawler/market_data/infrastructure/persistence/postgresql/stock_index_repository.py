@@ -6,9 +6,9 @@ Implement port market_data.domain.repository.VNIndexRepositoryProtocol.
 from __future__ import annotations
 from datetime import datetime, date as date_type
 from sqlalchemy import select
-# from src.shared.infrastructure.db.models import VnIndex
-from src.shared.infrastructure.db.models import StockIndex
-from src.shared.infrastructure.persistence.postgresql.repository import (
+# from finance_data_crawler.shared.infrastructure.db.models import VnIndex
+from finance_data_crawler.shared.infrastructure.db.models import StockIndex
+from finance_data_crawler.shared.infrastructure.persistence.postgresql.repository import (
     BasePostgresRepository,
 )
 

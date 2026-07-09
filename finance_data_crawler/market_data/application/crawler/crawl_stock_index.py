@@ -1,5 +1,5 @@
 from typing import Any
-from src.shared.application.crawler.base import BasePlaywrightCrawler
+from finance_data_crawler.shared.application.crawler.base import BasePlaywrightCrawler
 
 
 class CrawlStockIndex(BasePlaywrightCrawler):

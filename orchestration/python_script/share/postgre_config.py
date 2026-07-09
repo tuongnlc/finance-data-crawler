@@ -1,10 +1,10 @@
 import os
 
-from src.shared.infrastructure.db.connection import (
+from finance_data_crawler.shared.infrastructure.db.connection import (
     get_async_engine,
     get_async_session_factory,
 )
-from src.shared.infrastructure.db.models import Base
+from finance_data_crawler.shared.infrastructure.db.models import Base
 
 
 def configure_postgres_env_from_airflow_connection(conn_id: str | None) -> bool:

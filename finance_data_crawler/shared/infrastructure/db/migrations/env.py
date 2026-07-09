@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parents[5]  # .../finance-data-crawler
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
-from src.shared.infrastructure.db.models import Base
+from finance_data_crawler.shared.infrastructure.db.models import Base
 
 from logging.config import fileConfig
 
@@ -21,8 +21,8 @@ from alembic import context
 
 
 
-# from src.shared.infrastructure.db.connection import get_async_engine
-from src.shared.infrastructure.db.models import Base
+# from finance_data_crawler.shared.infrastructure.db.connection import get_async_engine
+from finance_data_crawler.shared.infrastructure.db.models import Base
 
 
 # this is the Alembic Config object, which provides

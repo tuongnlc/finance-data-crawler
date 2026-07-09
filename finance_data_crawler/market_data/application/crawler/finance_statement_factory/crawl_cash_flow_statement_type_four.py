@@ -1,4 +1,4 @@
-from src.shared.application.crawler.base import BasePlaywrightCrawler
+from finance_data_crawler.shared.application.crawler.base import BasePlaywrightCrawler
 from typing import Any, Callable, ClassVar, TypeVar
 from bs4 import BeautifulSoup
 from typing import Any, AsyncIterator

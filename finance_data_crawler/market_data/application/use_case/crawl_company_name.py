@@ -5,8 +5,8 @@
 
 import asyncio
 from typing import Any
-from src.market_data.domain.repository import CompanyNameRepositoryProtocol
-from src.market_data.application.ports.crawl_data_port import CrawlDataPort
+from finance_data_crawler.market_data.domain.repository import CompanyNameRepositoryProtocol
+from finance_data_crawler.market_data.application.ports.crawl_data_port import CrawlDataPort
 
 
 class CrawlCompanyNameUseCase:

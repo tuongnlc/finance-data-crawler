@@ -4,8 +4,8 @@ Implement port market_data.domain.repository.NewspaperUrlRepositoryProtocol.
 from __future__ import annotations
 from datetime import date 
 from sqlalchemy import select
-from src.shared.infrastructure.db.models import Newspaper
-from src.shared.infrastructure.persistence.postgresql.repository import (
+from finance_data_crawler.shared.infrastructure.db.models import Newspaper
+from finance_data_crawler.shared.infrastructure.persistence.postgresql.repository import (
     BasePostgresRepository,
 )
 import uuid

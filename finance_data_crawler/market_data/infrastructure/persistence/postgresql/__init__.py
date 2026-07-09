@@ -1,17 +1,17 @@
 # PostgreSQL adapters
-from src.market_data.infrastructure.persistence.postgresql.company_name_repository import (
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.company_name_repository import (
     CompanyNameRepository, 
 )
-from src.market_data.infrastructure.persistence.postgresql.fund_gav_repository import (
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.fund_gav_repository import (
     FundGavRepository,
 )
-from src.market_data.infrastructure.persistence.postgresql.stock_price_repository import (
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.stock_price_repository import (
     StockPriceRepository,
 )
-from src.market_data.infrastructure.persistence.postgresql.foreign_trade import (
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.foreign_trade import (
     ForeignTradeRepository,
 )
-from src.market_data.infrastructure.persistence.postgresql.stock_index_repository import (
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.stock_index_repository import (
     StockIndexRepository,
 )
 

@@ -6,8 +6,8 @@ Implement port market_data.domain.repository.CompanyNameRepositoryProtocol.
 from __future__ import annotations
 from sqlalchemy import select
 
-from src.shared.infrastructure.db.models import CompanyName
-from src.shared.infrastructure.persistence.postgresql.repository import (
+from finance_data_crawler.shared.infrastructure.db.models import CompanyName
+from finance_data_crawler.shared.infrastructure.persistence.postgresql.repository import (
     BasePostgresRepository,
 )
 

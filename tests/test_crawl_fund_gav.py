@@ -1,6 +1,6 @@
-from src.market_data.application.use_case.crawl_fund_gav import CrawlFundGavUseCase
-from src.market_data.application.crawler.crawl_fund_gav import CrawlFundGav
-from src.market_data.infrastructure.persistence.postgresql.fund_gav_repository import FundGavRepository
+from finance_data_crawler.market_data.application.use_case.crawl_fund_gav import CrawlFundGavUseCase
+from finance_data_crawler.market_data.application.crawler.crawl_fund_gav import CrawlFundGav
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.fund_gav_repository import FundGavRepository
 import asyncio
 
 from dotenv import load_dotenv  # thêm

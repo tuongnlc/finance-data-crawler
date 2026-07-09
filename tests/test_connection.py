@@ -1,8 +1,8 @@
 import asyncio
 from sqlalchemy import text
-from src.shared.infrastructure.db.connection import async_session_scope, get_async_engine
+from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope, get_async_engine
 from datetime import datetime
-from src.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
 import uuid
 
 

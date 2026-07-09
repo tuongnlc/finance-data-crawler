@@ -9,7 +9,7 @@ from typing import Any, cast
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.shared.infrastructure.persistence.postgresql.repository import (
+from finance_data_crawler.shared.infrastructure.persistence.postgresql.repository import (
     BasePostgresRepository,
 )
 from sqlalchemy import select

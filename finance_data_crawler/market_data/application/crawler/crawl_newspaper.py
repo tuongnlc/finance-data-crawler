@@ -1,4 +1,4 @@
-from src.shared.application.crawler.base import BaseCrawler
+from finance_data_crawler.shared.application.crawler.base import BaseCrawler
 import newspaper
 from typing import Any
 from datetime import datetime

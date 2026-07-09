@@ -1,4 +1,4 @@
-from src.shared.domain.base.entity import BaseEntity
+from finance_data_crawler.shared.domain.base.entity import BaseEntity
 import uuid
 
 

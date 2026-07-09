@@ -1,12 +1,12 @@
 from typing import Any, AsyncIterator
-from src.shared.application.crawler.base import BasePlaywrightCrawler
+from finance_data_crawler.shared.application.crawler.base import BasePlaywrightCrawler
 import re
 import asyncio
 import time
 from bs4 import BeautifulSoup
-from src.shared.infrastructure.db.models import IncomeStatementType1
-from src.market_data.infrastructure.persistence.postgresql.final_statement_repository import FinalStatementRepository
-from src.shared.infrastructure.db.connection import async_session_scope, get_async_engine
+from finance_data_crawler.shared.infrastructure.db.models import IncomeStatementType1
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.final_statement_repository import FinalStatementRepository
+from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope, get_async_engine
 
 #load dot_env
 import os
@@ -275,7 +275,7 @@ class CrawlBCTC(BasePlaywrightCrawler):
     async def _upsert_to_postgresql(self, results: list[dict[str, Any]]) -> None:
         try:
             async for db in async_session_scope():
-                model_path = "src.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeOne"
+                model_path = "finance_data_crawler.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeOne"
                 final_repo = FinalStatementRepository(model_path=model_path, session=db)
 
                 for result in results:

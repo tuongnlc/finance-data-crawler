@@ -8,26 +8,26 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.shared.infrastructure.db.connection import async_session_scope
+from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope
 
-from src.market_data.application.crawler.crawl_stock_index import CrawlStockIndex
-from src.market_data.application.crawler.crawl_foreign_trade import CrawlForeignTrade
-from src.market_data.application.crawler.crawl_stock_price import CrawlStockPrice
-from src.market_data.infrastructure.persistence.postgresql import ForeignTradeRepository
-from src.market_data.application.use_case.crawl_stock_index import CrawlStockIndexUseCase
-from src.market_data.infrastructure.persistence.postgresql.stock_index_repository import StockIndexRepository
-from src.market_data.infrastructure.persistence.postgresql.stock_price_repository import StockPriceRepository
-from src.market_data.application.use_case.crawl_foreign_trade import CrawlForeignTradeUseCase
-from src.market_data.application.use_case.crawl_stock_price import CrawlStockPriceUseCase
-from src.market_data.application.crawler.crawl_newspaper_url import CrawlNewspaperUrl
-from src.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
-from src.market_data.application.use_case.crawl_newspaper_url import CrawlNewspaperUrlUseCase
-from src.market_data.application.crawler.crawl_newspaper import CrawlNewspaper
-from src.market_data.infrastructure.persistence.postgresql.newspaper_repository import NewspaperRepository
-from src.market_data.application.use_case.crawl_newspaper import CrawlNewspaperUseCase
-from src.market_data.application.crawler.finance_statement_factory.crawl_finance_statement_factory import CrawlFinanceStatementFactory
-from src.market_data.infrastructure.persistence.postgresql.final_statement_repository import FinalStatementRepository
-from src.market_data.application.use_case.crawl_finance_statement import CrawlFinanceStatementUseCase
+from finance_data_crawler.market_data.application.crawler.crawl_stock_index import CrawlStockIndex
+from finance_data_crawler.market_data.application.crawler.crawl_foreign_trade import CrawlForeignTrade
+from finance_data_crawler.market_data.application.crawler.crawl_stock_price import CrawlStockPrice
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql import ForeignTradeRepository
+from finance_data_crawler.market_data.application.use_case.crawl_stock_index import CrawlStockIndexUseCase
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.stock_index_repository import StockIndexRepository
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.stock_price_repository import StockPriceRepository
+from finance_data_crawler.market_data.application.use_case.crawl_foreign_trade import CrawlForeignTradeUseCase
+from finance_data_crawler.market_data.application.use_case.crawl_stock_price import CrawlStockPriceUseCase
+from finance_data_crawler.market_data.application.crawler.crawl_newspaper_url import CrawlNewspaperUrl
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_url_repository import NewspaperUrlRepository
+from finance_data_crawler.market_data.application.use_case.crawl_newspaper_url import CrawlNewspaperUrlUseCase
+from finance_data_crawler.market_data.application.crawler.crawl_newspaper import CrawlNewspaper
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.newspaper_repository import NewspaperRepository
+from finance_data_crawler.market_data.application.use_case.crawl_newspaper import CrawlNewspaperUseCase
+from finance_data_crawler.market_data.application.crawler.finance_statement_factory.crawl_finance_statement_factory import CrawlFinanceStatementFactory
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql.final_statement_repository import FinalStatementRepository
+from finance_data_crawler.market_data.application.use_case.crawl_finance_statement import CrawlFinanceStatementUseCase
 
 from orchestration.python_script.share.postgre_config import (
     configure_postgres_env_from_airflow_connection,
@@ -70,49 +70,49 @@ CRAWLER_CLASS = {
     "income_statement_type_one": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("income_statement_type_one", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.IncomeStatementType1"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.IncomeStatementType1"},
         "use_case": CrawlFinanceStatementUseCase,
     },
     "income_statement_type_four": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("income_statement_type_four", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.IncomeStatementTypeFour"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.IncomeStatementTypeFour"},
         "use_case": CrawlFinanceStatementUseCase,
     },
     "balance_sheet_type_one": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("balance_sheet_type_one", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.BalanceSheetTypeOne"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.BalanceSheetTypeOne"},
         "use_case": CrawlFinanceStatementUseCase,
     },
     "balance_sheet_type_four": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("balance_sheet_type_four", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.BalanceSheetTypeFour"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.BalanceSheetTypeFour"},
         "use_case": CrawlFinanceStatementUseCase,
     },
     "cash_flow_statement_type_one": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("cash_flow_statement_type_one", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.CashFlowStatementTypeOne"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.CashFlowStatementTypeOne"},
         "use_case": CrawlFinanceStatementUseCase,
     },
     "cash_flow_statement_type_four": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("cash_flow_statement_type_four", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.CashFlowStatementTypeFour"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.CashFlowStatementTypeFour"},
         "use_case": CrawlFinanceStatementUseCase,
     },
     "financial_statistics_overview_type_four": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("financial_statistics_overview_type_four", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeFour"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeFour"},
         "use_case": CrawlFinanceStatementUseCase,
     },
     "financial_statistics_overview_type_one": {
         "crawler": lambda headless=True: CrawlFinanceStatementFactory.create("financial_statistics_overview_type_one", headless=headless),
         "loader": FinalStatementRepository,
-        "loader_kwargs": {"model_path": "src.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeOne"},
+        "loader_kwargs": {"model_path": "finance_data_crawler.shared.infrastructure.db.models.FinancialStatisticsOverviewTypeOne"},
         "use_case": CrawlFinanceStatementUseCase,
     },
 }

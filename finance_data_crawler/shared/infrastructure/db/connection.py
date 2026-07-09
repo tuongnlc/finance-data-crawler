@@ -56,7 +56,7 @@ def get_async_session() -> AsyncSession:
     Get new SQLAlchemy AsyncSession.
 
     Example:
-        from src.shared.infrastructure.db.connection import get_async_session
+        from finance_data_crawler.shared.infrastructure.db.connection import get_async_session
         from sqlalchemy import text
 
         async def main():
@@ -74,7 +74,7 @@ async def async_session_scope() -> AsyncGenerator[AsyncSession, None]:
     Async context manager generator for using AsyncSession safely.
 
     Example:
-        from src.shared.infrastructure.db.connection import async_session_scope
+        from finance_data_crawler.shared.infrastructure.db.connection import async_session_scope
         from sqlalchemy import text
 
         async def main():

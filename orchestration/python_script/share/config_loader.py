@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Any
 
-from src.shared.utils.load_yaml_config import load_config
+from finance_data_crawler.shared.utils.load_yaml_config import load_config
 
 
 def resolve_config_path(url: str, project_root: Path) -> Path:

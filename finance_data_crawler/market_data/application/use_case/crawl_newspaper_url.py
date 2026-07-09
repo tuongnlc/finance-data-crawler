@@ -1,7 +1,7 @@
 from typing import Any
 from urllib.parse import urlparse
-from src.market_data.application.ports.crawl_data_port import CrawlDataPort
-from src.market_data.domain.repository import NewspaperUrlRepositoryProtocol
+from finance_data_crawler.market_data.application.ports.crawl_data_port import CrawlDataPort
+from finance_data_crawler.market_data.domain.repository import NewspaperUrlRepositoryProtocol
 from datetime import datetime
 
 import asyncio
