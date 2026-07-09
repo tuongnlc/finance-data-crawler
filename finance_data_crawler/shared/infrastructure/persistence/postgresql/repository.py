@@ -12,7 +12,7 @@ from typing import Generic, TypeVar
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.shared.infrastructure.db.connection import get_async_session
+from finance_data_crawler.shared.infrastructure.db.connection import get_async_session
 
 ModelType = TypeVar("ModelType")
 

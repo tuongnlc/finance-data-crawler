@@ -48,9 +48,9 @@ Bạn có thể tham khảo file ví dụ tại `examples/example_crawl_fund_gav
 
 ```python
 import asyncio
-from src.market_data.application.crawler.crawl_fund_gav import CrawlFundGav
-from src.market_data.application.use_case.crawl_fund_gav import CrawlFundGavUseCase
-from src.market_data.infrastructure.persistence.postgresql import FundGavRepository
+from finance_data_crawler.market_data.application.crawler.crawl_fund_gav import CrawlFundGav
+from finance_data_crawler.market_data.application.use_case.crawl_fund_gav import CrawlFundGavUseCase
+from finance_data_crawler.market_data.infrastructure.persistence.postgresql import FundGavRepository
 
 async def main():
     # Khởi tạo crawler (headless=False để xem quá trình chạy)
