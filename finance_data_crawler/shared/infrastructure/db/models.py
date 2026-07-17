@@ -61,7 +61,7 @@ class StockPrice(Base):
     low_price: Mapped[float] = mapped_column(nullable=False)
     close_price: Mapped[float] = mapped_column(nullable=False)
     volume: Mapped[int] = mapped_column(nullable=False)
-
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, default=0)
 
 class ForeignTrade(Base):
     """
