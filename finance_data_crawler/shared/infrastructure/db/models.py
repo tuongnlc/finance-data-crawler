@@ -440,6 +440,7 @@ class BalanceSheetTypeFour(Base):
     non_controlling_interests: Mapped[int] = mapped_column(nullable=False, comment='IX. Lợi ích của cổ đông thiểu số')
     total_liabilities_and_equity: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='TỔNG CỘNG NGUỒN VỐN')    
 
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, default=0)
 
 class CashFlowStatementTypeOne(Base):
     """
