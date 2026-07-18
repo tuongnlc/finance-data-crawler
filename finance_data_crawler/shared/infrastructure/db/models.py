@@ -175,6 +175,8 @@ class IncomeStatementType1(Base):
     non_controlling_interests: Mapped[int] = mapped_column(nullable=False, comment='20. Lợi nhuận sau thuế của cổ đông không kiểm soát')
     net_profit_parent: Mapped[int] = mapped_column(nullable=False, comment='21. Lợi nhuận sau thuế của cổ đông của công ty mẹ (19)-(20)')
 
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, server_default="0")
+
 
 class IncomeStatementTypeFour(Base):
     """
@@ -212,6 +214,8 @@ class IncomeStatementTypeFour(Base):
     net_profit_after_corporate_income_tax: Mapped[int] = mapped_column(nullable=False, comment='Lợi nhuận sau thuế thu nhập doanh nghiệp')
     non_controlling_interests_and_preferred_dividends: Mapped[int] = mapped_column(nullable=False, comment='Lợi ích của cổ đông thiểu số và cổ tức ưu đãi')
     net_profit_parent: Mapped[int] = mapped_column(nullable=False, comment='LNST sau khi điều chỉnh Lợi ích của CĐTS và Cổ tức ưu đãi')
+
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, server_default="0")
 
 
 class BalanceSheetTypeOne(Base):
@@ -348,6 +352,8 @@ class BalanceSheetTypeOne(Base):
     expenditure_source_formed_fixed_assets: Mapped[int] = mapped_column(nullable=False, comment='2. Nguồn kinh phí đã hình thành tài sản cố định')
     job_loss_allowance_reserve_fund: Mapped[int] = mapped_column(nullable=False, comment='3. Quỹ dự phòng trợ cấp mất việc làm')
     total_liabilities_and_equity: Mapped[int] = mapped_column(nullable=False, comment='TỔNG CỘNG NGUỒN VỐN')
+
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, server_default="0")
 
 
 class BalanceSheetTypeFour(Base):
@@ -518,6 +524,8 @@ class CashFlowStatementTypeOne(Base):
     effect_of_exchange_rate_changes: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ')
     cash_and_cash_equivalents_at_end_of_period: Mapped[int] = mapped_column(BigInteger, nullable=False, comment='Tiền và tương đương tiền cuối kỳ')
 
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, server_default="0")
+
 
 class CashFlowStatementTypeFour(Base):
     """
@@ -587,6 +595,8 @@ class CashFlowStatementTypeFour(Base):
     effect_of_exchange_rate_changes: Mapped[int] = mapped_column(nullable=False, comment='Ảnh hưởng của thay đổi tỷ giá hối đoái quy đổi ngoại tệ')
     cash_and_cash_equivalents_at_end_of_period: Mapped[int] = mapped_column(nullable=False, comment='Tiền và tương đương tiền cuối kỳ')
 
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, server_default="0")
+
 
 class FinancialStatisticsOverviewTypeFour(Base):
     """
@@ -621,6 +631,8 @@ class FinancialStatisticsOverviewTypeFour(Base):
     llrnpl: Mapped[float] = mapped_column(nullable=False, comment='LLRNPL')
     npl_ratio: Mapped[float] = mapped_column(nullable=False, comment='NPL Ratio')
     pcl: Mapped[float] = mapped_column(nullable=False, comment='PCL')
+
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, server_default="0")
 
 
 class FinancialStatisticsOverviewTypeOne(Base):
@@ -662,3 +674,5 @@ class FinancialStatisticsOverviewTypeOne(Base):
     inventory_turnover: Mapped[float] = mapped_column(nullable=False, comment='Vòng quay HTK')
     receivables_turnover: Mapped[float] = mapped_column(nullable=False, comment='Vòng quay các KPT')
     short_term_asset_turnover: Mapped[float] = mapped_column(nullable=False, comment='Vòng quay TSNH')
+
+    is_load_to_qdrant: Mapped[int] = mapped_column(nullable=False, server_default="0")
