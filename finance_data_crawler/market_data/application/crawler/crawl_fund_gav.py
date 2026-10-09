@@ -72,7 +72,7 @@ class CrawlFundGav(BasePlaywrightCrawler):
                 "EVESG": "EVESG",
                 "VEOF": "VEOF",
                 "VDEF": "VDEF",
-                "DCAF": "DCAF",
+                # "DCAF": "DCAF", NOT SEE IN WEBSITE ANYMORE
                 "MBVF": "MBVF",
                 "VCBF-AIF": "VCBF-AIF",
                 "MAFEQI": "MAFEQI",
